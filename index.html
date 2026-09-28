@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MarketLens AI</title>
+<style>
+:root{--bg:#08080d;--panel:#101017;--panel2:#15151e;--line:#292936;--text:#f4f3f8;--muted:#9695a6;--purple:#8b4dff;--green:#32d583;--red:#ff5d6c;--amber:#f5b942}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#241342 0,#0b0910 35%,var(--bg) 70%);color:var(--text);font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.app{max-width:1200px;margin:auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0 22px}.brand{font-weight:800;font-size:22px;letter-spacing:.04em}.brand span{color:#9b63ff}.pill{border:1px solid var(--line);background:#111119;border-radius:12px;padding:10px 14px;color:#c9c7d5}
+nav{display:flex;gap:8px;overflow:auto;margin-bottom:18px}nav button{border:1px solid var(--line);background:#101018;color:#aaa8b8;padding:10px 14px;border-radius:10px;white-space:nowrap}nav button.active{background:#7131df;color:white;border-color:#8b4dff}
+.grid{display:grid;grid-template-columns:1.55fr .9fr;gap:16px}.card{background:linear-gradient(180deg,#111119,#0d0d13);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 35px #0005}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2,.title h3{margin:0}.muted{color:var(--muted)}.big{font-size:28px;font-weight:800}.up{color:var(--green)}.down{color:var(--red)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}.metric{background:#111119;border:1px solid var(--line);padding:12px;border-radius:12px}.metric b{display:block;font-size:16px;margin-top:5px}
+.chart{height:390px;background:#090a0f;border-radius:12px;border:1px solid #20202a;position:relative;overflow:hidden}.chart:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:20% 25%}.line{position:absolute;height:2px;background:#8b4dff88;left:0;right:0}.l1{top:62%}.l2{top:35%}.candle{position:absolute;width:7px;border-radius:2px;z-index:2}.wick{position:absolute;width:1px;background:#aaa;left:3px}.bull{background:#35d69a}.bear{background:#ff5d6c}.dot{position:absolute;width:10px;height:10px;border-radius:50%;background:#9b63ff;box-shadow:0 0 18px #9b63ff;z-index:3}
+.rows{display:grid;gap:9px}.row{display:flex;justify-content:space-between;gap:15px;padding:10px 0;border-bottom:1px solid #20202a}.row:last-child{border-bottom:0}.tag{padding:4px 7px;border-radius:7px;font-size:11px;background:#25202f;color:#c8aaff}.confidence{font-weight:700}.explain{line-height:1.55;color:#c5c3ce}.alert{border-left:3px solid var(--amber);padding:10px 12px;background:#17140d;border-radius:8px;margin-top:12px}
+.calendar{display:grid;gap:8px}.event{display:grid;grid-template-columns:65px 1fr auto;gap:10px;align-items:center;background:#111119;border:1px solid var(--line);padding:10px;border-radius:10px}.impact{font-size:11px;padding:4px 7px;border-radius:6px;background:#382018;color:#ffb18a}
+.search{width:100%;background:#0c0c12;border:1px solid var(--line);border-radius:10px;color:white;padding:12px;margin-bottom:12px}.query{display:flex;gap:8px}.query button{border:0;background:var(--purple);color:#fff;border-radius:10px;padding:0 16px;font-weight:700}
+.footer{color:#696877;font-size:12px;padding:20px 4px;text-align:center}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.chart{height:300px}}
+</style>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#08080d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MarketLens AI">
+<link rel="apple-touch-icon" href="icon-180.png">
+</head>
+<body>
+<div class="app">
+  <header class="top"><div class="brand">MARKET<span>LENS</span> AI</div><div class="pill">● Markets live · Prototype</div></header>
+  <nav>
+    <button class="active" onclick="tab('dashboard',this)">Dashboard</button>
+    <button onclick="tab('candle',this)">Why did this candle move?</button>
+    <button onclick="tab('macro',this)">Macro</button>
+    <button onclick="tab('calendar',this)">Economic Calendar</button>
+    <button onclick="tab('assistant',this)">AI Research</button>
+  </nav>
+
+  <section id="dashboard">
+    <div class="metrics">
+      <div class="metric"><span class="muted">NASDAQ 100</span><b>23,842.5</b><span class="down">−0.84%</span></div>
+      <div class="metric"><span class="muted">US 10Y</span><b>5.21%</b><span class="up">+7.2 bp</span></div>
+      <div class="metric"><span class="muted">DXY</span><b>101.34</b><span class="up">+0.31%</span></div>
+      <div class="metric"><span class="muted">Brent</span><b>$101.42</b><span class="up">+2.4%</span></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="title"><div><h2>NASDAQ 100</h2><span class="muted">1-minute · simulated feed</span></div><div class="big">23,842.5</div></div>
+        <div class="chart" id="chart"></div>
+      </div>
+      <aside class="card">
+        <div class="title"><h3>Market regime</h3><span class="tag">RISK-OFF</span></div>
+        <div class="big down">Rates pressure</div>
+        <p class="explain">Higher oil and Treasury yields are creating an inflation/rates headwind for growth-sensitive equities. This prototype separates the macro backdrop from the technical chart.</p>
+        <div class="rows">
+          <div class="row"><span>Inflation pressure</span><b class="up">↑</b></div>
+          <div class="row"><span>Rate expectations</span><b class="up">↑</b></div>
+          <div class="row"><span>Growth risk</span><b class="down">↑</b></div>
+          <div class="row"><span>Equity momentum</span><b class="down">↓</b></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="candle" style="display:none">
+    <div class="grid">
+      <div class="card">
+        <div class="title"><div><h2>20:11 SAST · 1-minute candle</h2><span class="muted">September 28, 2026 · NASDAQ</span></div><span class="tag">ANALYSIS</span></div>
+        <div class="chart" id="candleChart"></div>
+      </div>
+      <div class="card">
+        <div class="title"><h3>AI explanation</h3><span class="confidence">Confidence: Medium</span></div>
+        <div class="alert"><b>No scheduled major U.S. release at 20:11 SAST.</b><br>That makes a fresh economic-data shock less likely as the direct cause.</div>
+        <p class="explain">The working hypothesis is a liquidity/positioning event occurring inside a volatile macro backdrop. The large bullish displacement was quickly rejected and followed by sustained selling.</p>
+        <div class="rows">
+          <div class="row"><span>Scheduled release</span><b>None identified</b></div>
+          <div class="row"><span>Macro backdrop</span><b class="down">Risk-off</b></div>
+          <div class="row"><span>Oil / inflation</span><b class="up">Pressure</b></div>
+          <div class="row"><span>10Y yield</span><b class="up">Rising</b></div>
+          <div class="row"><span>Price response</span><b class="down">Reversal</b></div>
+        </div>
+        <p class="muted">Production version would attach timestamped news, economic releases, yields, DXY and cross-asset data to the candle before generating this explanation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="macro" style="display:none">
+    <div class="grid">
+      <div class="card"><div class="title"><h2>Macro drivers</h2><span class="muted">Current snapshot</span></div>
+        <div class="rows">
+          <div class="row"><span>Oil → inflation</span><b class="up">Headwind</b></div>
+          <div class="row"><span>Treasury yields</span><b class="up">Headwind</b></div>
+          <div class="row"><span>USD</span><b>Mixed</b></div>
+          <div class="row"><span>AI / mega-cap news</span><b>Mixed</b></div>
+          <div class="row"><span>Geopolitical risk</span><b class="down">Elevated</b></div>
+        </div>
+      </div>
+      <div class="card"><div class="title"><h2>Cross-market</h2></div>
+        <div class="rows">
+          <div class="row"><span>NASDAQ</span><b class="down">−0.84%</b></div>
+          <div class="row"><span>S&P 500</span><b class="down">−0.42%</b></div>
+          <div class="row"><span>10Y yield</span><b class="up">+7.2 bp</b></div>
+          <div class="row"><span>Brent</span><b class="up">+2.4%</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="calendar" style="display:none">
+    <div class="card"><div class="title"><h2>Economic calendar</h2><span class="muted">Prototype data</span></div>
+      <div class="calendar">
+        <div class="event"><b>10:30</b><span>Dallas Fed Manufacturing</span><span class="impact">HIGH</span></div>
+        <div class="event"><b>11:30</b><span>U.S. Treasury Bill Auction</span><span class="impact">MED</span></div>
+        <div class="event"><b>13:30</b><span>Fed speaker</span><span class="impact">MED</span></div>
+        <div class="event"><b>20:11</b><span>Selected candle — no scheduled major release</span><span class="tag">CHECK NEWS</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="assistant" style="display:none">
+    <div class="card"><div class="title"><h2>AI Market Research</h2></div>
+      <div class="query"><input id="q" class="search" placeholder="Ask: Why did Nasdaq move at 20:11?"><button onclick="ask()">Ask AI</button></div>
+      <div id="answer" class="explain">Ask a question to generate a research-style response. In production, this box will use timestamped market/news/economic APIs rather than mock data.</div>
+    </div>
+  </section>
+  <div class="footer">MarketLens AI · UI prototype · Data shown here is illustrative and not live financial data.</div>
+</div>
+<script>
+function tab(id,btn){document.querySelectorAll('section').forEach(x=>x.style.display='none');document.getElementById(id).style.display='block';document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
+function draw(id,large=false){const el=document.getElementById(id); if(!el)return; el.innerHTML='';let vals=large?[30,35,42,39,48,45,55,50,60,66,58,71,83,78,65,56,48,40,35]:[48,45,50,46,55,53,60,58,66,62,70,77,68,60,55,50];vals.forEach((v,i)=>{let c=document.createElement('div');c.className='candle '+(i<vals.length-4?'bull':'bear');c.style.left=(4+i*(90/(vals.length-1)))+'%';c.style.height=(12+Math.abs((i%5)-2)*12)+'%';c.style.top=(v-10)+'%';let w=document.createElement('div');w.className='wick';w.style.height='120%';w.style.top='-10%';c.appendChild(w);el.appendChild(c)});let d=document.createElement('div');d.className='dot';d.style.left='65%';d.style.top='30%';el.appendChild(d);[35,62].forEach(t=>{let l=document.createElement('div');l.className='line';l.style.top=t+'%';el.appendChild(l)})}
+function ask(){let q=document.getElementById('q').value||'Why did Nasdaq move at 20:11?';document.getElementById('answer').innerHTML='<b>Research preview for:</b> '+q+'<br><br>The production engine would first retrieve timestamped headlines, scheduled economic releases, Treasury yields, DXY and correlated index/commodity moves around the selected minute. It would then classify the catalyst as confirmed, likely, or unidentified and explain the mechanism. For the 20:11 example, the current evidence points away from a scheduled data release and toward a liquidity/positioning move inside a risk-off macro backdrop.'}
+draw('chart');draw('candleChart',true);
+</script>
+<script>
+if ('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js'));
+</script>
+</body>
+</html>
