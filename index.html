@@ -21,13 +21,8 @@ html,body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
-body{
-  min-height:100vh;
-}
-
-button,select{
-  font:inherit;
-}
+body{min-height:100vh}
+button,select{font:inherit}
 
 .app{
   max-width:1100px;
@@ -49,9 +44,7 @@ button,select{
   letter-spacing:-.5px;
 }
 
-.logo span{
-  color:#8b5cf6;
-}
+.logo span{color:#8b5cf6}
 
 .status{
   font-size:12px;
@@ -95,35 +88,6 @@ button,select{
   color:#768297;
 }
 
-.controls{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:16px;
-}
-
-.btn,
-select{
-  background:#151c28;
-  color:#f4f6fb;
-  border:1px solid #2a3446;
-  border-radius:10px;
-  padding:9px 12px;
-}
-
-.btn{
-  cursor:pointer;
-}
-
-.btn:active{
-  transform:scale(.98);
-}
-
-.btn.primary{
-  background:#7c3aed;
-  border-color:#8b5cf6;
-}
-
 .timeframes{
   display:flex;
   gap:6px;
@@ -148,9 +112,23 @@ select{
   color:#fff;
 }
 
-.chart-wrap{
-  margin-top:15px;
+select,
+.btn{
+  background:#151c28;
+  color:#f4f6fb;
+  border:1px solid #2a3446;
+  border-radius:10px;
+  padding:9px 12px;
 }
+
+.btn{cursor:pointer}
+.btn:active{transform:scale(.98)}
+.btn.primary{
+  background:#7c3aed;
+  border-color:#8b5cf6;
+}
+
+.chart-wrap{margin-top:15px}
 
 .chart{
   position:relative;
@@ -202,9 +180,7 @@ select{
   pointer-events:none;
 }
 
-.chart.fullscreen .fullscreen-title{
-  display:block;
-}
+.chart.fullscreen .fullscreen-title{display:block}
 
 .chart-controls{
   display:flex;
@@ -215,32 +191,23 @@ select{
 
 .candle{
   position:absolute;
-  width:7px;
   cursor:pointer;
 }
 
 .wick{
   position:absolute;
-  left:3px;
   width:1px;
   background:#aeb7c7;
 }
 
 .body{
   position:absolute;
-  left:0;
-  width:7px;
-  min-height:2px;
   border-radius:1px;
+  min-height:2px;
 }
 
-.up .body{
-  background:#20d98b;
-}
-
-.down .body{
-  background:#ef5b6b;
-}
+.up .body{background:#20d98b}
+.down .body{background:#ef5b6b}
 
 .selected .body{
   outline:2px solid #fff;
@@ -253,8 +220,9 @@ select{
 }
 
 .fvg{
-  opacity:.22;
+  opacity:.30;
   border:1px solid;
+  border-radius:2px;
 }
 
 .fvg.bullish{
@@ -265,6 +233,10 @@ select{
 .fvg.bearish{
   background:#b43e51;
   border-color:#ff7182;
+}
+
+.fvg.high-probability{
+  box-shadow:0 0 9px rgba(139,92,246,.35);
 }
 
 .liquidity{
@@ -279,40 +251,17 @@ select{
   opacity:.7;
 }
 
-.structure-label{
-  position:absolute;
-  z-index:10;
-  font-size:10px;
-  font-weight:700;
-  padding:3px 5px;
-  border-radius:5px;
-  pointer-events:none;
-  white-space:nowrap;
-}
-
-.structure-label.bos{
-  background:#143c2d;
-  color:#55e7a5;
-  border:1px solid #257554;
-}
-
-.structure-label.choch{
-  background:#42212b;
-  color:#ff7b8c;
-  border:1px solid #8b3e4c;
-}
-
 .legend{
   position:absolute;
   left:12px;
-  bottom:10px;
+  bottom:36px;
   z-index:30;
   display:flex;
   flex-wrap:wrap;
   gap:8px;
   font-size:10px;
   color:#8f9bad;
-  background:rgba(8,11,18,.78);
+  background:rgba(8,11,18,.82);
   padding:7px 9px;
   border-radius:8px;
   pointer-events:none;
@@ -331,20 +280,178 @@ select{
   display:inline-block;
 }
 
-.dot.fvg{
-  background:#39d99a;
+.dot.fvg{background:#39d99a}
+.dot.liq{background:#f5c451}
+.dot.disp{background:#60a5fa}
+
+.price-axis{
+  position:absolute;
+  right:0;
+  top:0;
+  bottom:30px;
+  width:65px;
+  z-index:35;
+  pointer-events:none;
+  font-size:10px;
+  color:#9ba6b8;
+  text-align:right;
+  padding-right:7px;
 }
 
-.dot.liq{
-  background:#f5c451;
+.price-tick{
+  position:absolute;
+  right:7px;
+  transform:translateY(-50%);
 }
 
-.dot.disp{
-  background:#60a5fa;
+.current-price-line{
+  position:absolute;
+  left:0;
+  right:65px;
+  height:1px;
+  border-top:1px dashed #a78bfa;
+  z-index:34;
+  pointer-events:none;
 }
 
-.dot.bos{
-  background:#55e7a5;
+.current-price-label{
+  position:absolute;
+  right:2px;
+  z-index:35;
+  background:#7c3aed;
+  color:#fff;
+  border-radius:4px;
+  padding:3px 5px;
+  font-size:9px;
+  font-weight:700;
+  pointer-events:none;
+  transform:translateY(-50%);
+}
+
+.time-axis{
+  position:absolute;
+  left:10px;
+  right:65px;
+  bottom:0;
+  height:30px;
+  z-index:35;
+  pointer-events:none;
+}
+
+.time-label{
+  position:absolute;
+  bottom:6px;
+  transform:translateX(-50%);
+  font-size:9px;
+  color:#788498;
+  white-space:nowrap;
+}
+
+.crosshair-v,
+.crosshair-h{
+  position:absolute;
+  z-index:36;
+  pointer-events:none;
+  display:none;
+}
+
+.crosshair-v{
+  top:0;
+  bottom:30px;
+  width:1px;
+  border-left:1px dashed rgba(255,255,255,.45);
+}
+
+.crosshair-h{
+  left:0;
+  right:65px;
+  height:1px;
+  border-top:1px dashed rgba(255,255,255,.45);
+}
+
+.crosshair-time,
+.crosshair-price{
+  position:absolute;
+  z-index:37;
+  display:none;
+  background:#171e2b;
+  border:1px solid #313b4d;
+  border-radius:5px;
+  padding:3px 5px;
+  font-size:9px;
+  color:#f4f6fb;
+  pointer-events:none;
+  white-space:nowrap;
+}
+
+.crosshair-time{
+  bottom:31px;
+  transform:translateX(-50%);
+}
+
+.crosshair-price{
+  right:2px;
+  transform:translateY(-50%);
+}
+
+.signal-card{
+  background:#0e131d;
+  border:1px solid #202838;
+  border-radius:18px;
+  padding:14px 16px;
+  margin-bottom:16px;
+}
+
+.signal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.signal-title{
+  font-size:14px;
+  font-weight:800;
+}
+
+.signal-badge{
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  border:1px solid;
+}
+
+.signal-badge.wait{
+  color:#f5c451;
+  border-color:#7b6320;
+  background:#2a2410;
+}
+
+.signal-badge.buy{
+  color:#55e7a5;
+  border-color:#257554;
+  background:#143c2d;
+}
+
+.signal-badge.sell{
+  color:#ff7b8c;
+  border-color:#8b3e4c;
+  background:#42212b;
+}
+
+.signal-reason{
+  margin-top:8px;
+  color:#aeb8c8;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.signal-disclaimer{
+  margin-top:7px;
+  color:#667287;
+  font-size:10px;
+  line-height:1.4;
 }
 
 .info-grid{
@@ -402,42 +509,20 @@ select{
   line-height:1.5;
 }
 
-.loading{
-  color:#8793a5;
-  font-size:13px;
-}
-
 .error{
   color:#ff7182;
-  font-size:13px;
 }
 
 @media(max-width:700px){
-  .app{
-    padding:12px;
-  }
-
-  .chart{
-    height:430px;
-  }
-
-  .info-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .price{
-    font-size:26px;
-  }
+  .app{padding:12px}
+  .chart{height:430px}
+  .info-grid{grid-template-columns:1fr 1fr}
+  .price{font-size:26px}
 }
 
 @media(max-width:430px){
-  .chart{
-    height:390px;
-  }
-
-  .info-grid{
-    grid-template-columns:1fr;
-  }
+  .chart{height:390px}
+  .info-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -446,129 +531,157 @@ select{
 
 <div class="app">
 
-  <div class="header">
-    <div class="logo">Market<span>Lens</span> AI</div>
-    <div id="status" class="status">CONNECTING...</div>
-  </div>
+<div class="header">
+  <div class="logo">Market<span>Lens</span> AI</div>
+  <div id="status" class="status">CONNECTING...</div>
+</div>
 
-  <div class="card">
+<div class="card">
 
-    <div class="market-top">
-      <div>
-        <div class="symbol">NASDAQ FUTURES · NQ=F</div>
-        <div id="price" class="price">—</div>
-        <div class="reference">
-          Reference market for HFM USA100 / US Tech 100 CFD
-        </div>
-      </div>
+  <div class="market-top">
 
-      <div>
-        <select id="intervalSelect">
-          <option value="1min">1 MIN</option>
-          <option value="5min" selected>5 MIN</option>
-          <option value="15min">15 MIN</option>
-          <option value="30min">30 MIN</option>
-          <option value="1h">1 HOUR</option>
-          <option value="1day">1 DAY</option>
-          <option value="1week">1 WEEK</option>
-        </select>
+    <div>
+      <div class="symbol">NASDAQ FUTURES · NQ=F</div>
+      <div id="price" class="price">—</div>
+      <div class="reference">
+        Reference market for HFM USA100 / US Tech 100 CFD
       </div>
     </div>
 
-    <div class="timeframes">
-      <button class="tf" data-tf="1min">1m</button>
-      <button class="tf active" data-tf="5min">5m</button>
-      <button class="tf" data-tf="15min">15m</button>
-      <button class="tf" data-tf="30min">30m</button>
-      <button class="tf" data-tf="1h">1H</button>
-      <button class="tf" data-tf="1day">1D</button>
-      <button class="tf" data-tf="1week">1W</button>
-    </div>
-
-    <div class="chart-wrap">
-
-      <div id="chart" class="chart">
-
-        <div class="fullscreen-title">
-          NQ FUTURES · 5 MIN
-        </div>
-
-        <div id="chartLayer" class="chart-layer">
-          <div class="gridlines"></div>
-        </div>
-
-        <div class="legend">
-          <span><i class="dot fvg"></i>FVG</span>
-          <span><i class="dot liq"></i>Liquidity</span>
-          <span><i class="dot disp"></i>Displacement</span>
-          <span><i class="dot bos"></i>BOS</span>
-        </div>
-
-      </div>
-
-      <div class="chart-controls">
-        <button class="btn" onclick="zoomChart(-0.15)">−</button>
-        <button class="btn" onclick="resetChartView()">↺ Reset</button>
-        <button class="btn" onclick="zoomChart(0.15)">+</button>
-        <button id="fullscreenBtn" class="btn primary" onclick="toggleFullscreen()">
-          ⛶ Full Screen
-        </button>
-      </div>
-
-    </div>
+    <select id="intervalSelect">
+      <option value="1min">1 MIN</option>
+      <option value="5min" selected>5 MIN</option>
+      <option value="15min">15 MIN</option>
+      <option value="30min">30 MIN</option>
+      <option value="1h">1 HOUR</option>
+      <option value="1day">1 DAY</option>
+      <option value="1week">1 WEEK</option>
+    </select>
 
   </div>
 
-  <div class="card">
+  <div class="timeframes">
+    <button class="tf" data-tf="1min">1m</button>
+    <button class="tf active" data-tf="5min">5m</button>
+    <button class="tf" data-tf="15min">15m</button>
+    <button class="tf" data-tf="30min">30m</button>
+    <button class="tf" data-tf="1h">1H</button>
+    <button class="tf" data-tf="1day">1D</button>
+    <button class="tf" data-tf="1week">1W</button>
+  </div>
 
-    <div class="info-grid">
+  <div class="chart-wrap">
 
-      <div class="metric">
-        <div class="metric-title">Structure</div>
-        <div id="structureValue" class="metric-value">—</div>
+    <div id="chart" class="chart">
+
+      <div class="fullscreen-title">
+        NQ FUTURES · 5 MIN
       </div>
 
-      <div class="metric">
-        <div class="metric-title">Displacement</div>
-        <div id="displacementValue" class="metric-value">—</div>
+      <div id="chartLayer" class="chart-layer">
+        <div class="gridlines"></div>
       </div>
 
-      <div class="metric">
-        <div class="metric-title">Liquidity</div>
-        <div id="liquidityValue" class="metric-value">—</div>
+      <div id="currentPriceLine" class="current-price-line"></div>
+      <div id="currentPriceLabel" class="current-price-label">—</div>
+
+      <div id="priceAxis" class="price-axis"></div>
+      <div id="timeAxis" class="time-axis"></div>
+
+      <div id="crosshairV" class="crosshair-v"></div>
+      <div id="crosshairH" class="crosshair-h"></div>
+      <div id="crosshairTime" class="crosshair-time"></div>
+      <div id="crosshairPrice" class="crosshair-price"></div>
+
+      <div class="legend">
+        <span><i class="dot fvg"></i>High Prob. FVG</span>
+        <span><i class="dot liq"></i>Liquidity</span>
+        <span><i class="dot disp"></i>Displacement</span>
       </div>
 
+    </div>
+
+    <div class="chart-controls">
+      <button class="btn" onclick="zoomChart(-0.15)">−</button>
+      <button class="btn" onclick="resetChartView()">↺ Reset</button>
+      <button class="btn" onclick="zoomChart(0.15)">+</button>
+      <button id="fullscreenBtn" class="btn primary" onclick="toggleFullscreen()">
+        ⛶ Full Screen
+      </button>
     </div>
 
   </div>
 
-  <div class="card">
+</div>
 
-    <div class="analysis-title">
-      MarketLens AI Analysis
+<div class="signal-card">
+
+  <div class="signal-header">
+    <div class="signal-title">MarketLens Signal</div>
+    <div id="signalBadge" class="signal-badge wait">WAIT</div>
+  </div>
+
+  <div id="signalReason" class="signal-reason">
+    Waiting for high-probability FVG analysis...
+  </div>
+
+  <div class="signal-disclaimer">
+    Educational market-structure signal only.
+    It does not execute trades or guarantee an outcome.
+  </div>
+
+</div>
+
+<div class="card">
+
+  <div class="info-grid">
+
+    <div class="metric">
+      <div class="metric-title">FVG</div>
+      <div id="structureValue" class="metric-value">—</div>
     </div>
 
-    <div id="analysis" class="analysis">
-      Waiting for market data...
+    <div class="metric">
+      <div class="metric-title">Displacement</div>
+      <div id="displacementValue" class="metric-value">—</div>
     </div>
 
-    <div id="candleInfo" class="candle-info">
-      Tap a candle to inspect it.
+    <div class="metric">
+      <div class="metric-title">Liquidity</div>
+      <div id="liquidityValue" class="metric-value">—</div>
     </div>
 
   </div>
 
-  <div class="card">
+</div>
 
-    <div class="notice">
-      <strong>Important:</strong>
-      MarketLens AI uses Nasdaq futures (NQ=F) as a reference market.
-      HFM USA100 is a CFD and its exact price, spread and candle formation
-      may differ from NQ futures. This application is for market analysis
-      and education and does not execute trades.
-    </div>
+<div class="card">
 
+  <div class="analysis-title">
+    MarketLens AI Analysis
   </div>
+
+  <div id="analysis" class="analysis">
+    Waiting for market data...
+  </div>
+
+  <div id="candleInfo" class="candle-info">
+    Tap a candle to inspect it.
+  </div>
+
+</div>
+
+<div class="card">
+
+  <div class="notice">
+    <strong>Important:</strong>
+    MarketLens AI uses Nasdaq futures (NQ=F) as a reference market.
+    HFM USA100 is a CFD and its exact price, spread and candle formation
+    may differ from NQ futures. This application is for market analysis
+    and education and does not execute trades.
+  </div>
+
+</div>
 
 </div>
 
@@ -602,18 +715,16 @@ let pinchStartScale = 1;
 let selectedCandle = null;
 
 
-/* -----------------------------
+/* =========================
    CHART VIEW
------------------------------ */
+========================= */
 
 function applyChartTransform(){
 
-  const layer = document.getElementById("chartLayer");
-
-  layer.style.transform =
+  document.getElementById("chartLayer").style.transform =
     `translate(${chartOffsetX}px,${chartOffsetY}px) scale(${chartScale})`;
-}
 
+}
 
 function resetChartView(){
 
@@ -622,8 +733,8 @@ function resetChartView(){
   chartOffsetY = 0;
 
   applyChartTransform();
-}
 
+}
 
 function zoomChart(amount){
 
@@ -633,8 +744,8 @@ function zoomChart(amount){
   if(chartScale > 4) chartScale = 4;
 
   applyChartTransform();
-}
 
+}
 
 function toggleFullscreen(){
 
@@ -643,21 +754,22 @@ function toggleFullscreen(){
 
   chart.classList.toggle("fullscreen");
 
-  if(chart.classList.contains("fullscreen")){
-    button.textContent = "✕ Exit Full Screen";
-  }else{
-    button.textContent = "⛶ Full Screen";
-  }
+  button.textContent =
+    chart.classList.contains("fullscreen")
+      ? "✕ Exit Full Screen"
+      : "⛶ Full Screen";
 
   setTimeout(renderChart,100);
+
 }
 
 
-/* -----------------------------
-   POINTER PAN / PINCH
------------------------------ */
+/* =========================
+   POINTER / PAN / PINCH
+========================= */
 
-const chartElement = document.getElementById("chart");
+const chartElement =
+  document.getElementById("chart");
 
 chartElement.addEventListener("pointerdown",e=>{
 
@@ -680,11 +792,14 @@ chartElement.addEventListener("pointerdown",e=>{
     dragOriginX = chartOffsetX;
     dragOriginY = chartOffsetY;
 
-  }else if(activePointers.size === 2){
+  }
+
+  if(activePointers.size === 2){
 
     isDragging = false;
 
-    const points = [...activePointers.values()];
+    const points =
+      [...activePointers.values()];
 
     pinchStartDistance =
       Math.hypot(
@@ -693,10 +808,10 @@ chartElement.addEventListener("pointerdown",e=>{
       );
 
     pinchStartScale = chartScale;
+
   }
 
 });
-
 
 chartElement.addEventListener("pointermove",e=>{
 
@@ -707,17 +822,18 @@ chartElement.addEventListener("pointermove",e=>{
     y:e.clientY
   });
 
+  showCrosshair(e);
+
   if(activePointers.size === 1 && isDragging){
 
-    const dx = e.clientX - dragStartX;
-    const dy = e.clientY - dragStartY;
+    const dx = e.clientX-dragStartX;
+    const dy = e.clientY-dragStartY;
 
-    if(Math.abs(dx)>4 || Math.abs(dy)>4){
+    if(Math.abs(dx)>4 || Math.abs(dy)>4)
       movedDuringDrag = true;
-    }
 
-    chartOffsetX = dragOriginX + dx;
-    chartOffsetY = dragOriginY + dy;
+    chartOffsetX = dragOriginX+dx;
+    chartOffsetY = dragOriginY+dy;
 
     applyChartTransform();
 
@@ -725,7 +841,8 @@ chartElement.addEventListener("pointermove",e=>{
 
   if(activePointers.size === 2 && pinchStartDistance){
 
-    const points = [...activePointers.values()];
+    const points =
+      [...activePointers.values()];
 
     const distance =
       Math.hypot(
@@ -733,51 +850,55 @@ chartElement.addEventListener("pointermove",e=>{
         points[0].y-points[1].y
       );
 
-    const ratio = distance / pinchStartDistance;
+    chartScale =
+      pinchStartScale *
+      (distance/pinchStartDistance);
 
-    chartScale = pinchStartScale * ratio;
-
-    if(chartScale < .5) chartScale = .5;
-    if(chartScale > 4) chartScale = 4;
+    chartScale =
+      Math.max(.5,Math.min(4,chartScale));
 
     applyChartTransform();
 
     movedDuringDrag = true;
+
   }
 
 });
-
 
 chartElement.addEventListener("pointerup",e=>{
 
   activePointers.delete(e.pointerId);
 
-  if(activePointers.size < 2){
+  if(activePointers.size < 2)
     pinchStartDistance = null;
-  }
 
   if(activePointers.size === 0){
+
     isDragging = false;
+    hideCrosshair();
+
   }
 
 });
-
 
 chartElement.addEventListener("pointercancel",e=>{
 
   activePointers.delete(e.pointerId);
 
   if(activePointers.size === 0){
+
     isDragging = false;
     pinchStartDistance = null;
+    hideCrosshair();
+
   }
 
 });
 
 
-/* -----------------------------
-   TIMEFRAME
------------------------------ */
+/* =========================
+   TIMEFRAMES
+========================= */
 
 document.querySelectorAll(".tf").forEach(button=>{
 
@@ -799,7 +920,6 @@ document.querySelectorAll(".tf").forEach(button=>{
 
 });
 
-
 document.getElementById("intervalSelect")
 .addEventListener("change",e=>{
 
@@ -818,13 +938,14 @@ document.getElementById("intervalSelect")
 });
 
 
-/* -----------------------------
-   LOAD MARKET
------------------------------ */
+/* =========================
+   MARKET DATA
+========================= */
 
 async function loadMarket(){
 
-  const status = document.getElementById("status");
+  const status =
+    document.getElementById("status");
 
   status.textContent = "LOADING...";
   status.style.color = "#f5c451";
@@ -835,18 +956,15 @@ async function loadMarket(){
       `${MARKET_API}?symbol=NQ%3DF&interval=${encodeURIComponent(currentInterval)}&outputsize=100`;
 
     const response = await fetch(url);
-
     const data = await response.json();
 
-    if(!response.ok || !data.ok){
+    if(!response.ok || !data.ok)
       throw new Error(data.error || "Market data failed");
-    }
 
     candles = data.candles || [];
 
-    if(!candles.length){
+    if(!candles.length)
       throw new Error("No candles returned");
-    }
 
     document.getElementById("price").textContent =
       formatPrice(candles[candles.length-1].close);
@@ -857,7 +975,6 @@ async function loadMarket(){
     await loadStructure();
 
     renderChart();
-
     generateAnalysis();
 
   }catch(error){
@@ -875,30 +992,30 @@ async function loadMarket(){
 }
 
 
-/* -----------------------------
-   STRUCTURE
------------------------------ */
+/* =========================
+   STRUCTURE DATA
+========================= */
 
 async function loadStructure(){
 
   try{
 
-    const response = await fetch(STRUCTURE_API,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        candles,
-        lookback:5
-      })
-    });
+    const response =
+      await fetch(STRUCTURE_API,{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          candles,
+          lookback:5
+        })
+      });
 
     const data = await response.json();
 
-    if(!response.ok || !data.ok){
+    if(!response.ok || !data.ok)
       throw new Error(data.error || "Structure engine failed");
-    }
 
     structure =
       data.structure ||
@@ -907,16 +1024,197 @@ async function loadStructure(){
   }catch(error){
 
     console.error("Structure:",error);
-
     structure = null;
+
   }
 
 }
 
 
-/* -----------------------------
-   CHART RENDER
------------------------------ */
+/* =========================
+   FVG QUALITY
+========================= */
+
+function getFVGQuality(gap){
+
+  let score = 0;
+  const reasons = [];
+
+  const index = Number(gap.index);
+
+  if(
+    !Number.isFinite(index) ||
+    index < 0 ||
+    index >= candles.length
+  ){
+    return {score:0,reasons:[]};
+  }
+
+  const high = Number(gap.high);
+  const low = Number(gap.low);
+
+  if(!Number.isFinite(high) || !Number.isFinite(low))
+    return {score:0,reasons:[]};
+
+  const gapSize = Math.abs(high-low);
+
+  const recent =
+    candles.slice(
+      Math.max(0,index-10),
+      index
+    );
+
+  const averageRange =
+    recent.length
+      ? recent.reduce(
+          (sum,c)=>
+            sum+
+            Math.abs(
+              Number(c.high)-
+              Number(c.low)
+            ),
+          0
+        )/recent.length
+      : 0;
+
+  if(
+    averageRange > 0 &&
+    gapSize >= averageRange*.15
+  ){
+
+    score++;
+    reasons.push("meaningful imbalance");
+
+  }
+
+  const displacement =
+    structure?.structures?.displacement ||
+    structure?.displacement ||
+    [];
+
+  const displacementMatch =
+    displacement.some(item=>{
+
+      const i = Number(item.index);
+
+      return i === index ||
+             i === index-1 ||
+             i === index+1;
+
+    });
+
+  if(displacementMatch){
+
+    score += 2;
+    reasons.push("displacement confirmation");
+
+  }
+
+  let touched = false;
+
+  for(let i=index+1;i<candles.length;i++){
+
+    const c = candles[i];
+
+    if(
+      Number(c.high) >= low &&
+      Number(c.low) <= high
+    ){
+
+      touched = true;
+      break;
+
+    }
+
+  }
+
+  if(!touched){
+
+    score++;
+    reasons.push("fresh / unmitigated");
+
+  }
+
+  const type =
+    String(gap.type || "").toLowerCase();
+
+  const bullish = type.includes("bull");
+  const bearish = type.includes("bear");
+
+  let followThrough = false;
+
+  for(
+    let i=index+1;
+    i<=Math.min(candles.length-1,index+3);
+    i++
+  ){
+
+    const c = candles[i];
+
+    if(
+      bullish &&
+      Number(c.close) > high
+    ){
+
+      followThrough = true;
+      break;
+
+    }
+
+    if(
+      bearish &&
+      Number(c.close) < low
+    ){
+
+      followThrough = true;
+      break;
+
+    }
+
+  }
+
+  if(followThrough){
+
+    score++;
+    reasons.push("follow-through");
+
+  }
+
+  return {
+    score,
+    reasons
+  };
+
+}
+
+function getHighProbabilityFVGs(){
+
+  const gaps =
+    structure?.structures?.fairValueGaps ||
+    structure?.fairValueGaps ||
+    [];
+
+  return gaps
+    .map(gap=>{
+
+      const q = getFVGQuality(gap);
+
+      return {
+        ...gap,
+        probabilityScore:q.score,
+        probabilityReasons:q.reasons
+      };
+
+    })
+    .filter(gap=>gap.probabilityScore >= 3)
+    .slice(-20);
+
+}
+
+
+/* =========================
+   CHART
+========================= */
 
 function renderChart(){
 
@@ -939,7 +1237,7 @@ function renderChart(){
 
   const padding = {
     top:40,
-    right:55,
+    right:65,
     bottom:35,
     left:10
   };
@@ -969,25 +1267,27 @@ function renderChart(){
     maxPrice-minPrice;
 
   const spacing =
-    plotWidth / candles.length;
+    plotWidth/candles.length;
 
   const candleWidth =
-    Math.max(4,Math.min(9,spacing*.62));
-
+    Math.max(
+      4,
+      Math.min(9,spacing*.62)
+    );
 
   function priceY(price){
 
-    return padding.top +
-      (maxPrice-price)/priceRange*plotHeight;
+    return padding.top+
+      ((maxPrice-price)/priceRange)*
+      plotHeight;
 
   }
-
 
   candles.forEach((candle,index)=>{
 
     const x =
-      padding.left +
-      index*spacing +
+      padding.left+
+      index*spacing+
       spacing/2;
 
     const openY = priceY(candle.open);
@@ -995,33 +1295,31 @@ function renderChart(){
     const highY = priceY(candle.high);
     const lowY = priceY(candle.low);
 
-    const top =
-      Math.min(openY,closeY);
+    const top = Math.min(openY,closeY);
 
     const bodyHeight =
       Math.max(2,Math.abs(closeY-openY));
 
-    const candle =
+    const el =
       document.createElement("div");
 
-    candle.className =
-      "candle " +
-      (candle.close >= candle.open ? "up":"down");
+    el.className =
+      "candle "+
+      (candle.close>=candle.open?"up":"down");
 
-    if(selectedCandle === index){
-      candle.classList.add("selected");
-    }
+    if(selectedCandle===index)
+      el.classList.add("selected");
 
-    candle.style.left =
+    el.style.left =
       `${x-candleWidth/2}px`;
 
-    candle.style.top =
+    el.style.top =
       `${highY}px`;
 
-    candle.style.width =
+    el.style.width =
       `${candleWidth}px`;
 
-    candle.style.height =
+    el.style.height =
       `${lowY-highY}px`;
 
     const wick =
@@ -1029,7 +1327,11 @@ function renderChart(){
 
     wick.className = "wick";
 
+    wick.style.left =
+      `${candleWidth/2}px`;
+
     wick.style.top = "0";
+
     wick.style.height =
       `${lowY-highY}px`;
 
@@ -1041,13 +1343,16 @@ function renderChart(){
     body.style.top =
       `${top-highY}px`;
 
+    body.style.width =
+      `${candleWidth}px`;
+
     body.style.height =
       `${bodyHeight}px`;
 
-    candle.appendChild(wick);
-    candle.appendChild(body);
+    el.appendChild(wick);
+    el.appendChild(body);
 
-    candle.addEventListener("pointerup",e=>{
+    el.addEventListener("pointerup",e=>{
 
       if(movedDuringDrag) return;
 
@@ -1061,25 +1366,21 @@ function renderChart(){
 
     });
 
-    layer.appendChild(candle);
+    layer.appendChild(el);
 
   });
-
 
   renderFVGs(
     layer,
     priceY,
     padding,
-    spacing,
-    plotWidth
+    spacing
   );
 
   renderLiquidity(
     layer,
     priceY,
-    padding,
-    spacing,
-    plotWidth
+    padding
   );
 
   renderDisplacement(
@@ -1089,98 +1390,90 @@ function renderChart(){
     spacing
   );
 
-  renderStructureBreaks(
-    layer,
+  renderChartUI(
     priceY,
-    padding,
-    spacing
+    maxPrice,
+    minPrice
   );
 
   updateMetrics();
+  updateSignalBox();
 
   applyChartTransform();
 
 }
 
 
-/* -----------------------------
-   FVG
------------------------------ */
+/* =========================
+   HIGH PROBABILITY FVG
+========================= */
 
 function renderFVGs(
   layer,
   priceY,
   padding,
-  spacing,
-  plotWidth
+  spacing
 ){
 
-  const gaps =
-    structure?.structures?.fairValueGaps ||
-    structure?.fairValueGaps ||
-    [];
+  getHighProbabilityFVGs()
+    .forEach(gap=>{
 
-  gaps.forEach(gap=>{
+      const index = Number(gap.index);
 
-    const index =
-      Number(gap.index);
+      const high = Number(gap.high);
+      const low = Number(gap.low);
 
-    if(!Number.isFinite(index)) return;
+      if(
+        !Number.isFinite(index) ||
+        !Number.isFinite(high) ||
+        !Number.isFinite(low)
+      ) return;
 
-    const high =
-      Number(gap.high);
+      const bearish =
+        String(gap.type || "")
+          .toLowerCase()
+          .includes("bear");
 
-    const low =
-      Number(gap.low);
+      const box =
+        document.createElement("div");
 
-    if(!Number.isFinite(high) ||
-       !Number.isFinite(low)) return;
+      box.className =
+        "overlay fvg high-probability "+
+        (bearish?"bearish":"bullish");
 
-    const x =
-      padding.left +
-      index*spacing;
+      box.style.left =
+        `${padding.left+index*spacing}px`;
 
-    const box =
-      document.createElement("div");
+      box.style.top =
+        `${priceY(high)}px`;
 
-    box.className =
-      "overlay fvg " +
-      (
-        gap.type === "bearish" ||
-        gap.type === "bearish_fvg"
-        ? "bearish"
-        : "bullish"
-      );
+      box.style.width =
+        `${Math.max(30,spacing*3)}px`;
 
-    box.style.left =
-      `${x}px`;
+      box.style.height =
+        `${Math.max(
+          4,
+          priceY(low)-priceY(high)
+        )}px`;
 
-    box.style.top =
-      `${priceY(high)}px`;
+      box.title =
+        `High Probability FVG · Score ${gap.probabilityScore}/5 · ${gap.probabilityReasons.join(", ")}`;
 
-    box.style.width =
-      `${Math.max(30,spacing*3)}px`;
+      layer.appendChild(box);
 
-    box.style.height =
-      `${Math.max(4,priceY(low)-priceY(high))}px`;
-
-    layer.appendChild(box);
-
-  });
+    });
 
 }
 
 
-/* -----------------------------
+/* =========================
    LIQUIDITY
------------------------------ */
+========================= */
 
 function renderLiquidity(
   layer,
   priceY,
-  padding,
-  spacing,
-  plotWidth
+  padding
 ){
 
   const pools =
@@ -1202,7 +1495,8 @@ function renderLiquidity(
     const line =
       document.createElement("div");
 
-    line.className = "overlay liquidity";
+    line.className =
+      "overlay liquidity";
 
     line.style.left =
       `${padding.left}px`;
@@ -1220,9 +1514,9 @@ function renderLiquidity(
 }
 
 
-/* -----------------------------
+/* =========================
    DISPLACEMENT
------------------------------ */
+========================= */
 
 function renderDisplacement(
   layer,
@@ -1238,29 +1532,29 @@ function renderDisplacement(
 
   list.forEach(item=>{
 
-    const index =
-      Number(item.index);
+    const index = Number(item.index);
 
-    if(!Number.isFinite(index)) return;
+    if(
+      !Number.isFinite(index) ||
+      index<0 ||
+      index>=candles.length
+    ) return;
 
-    if(index<0 || index>=candles.length) return;
+    const candle = candles[index];
 
-    const candle =
-      candles[index];
-
-    const top =
-      priceY(candle.high);
-
-    const bottom =
-      priceY(candle.low);
+    const top = priceY(candle.high);
+    const bottom = priceY(candle.low);
 
     const box =
       document.createElement("div");
 
-    box.className = "overlay displacement";
+    box.className =
+      "overlay displacement";
 
     box.style.left =
-      `${padding.left+index*spacing+spacing*.15}px`;
+      `${padding.left+
+        index*spacing+
+        spacing*.15}px`;
 
     box.style.top =
       `${top-3}px`;
@@ -1278,102 +1572,348 @@ function renderDisplacement(
 }
 
 
-/* -----------------------------
-   BOS / CHOCH
------------------------------ */
+/* =========================
+   PRICE / TIME AXIS
+========================= */
 
-function renderStructureBreaks(
-  layer,
+function renderChartUI(
   priceY,
-  padding,
-  spacing
+  maxPrice,
+  minPrice
 ){
 
-  const events =
-    structure?.structures?.structureBreaks ||
-    structure?.structureBreaks ||
-    [];
+  const latest =
+    candles[candles.length-1];
 
-  const grouped = {};
+  if(!latest) return;
 
-  events.forEach(event=>{
+  const current =
+    Number(latest.close);
+
+  const line =
+    document.getElementById(
+      "currentPriceLine"
+    );
+
+  const label =
+    document.getElementById(
+      "currentPriceLabel"
+    );
+
+  line.style.top =
+    `${priceY(current)}px`;
+
+  label.style.top =
+    `${priceY(current)}px`;
+
+  label.textContent =
+    formatPrice(current);
+
+  const axis =
+    document.getElementById("priceAxis");
+
+  axis.innerHTML = "";
+
+  for(let i=0;i<5;i++){
+
+    const value =
+      maxPrice-
+      (
+        (maxPrice-minPrice)*
+        i/4
+      );
+
+    const tick =
+      document.createElement("div");
+
+    tick.className =
+      "price-tick";
+
+    tick.style.top =
+      `${i*25}%`;
+
+    tick.textContent =
+      formatPrice(value);
+
+    axis.appendChild(tick);
+
+  }
+
+  renderTimeAxis();
+
+}
+
+function renderTimeAxis(){
+
+  const axis =
+    document.getElementById("timeAxis");
+
+  axis.innerHTML = "";
+
+  const count =
+    Math.min(6,candles.length);
+
+  for(let i=0;i<count;i++){
 
     const index =
-      Number(event.index);
-
-    if(!Number.isFinite(index)) return;
-
-    if(!grouped[index]){
-      grouped[index] = [];
-    }
-
-    grouped[index].push(event);
-
-  });
-
-
-  Object.keys(grouped).forEach(key=>{
-
-    const index = Number(key);
-
-    const event =
-      grouped[index][0];
-
-    if(index<0 || index>=candles.length) return;
-
-    const candle =
-      candles[index];
-
-    const isChoch =
-      String(event.type || "")
-        .toLowerCase()
-        .includes("choch");
+      Math.round(
+        i*(candles.length-1)/
+        Math.max(1,count-1)
+      );
 
     const label =
       document.createElement("div");
 
     label.className =
-      "structure-label " +
-      (isChoch ? "choch":"bos");
-
-    label.textContent =
-      isChoch ? "CHOCH":"BOS";
+      "time-label";
 
     label.style.left =
-      `${padding.left+index*spacing}px`;
+      `${index/
+        Math.max(1,candles.length-1)*
+        100}%`;
 
-    label.style.top =
-      `${priceY(
-        candle.high
-      )-22}px`;
+    label.textContent =
+      formatAxisDate(
+        candles[index].datetime
+      );
 
-    layer.appendChild(label);
+    axis.appendChild(label);
+
+  }
+
+}
+
+
+/* =========================
+   CROSSHAIR
+========================= */
+
+function showCrosshair(event){
+
+  if(
+    !candles.length ||
+    activePointers.size>1
+  ) return;
+
+  const chart =
+    document.getElementById("chart");
+
+  const rect =
+    chart.getBoundingClientRect();
+
+  const x =
+    event.clientX-rect.left;
+
+  const y =
+    event.clientY-rect.top;
+
+  if(
+    x<0 ||
+    x>rect.width ||
+    y<0 ||
+    y>rect.height-30
+  ){
+
+    hideCrosshair();
+    return;
+
+  }
+
+  const left = 10;
+  const right = 65;
+
+  const plotWidth =
+    Math.max(
+      1,
+      rect.width-left-right
+    );
+
+  let ratio =
+    (x-left)/plotWidth;
+
+  ratio =
+    Math.max(0,Math.min(1,ratio));
+
+  const index =
+    Math.round(
+      ratio*(candles.length-1)
+    );
+
+  const candle =
+    candles[index];
+
+  if(!candle) return;
+
+  const px =
+    left+
+    index/
+    Math.max(1,candles.length-1)*
+    plotWidth;
+
+  const v =
+    document.getElementById("crosshairV");
+
+  const h =
+    document.getElementById("crosshairH");
+
+  const time =
+    document.getElementById("crosshairTime");
+
+  const price =
+    document.getElementById("crosshairPrice");
+
+  v.style.left = `${px}px`;
+  h.style.top = `${y}px`;
+
+  time.style.left = `${px}px`;
+  time.textContent =
+    formatDate(candle.datetime);
+
+  price.style.top = `${y}px`;
+  price.textContent =
+    formatPrice(candle.close);
+
+  v.style.display = "block";
+  h.style.display = "block";
+  time.style.display = "block";
+  price.style.display = "block";
+
+}
+
+function hideCrosshair(){
+
+  [
+    "crosshairV",
+    "crosshairH",
+    "crosshairTime",
+    "crosshairPrice"
+  ].forEach(id=>{
+
+    const el =
+      document.getElementById(id);
+
+    if(el)
+      el.style.display = "none";
 
   });
 
 }
 
 
-/* -----------------------------
+/* =========================
+   SIGNAL
+========================= */
+
+function updateSignalBox(){
+
+  const badge =
+    document.getElementById("signalBadge");
+
+  const reason =
+    document.getElementById("signalReason");
+
+  const gaps =
+    getHighProbabilityFVGs();
+
+  if(!gaps.length){
+
+    badge.className =
+      "signal-badge wait";
+
+    badge.textContent =
+      "WAIT";
+
+    reason.textContent =
+      "No high-probability FVG is currently detected. Waiting for stronger imbalance and confirmation.";
+
+    return;
+
+  }
+
+  const latest =
+    gaps[gaps.length-1];
+
+  const current =
+    Number(
+      candles[candles.length-1].close
+    );
+
+  const high = Number(latest.high);
+  const low = Number(latest.low);
+
+  const midpoint =
+    (high+low)/2;
+
+  const distance =
+    Math.abs(current-midpoint);
+
+  const proximity =
+    Math.max(
+      Math.abs(high),
+      Math.abs(low),
+      1
+    )*.001;
+
+  const near =
+    current>=low-proximity &&
+    current<=high+proximity;
+
+  const type =
+    String(latest.type || "")
+      .toLowerCase();
+
+  const bullish =
+    type.includes("bull");
+
+  const bearish =
+    type.includes("bear");
+
+  if(near && bullish){
+
+    badge.className =
+      "signal-badge buy";
+
+    badge.textContent =
+      "BUY SETUP";
+
+    reason.textContent =
+      `Bullish high-probability FVG is near current price. Score ${latest.probabilityScore}/5. ${latest.probabilityReasons.join(", ")}.`;
+
+  }else if(near && bearish){
+
+    badge.className =
+      "signal-badge sell";
+
+    badge.textContent =
+      "SELL SETUP";
+
+    reason.textContent =
+      `Bearish high-probability FVG is near current price. Score ${latest.probabilityScore}/5. ${latest.probabilityReasons.join(", ")}.`;
+
+  }else{
+
+    badge.className =
+      "signal-badge wait";
+
+    badge.textContent =
+      "WAIT";
+
+    reason.textContent =
+      `A high-probability ${bullish?"bullish":bearish?"bearish":"FVG"} has been detected, but price is not currently interacting with the zone. Score ${latest.probabilityScore}/5.`;
+
+  }
+
+}
+
+
+/* =========================
    METRICS
------------------------------ */
+========================= */
 
 function updateMetrics(){
 
-  const structureEl =
-    document.getElementById("structureValue");
-
-  const displacementEl =
-    document.getElementById("displacementValue");
-
-  const liquidityEl =
-    document.getElementById("liquidityValue");
-
-
-  const breaks =
-    structure?.structures?.structureBreaks ||
-    structure?.structureBreaks ||
-    [];
+  const fvg =
+    getHighProbabilityFVGs();
 
   const displacement =
     structure?.structures?.displacement ||
@@ -1385,48 +1925,30 @@ function updateMetrics(){
     structure?.liquidityPools ||
     [];
 
+  document.getElementById(
+    "structureValue"
+  ).textContent =
+    fvg.length
+      ? `HP FVG ${fvg[fvg.length-1].probabilityScore}/5`
+      : "NONE";
 
-  if(breaks.length){
+  document.getElementById(
+    "displacementValue"
+  ).textContent =
+    displacement.length
+      ? String(
+          displacement[
+            displacement.length-1
+          ].type ||
+          "Detected"
+        )
+        .replaceAll("_"," ")
+        .toUpperCase()
+      : "NONE";
 
-    const latest =
-      breaks[breaks.length-1];
-
-    const type =
-      String(latest.type || "BOS");
-
-    structureEl.textContent =
-      type.toUpperCase();
-
-  }else{
-
-    structureEl.textContent =
-      "NO BREAK";
-
-  }
-
-
-  if(displacement.length){
-
-    const latest =
-      displacement[displacement.length-1];
-
-    displacementEl.textContent =
-      String(
-        latest.type ||
-        "Detected"
-      )
-      .replaceAll("_"," ")
-      .toUpperCase();
-
-  }else{
-
-    displacementEl.textContent =
-      "NONE";
-
-  }
-
-
-  liquidityEl.textContent =
+  document.getElementById(
+    "liquidityValue"
+  ).textContent =
     liquidity.length
       ? `${liquidity.length} POOLS`
       : "NONE";
@@ -1434,9 +1956,9 @@ function updateMetrics(){
 }
 
 
-/* -----------------------------
-   CANDLE INFO
------------------------------ */
+/* =========================
+   CANDLE INFORMATION
+========================= */
 
 function showCandleInfo(index){
 
@@ -1446,41 +1968,44 @@ function showCandleInfo(index){
   if(!candle) return;
 
   const body =
-    Math.abs(candle.close-candle.open);
+    Math.abs(
+      candle.close-candle.open
+    );
 
   const range =
     candle.high-candle.low;
 
-  const bodyRatio =
+  const ratio =
     range ? body/range : 0;
 
   const direction =
-    candle.close >= candle.open
+    candle.close>=candle.open
       ? "Bullish"
       : "Bearish";
 
-
-  document.getElementById("candleInfo").innerHTML =
+  document.getElementById(
+    "candleInfo"
+  ).innerHTML =
 
     `<strong>Candle ${index+1}</strong><br>
-     Time: ${formatDate(candle.datetime)}<br>
-     Open: ${formatPrice(candle.open)}<br>
-     High: ${formatPrice(candle.high)}<br>
-     Low: ${formatPrice(candle.low)}<br>
-     Close: ${formatPrice(candle.close)}<br>
-     Direction: ${direction}<br>
-     Body / Range: ${(bodyRatio*100).toFixed(1)}%`;
+    Time: ${formatDate(candle.datetime)}<br>
+    Open: ${formatPrice(candle.open)}<br>
+    High: ${formatPrice(candle.high)}<br>
+    Low: ${formatPrice(candle.low)}<br>
+    Close: ${formatPrice(candle.close)}<br>
+    Direction: ${direction}<br>
+    Body / Range: ${(ratio*100).toFixed(1)}%`;
 
 }
 
 
-/* -----------------------------
-   AI ANALYSIS
------------------------------ */
+/* =========================
+   ANALYSIS
+========================= */
 
 function generateAnalysis(){
 
-  if(!candles.length) return;
+  if(candles.length<2) return;
 
   const latest =
     candles[candles.length-1];
@@ -1490,32 +2015,17 @@ function generateAnalysis(){
 
   let text = "";
 
-  if(latest.close > previous.close){
+  text +=
+    latest.close>previous.close
+      ? "The latest candle is trading above the previous close, showing short-term upward pressure. "
+      : "The latest candle is trading below the previous close, showing short-term downward pressure. ";
 
-    text +=
-      "The latest candle is trading above the previous close, showing short-term upward pressure. ";
-
-  }else{
-
-    text +=
-      "The latest candle is trading below the previous close, showing short-term downward pressure. ";
-
-  }
-
-
-  const breaks =
-    structure?.structures?.structureBreaks ||
-    structure?.structureBreaks ||
-    [];
+  const gaps =
+    getHighProbabilityFVGs();
 
   const displacement =
     structure?.structures?.displacement ||
     structure?.displacement ||
-    [];
-
-  const gaps =
-    structure?.structures?.fairValueGaps ||
-    structure?.fairValueGaps ||
     [];
 
   const liquidity =
@@ -1523,51 +2033,37 @@ function generateAnalysis(){
     structure?.liquidityPools ||
     [];
 
+  if(gaps.length){
 
-  if(breaks.length){
-
-    const latestBreak =
-      breaks[breaks.length-1];
+    const latestFVG =
+      gaps[gaps.length-1];
 
     text +=
-      `The structure engine detected ${String(
-        latestBreak.type || "a structure break"
-      ).replaceAll("_"," ")}. `;
+      `${gaps.length} high-probability FVG area${gaps.length===1?"":"s"} detected. The latest has a quality score of ${latestFVG.probabilityScore}/5. `;
 
   }else{
 
     text +=
-      "No confirmed recent structure break was detected by the current lookback. ";
+      "No high-probability FVG is currently detected. ";
 
   }
-
 
   if(displacement.length){
 
     text +=
-      "Displacement has been detected, meaning there has been a relatively strong directional candle compared with the surrounding candles. ";
+      "Displacement has been detected, indicating a relatively strong directional candle compared with surrounding candles. ";
 
   }
-
-
-  if(gaps.length){
-
-    text +=
-      `${gaps.length} fair value gap area${gaps.length===1?"":"s"} were detected. `;
-
-  }
-
 
   if(liquidity.length){
 
     text +=
-      `${liquidity.length} liquidity pool${liquidity.length===1?"":"s"} were detected. `;
+      `${liquidity.length} liquidity pool${liquidity.length===1?"":"s"} detected. `;
 
   }
 
-
   text +=
-    "Use the higher-timeframe structure, liquidity location and session context before interpreting the move.";
+    "Use higher-timeframe context, liquidity location and session conditions before interpreting the setup.";
 
   document.getElementById("analysis").textContent =
     text;
@@ -1575,20 +2071,18 @@ function generateAnalysis(){
 }
 
 
-/* -----------------------------
+/* =========================
    HELPERS
------------------------------ */
+========================= */
 
 function formatPrice(value){
 
-  const number =
-    Number(value);
+  const n = Number(value);
 
-  if(!Number.isFinite(number)){
+  if(!Number.isFinite(n))
     return "—";
-  }
 
-  return number.toLocaleString(
+  return n.toLocaleString(
     "en-US",
     {
       minimumFractionDigits:2,
@@ -1597,7 +2091,6 @@ function formatPrice(value){
   );
 
 }
-
 
 function formatDate(value){
 
@@ -1622,6 +2115,30 @@ function formatDate(value){
 
 }
 
+function formatAxisDate(value){
+
+  try{
+
+    return new Date(value)
+      .toLocaleString(
+        "en-ZA",
+        {
+          day:"2-digit",
+          month:"short",
+          hour:"2-digit",
+          minute:"2-digit",
+          hour12:false
+        }
+      )
+      .replace(",","");
+
+  }catch{
+
+    return value;
+
+  }
+
+}
 
 function escapeHtml(value){
 
@@ -1635,49 +2152,55 @@ function escapeHtml(value){
 }
 
 
-/* -----------------------------
+/* =========================
    KEYBOARD
------------------------------ */
+========================= */
 
 document.addEventListener("keydown",e=>{
 
-  if(e.key === "+" || e.key === "="){
+  if(e.key==="+" || e.key==="=")
     zoomChart(.15);
-  }
 
-  if(e.key === "-"){
+  if(e.key==="-")
     zoomChart(-.15);
-  }
 
-  if(e.key === "Escape"){
+  if(e.key==="Escape"){
 
     const chart =
       document.getElementById("chart");
 
-    if(chart.classList.contains("fullscreen")){
+    if(chart.classList.contains("fullscreen"))
       toggleFullscreen();
-    }
 
   }
 
 });
 
 
-/* -----------------------------
+/* =========================
    START
------------------------------ */
+========================= */
 
 loadMarket();
 
 </script>
 
 <script>
+
 if("serviceWorker" in navigator){
+
   window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("./sw.js")
-      .catch(err=>console.log("SW error",err));
+
+    navigator.serviceWorker
+      .register("./sw.js")
+      .catch(err=>
+        console.log("SW error",err)
+      );
+
   });
+
 }
+
 </script>
 
 </body>
