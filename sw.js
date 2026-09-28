@@ -1,5 +1,5 @@
 
-const CACHE = "marketlens-v4";
+const CACHE = "marketlens-v5";
 
 self.addEventListener("install", event => {
   event.waitUntil(
