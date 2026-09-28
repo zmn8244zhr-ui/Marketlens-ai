@@ -5,19 +5,16 @@
   "display": "standalone",
   "background_color": "#08080d",
   "theme_color": "#08080d",
-  "description": "AI market research and candle-move analysis terminal.",
   "icons": [
     {
       "src": "icon-180.png",
       "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
