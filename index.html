@@ -1,312 +1,443 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0b10">
-<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#080b12">
+<link rel="manifest" href="./manifest.webmanifest">
 <title>MarketLens AI</title>
 
 <style>
-:root{
-  --bg:#08080c;
-  --card:#111119;
-  --line:#252531;
-  --text:#f4f2f8;
-  --muted:#8e8b9b;
-  --purple:#8b4dff;
-  --green:#35d69a;
-  --red:#ff5d6c;
-  --amber:#f3b64b
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
-*{
-  box-sizing:border-box
+html,body{
+  margin:0;
+  padding:0;
+  background:#080b12;
+  color:#f4f6fb;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
 body{
-  margin:0;
-  background:radial-gradient(circle at top,#151020 0,#08080c 42%);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif
+  min-height:100vh;
+}
+
+button,select{
+  font:inherit;
 }
 
 .app{
-  max-width:1250px;
+  max-width:1100px;
   margin:auto;
-  padding:18px
+  padding:18px;
 }
 
-.top{
+.header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:14px
+  gap:12px;
+  margin-bottom:18px;
 }
 
-.brand{
-  font-weight:900;
-  font-size:22px;
-  letter-spacing:.04em
+.logo{
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:-.5px;
 }
 
-.brand span{
-  color:#9b63ff
+.logo span{
+  color:#8b5cf6;
 }
 
 .status{
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:8px 11px;
-  color:var(--muted);
-  background:#101018
-}
-
-.status.live{
-  color:var(--green);
-  border-color:#245c49
-}
-
-.nav{
-  display:flex;
-  gap:7px;
-  overflow:auto;
-  margin-bottom:14px
-}
-
-.nav button,
-.btn,
-.select{
-  border:1px solid var(--line);
-  background:#111119;
-  color:#b9b7c4;
-  border-radius:10px;
-  padding:10px 13px;
-  white-space:nowrap
-}
-
-.nav button.on,
-.btn.primary{
-  background:#7131df;
-  color:#fff;
-  border-color:#8b4dff
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:1.55fr .9fr;
-  gap:14px
+  font-size:12px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:#102318;
+  color:#62e6a5;
+  border:1px solid #1d5d3b;
 }
 
 .card{
-  background:linear-gradient(180deg,#12121a,#0d0d13);
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:15px
+  background:#0e131d;
+  border:1px solid #202838;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:16px;
+  box-shadow:0 12px 35px rgba(0,0,0,.18);
 }
 
-.head{
+.market-top{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:12px
+  align-items:flex-start;
+  gap:15px;
 }
 
-.head h2,
-.head h3{
-  margin:0
-}
-
-.muted{
-  color:var(--muted)
+.symbol{
+  font-size:14px;
+  color:#8f9aab;
 }
 
 .price{
-  font-size:27px;
-  font-weight:850
+  font-size:30px;
+  font-weight:800;
+  margin-top:4px;
 }
 
-.metrics{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:9px;
-  margin-bottom:14px
+.reference{
+  margin-top:6px;
+  font-size:11px;
+  color:#768297;
 }
 
-.metric{
-  background:#111119;
-  border:1px solid var(--line);
-  border-radius:11px;
-  padding:11px
-}
-
-.metric b{
-  display:block;
-  margin-top:5px;
-  font-size:16px
-}
-
-.toolbar{
+.controls{
   display:flex;
-  gap:7px;
   flex-wrap:wrap;
-  margin-bottom:10px
+  gap:8px;
+  margin-top:16px;
+}
+
+.btn,
+select{
+  background:#151c28;
+  color:#f4f6fb;
+  border:1px solid #2a3446;
+  border-radius:10px;
+  padding:9px 12px;
+}
+
+.btn{
+  cursor:pointer;
+}
+
+.btn:active{
+  transform:scale(.98);
+}
+
+.btn.primary{
+  background:#7c3aed;
+  border-color:#8b5cf6;
+}
+
+.timeframes{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  margin-top:14px;
+  padding-bottom:3px;
+}
+
+.tf{
+  white-space:nowrap;
+  padding:8px 12px;
+  border-radius:9px;
+  background:#111722;
+  border:1px solid #273142;
+  color:#9ba6b8;
+  cursor:pointer;
+}
+
+.tf.active{
+  background:#24173d;
+  border-color:#8b5cf6;
+  color:#fff;
+}
+
+.chart-wrap{
+  margin-top:15px;
 }
 
 .chart{
-  height:430px;
   position:relative;
+  width:100%;
+  height:520px;
   overflow:hidden;
-  background:#08090e;
-  border:1px solid #22222c;
-  border-radius:11px
+  border-radius:14px;
+  background:#090d15;
+  border:1px solid #202938;
+  touch-action:none;
+  user-select:none;
+}
+
+.chart.fullscreen{
+  position:fixed;
+  z-index:9999;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  border-radius:0;
+  background:#070a10;
+}
+
+.chart-layer{
+  position:absolute;
+  inset:0;
+  transform-origin:0 0;
+  will-change:transform;
 }
 
 .gridlines{
   position:absolute;
   inset:0;
-  background-image:
-    linear-gradient(#fff1 1px,transparent 1px),
-    linear-gradient(90deg,#fff1 1px,transparent 1px);
-  background-size:20% 25%
+  background:
+    linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:60px 50px;
+  pointer-events:none;
+}
+
+.fullscreen-title{
+  display:none;
+  position:absolute;
+  z-index:20;
+  top:14px;
+  left:16px;
+  font-size:13px;
+  color:#aeb7c7;
+  pointer-events:none;
+}
+
+.chart.fullscreen .fullscreen-title{
+  display:block;
+}
+
+.chart-controls{
+  display:flex;
+  justify-content:flex-end;
+  gap:6px;
+  margin-top:9px;
 }
 
 .candle{
   position:absolute;
   width:7px;
-  border-radius:2px;
-  z-index:2;
-  cursor:pointer
+  cursor:pointer;
 }
 
 .wick{
   position:absolute;
-  width:1px;
-  background:#aaa;
   left:3px;
-  top:-45%;
-  height:190%
+  width:1px;
+  background:#aeb7c7;
 }
 
-.up{
-  background:var(--green)
-}
-
-.dn{
-  background:var(--red)
-}
-
-.candle.selected{
-  outline:2px solid #fff;
-  box-shadow:0 0 15px #9b63ff
-}
-
-.marker{
+.body{
   position:absolute;
-  z-index:5;
-  font-size:9px;
-  font-weight:800;
-  background:#252035;
-  border:1px solid #7546bb;
-  color:#d9c5ff;
+  left:0;
+  width:7px;
+  min-height:2px;
+  border-radius:1px;
+}
+
+.up .body{
+  background:#20d98b;
+}
+
+.down .body{
+  background:#ef5b6b;
+}
+
+.selected .body{
+  outline:2px solid #fff;
+  outline-offset:2px;
+}
+
+.overlay{
+  position:absolute;
+  pointer-events:none;
+}
+
+.fvg{
+  opacity:.22;
+  border:1px solid;
+}
+
+.fvg.bullish{
+  background:#16a36a;
+  border-color:#38e5a0;
+}
+
+.fvg.bearish{
+  background:#b43e51;
+  border-color:#ff7182;
+}
+
+.liquidity{
+  height:1px;
+  border-top:1px dashed #f5c451;
+  opacity:.85;
+}
+
+.displacement{
+  border:1px solid #60a5fa;
+  border-radius:4px;
+  opacity:.7;
+}
+
+.structure-label{
+  position:absolute;
+  z-index:10;
+  font-size:10px;
+  font-weight:700;
   padding:3px 5px;
   border-radius:5px;
   pointer-events:none;
-  white-space:nowrap
+  white-space:nowrap;
 }
 
-.marker.bull{
-  border-color:#2f9871;
-  color:#78efc0
+.structure-label.bos{
+  background:#143c2d;
+  color:#55e7a5;
+  border:1px solid #257554;
 }
 
-.marker.bear{
-  border-color:#ad3e4e;
-  color:#ff9ba6
+.structure-label.choch{
+  background:#42212b;
+  color:#ff7b8c;
+  border:1px solid #8b3e4c;
 }
 
-.actions{
+.legend{
+  position:absolute;
+  left:12px;
+  bottom:10px;
+  z-index:30;
   display:flex;
+  flex-wrap:wrap;
   gap:8px;
-  margin-top:9px
+  font-size:10px;
+  color:#8f9bad;
+  background:rgba(8,11,18,.78);
+  padding:7px 9px;
+  border-radius:8px;
+  pointer-events:none;
 }
 
-.actions .btn{
-  flex:1
-}
-
-.row{
+.legend span{
   display:flex;
-  justify-content:space-between;
-  padding:10px 0;
-  border-bottom:1px solid #22222c;
-  gap:10px
+  align-items:center;
+  gap:4px;
 }
 
-.row:last-child{
-  border:0
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  display:inline-block;
 }
 
-.tag{
-  font-size:11px;
-  padding:4px 7px;
-  border-radius:7px;
-  background:#282035;
-  color:#c9adff
+.dot.fvg{
+  background:#39d99a;
+}
+
+.dot.liq{
+  background:#f5c451;
+}
+
+.dot.disp{
+  background:#60a5fa;
+}
+
+.dot.bos{
+  background:#55e7a5;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.metric{
+  background:#111722;
+  border:1px solid #202a3a;
+  border-radius:12px;
+  padding:12px;
+}
+
+.metric-title{
+  font-size:10px;
+  color:#788498;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+}
+
+.metric-value{
+  margin-top:5px;
+  font-size:15px;
+  font-weight:700;
+}
+
+.analysis-title{
+  font-size:16px;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.analysis{
+  color:#aeb8c8;
+  font-size:13px;
+  line-height:1.55;
+}
+
+.candle-info{
+  margin-top:12px;
+  padding:12px;
+  border-radius:12px;
+  background:#111722;
+  border:1px solid #202a3a;
+  font-size:12px;
+  color:#aeb8c8;
+  line-height:1.5;
 }
 
 .notice{
-  margin-top:11px;
-  border-left:3px solid var(--amber);
-  padding:10px;
-  background:#17140d;
-  border-radius:8px;
-  line-height:1.45
+  font-size:11px;
+  color:#707d91;
+  line-height:1.5;
 }
 
-.explain{
-  line-height:1.55;
-  color:#c9c7d2
-}
-
-.hidden{
-  display:none
-}
-
-.small{
-  font-size:12px
-}
-
-.footer{
-  padding:18px 2px;
-  color:#6e6c7b;
-  text-align:center;
-  font-size:12px
+.loading{
+  color:#8793a5;
+  font-size:13px;
 }
 
 .error{
-  color:#ff9ba6
+  color:#ff7182;
+  font-size:13px;
 }
 
-.ok{
-  color:#78efc0
-}
-
-@media(max-width:800px){
-
-  .grid{
-    grid-template-columns:1fr
-  }
-
-  .metrics{
-    grid-template-columns:repeat(2,1fr)
+@media(max-width:700px){
+  .app{
+    padding:12px;
   }
 
   .chart{
-    height:350px
+    height:430px;
   }
 
+  .info-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .price{
+    font-size:26px;
+  }
+}
+
+@media(max-width:430px){
+  .chart{
+    height:390px;
+  }
+
+  .info-grid{
+    grid-template-columns:1fr;
+  }
 }
 </style>
 </head>
@@ -315,1496 +446,1238 @@ body{
 
 <div class="app">
 
-<header class="top">
-
-  <div class="brand">
-    MARKET<span>LENS</span> AI
+  <div class="header">
+    <div class="logo">Market<span>Lens</span> AI</div>
+    <div id="status" class="status">CONNECTING...</div>
   </div>
 
-  <div id="status" class="status">
-    ● CONNECTING
-  </div>
+  <div class="card">
 
-</header>
+    <div class="market-top">
+      <div>
+        <div class="symbol">NASDAQ FUTURES · NQ=F</div>
+        <div id="price" class="price">—</div>
+        <div class="reference">
+          Reference market for HFM USA100 / US Tech 100 CFD
+        </div>
+      </div>
 
+      <div>
+        <select id="intervalSelect">
+          <option value="1min">1 MIN</option>
+          <option value="5min" selected>5 MIN</option>
+          <option value="15min">15 MIN</option>
+          <option value="30min">30 MIN</option>
+          <option value="1h">1 HOUR</option>
+          <option value="1day">1 DAY</option>
+          <option value="1week">1 WEEK</option>
+        </select>
+      </div>
+    </div>
 
-<div class="nav">
+    <div class="timeframes">
+      <button class="tf" data-tf="1min">1m</button>
+      <button class="tf active" data-tf="5min">5m</button>
+      <button class="tf" data-tf="15min">15m</button>
+      <button class="tf" data-tf="30min">30m</button>
+      <button class="tf" data-tf="1h">1H</button>
+      <button class="tf" data-tf="1day">1D</button>
+      <button class="tf" data-tf="1week">1W</button>
+    </div>
 
-  <button class="on" onclick="show('dash',this)">
-    Dashboard
-  </button>
+    <div class="chart-wrap">
 
-  <button onclick="show('candle',this)">
-    Explain Candle
-  </button>
+      <div id="chart" class="chart">
 
-  <button onclick="show('macro',this)">
-    Macro
-  </button>
+        <div class="fullscreen-title">
+          NQ FUTURES · 5 MIN
+        </div>
 
-  <button onclick="show('calendar',this)">
-    Calendar
-  </button>
+        <div id="chartLayer" class="chart-layer">
+          <div class="gridlines"></div>
+        </div>
 
-  <button onclick="show('research',this)">
-    AI Research
-  </button>
+        <div class="legend">
+          <span><i class="dot fvg"></i>FVG</span>
+          <span><i class="dot liq"></i>Liquidity</span>
+          <span><i class="dot disp"></i>Displacement</span>
+          <span><i class="dot bos"></i>BOS</span>
+        </div>
 
-</div>
+      </div>
 
+      <div class="chart-controls">
+        <button class="btn" onclick="zoomChart(-0.15)">−</button>
+        <button class="btn" onclick="resetChartView()">↺ Reset</button>
+        <button class="btn" onclick="zoomChart(0.15)">+</button>
+        <button id="fullscreenBtn" class="btn primary" onclick="toggleFullscreen()">
+          ⛶ Full Screen
+        </button>
+      </div>
 
-<section id="dash">
-
-<div class="metrics">
-
-  <div class="metric">
-    <span class="muted">
-      NASDAQ FUTURES
-    </span>
-
-    <b id="p">—</b>
-
-    <span id="pc">
-      Loading
-    </span>
-  </div>
-
-
-  <div class="metric">
-
-    <span class="muted">
-      TIMEFRAME
-    </span>
-
-    <b id="tfLabel">
-      5m
-    </b>
-
-    <span class="muted">
-      NQ futures
-    </span>
-
-  </div>
-
-
-  <div class="metric">
-
-    <span class="muted">
-      STRUCTURE
-    </span>
-
-    <b id="structureLabel">
-      —
-    </b>
-
-    <span class="muted">
-      algorithmic
-    </span>
+    </div>
 
   </div>
 
+  <div class="card">
 
-  <div class="metric">
+    <div class="info-grid">
 
-    <span class="muted">
-      CANDLES
-    </span>
+      <div class="metric">
+        <div class="metric-title">Structure</div>
+        <div id="structureValue" class="metric-value">—</div>
+      </div>
 
-    <b id="count">
-      —
-    </b>
+      <div class="metric">
+        <div class="metric-title">Displacement</div>
+        <div id="displacementValue" class="metric-value">—</div>
+      </div>
 
-    <span class="muted">
-      loaded
-    </span>
+      <div class="metric">
+        <div class="metric-title">Liquidity</div>
+        <div id="liquidityValue" class="metric-value">—</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="analysis-title">
+      MarketLens AI Analysis
+    </div>
+
+    <div id="analysis" class="analysis">
+      Waiting for market data...
+    </div>
+
+    <div id="candleInfo" class="candle-info">
+      Tap a candle to inspect it.
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="notice">
+      <strong>Important:</strong>
+      MarketLens AI uses Nasdaq futures (NQ=F) as a reference market.
+      HFM USA100 is a CFD and its exact price, spread and candle formation
+      may differ from NQ futures. This application is for market analysis
+      and education and does not execute trades.
+    </div>
 
   </div>
 
 </div>
-
-
-<div class="grid">
-
-
-<div class="card">
-
-<div class="head">
-
-  <div>
-
-    <h2>
-      NASDAQ FUTURES — NQ
-    </h2>
-
-    <span class="muted">
-      Reference market for HFM USA100 CFD
-    </span>
-
-  </div>
-
-  <div class="price" id="big">
-    —
-  </div>
-
-</div>
-
-
-<div class="toolbar">
-
-<select
-  id="interval"
-  class="select"
-  onchange="loadMarket()"
->
-
-  <option value="1min">
-    1 min
-  </option>
-
-  <option value="5min" selected>
-    5 min
-  </option>
-
-  <option value="15min">
-    15 min
-  </option>
-
-  <option value="30min">
-    30 min
-  </option>
-
-  <option value="1h">
-    1 hour
-  </option>
-
-  <option value="1day">
-    Daily
-  </option>
-
-  <option value="1week">
-    Weekly
-  </option>
-
-</select>
-
-
-<button
-  class="btn"
-  onclick="loadMarket()"
->
-  ↻ Refresh
-</button>
-
-</div>
-
-
-<div id="chart" class="chart">
-
-  <div class="gridlines"></div>
-
-</div>
-
-
-<div class="actions">
-
-  <button
-    class="btn primary"
-    onclick="goAnalyze()"
-  >
-    🔎 Explain selected candle
-  </button>
-
-</div>
-
-</div>
-
-
-<aside class="card">
-
-<div class="head">
-
-  <h3>
-    Market structure
-  </h3>
-
-  <span
-    class="tag"
-    id="reg"
-  >
-    LOADING
-  </span>
-
-</div>
-
-
-<div class="price" id="bias">
-  —
-</div>
-
-
-<p
-  class="explain"
-  id="regtext"
->
-  Loading descriptive structure observations from the backend.
-</p>
-
-
-<div class="row">
-
-  <span>
-    Market feed
-  </span>
-
-  <b id="ds">
-    —
-  </b>
-
-</div>
-
-
-<div class="row">
-
-  <span>
-    Structure engine
-  </span>
-
-  <b id="ss">
-    —
-  </b>
-
-</div>
-
-
-<div class="row">
-
-  <span>
-    Data source
-  </span>
-
-  <b id="mode">
-    —
-  </b>
-
-</div>
-
-
-<div class="row">
-
-  <span>
-    Instrument
-  </span>
-
-  <b>
-    NQ=F
-  </b>
-
-</div>
-
-
-<div class="notice small">
-
-  NQ futures are being used as a reference
-  market for HFM's USA100 CFD.
-
-  The two feeds may not have identical prices.
-
-  Structures are algorithmic observations and
-  are not guarantees of institutional intent or
-  trade signals.
-
-</div>
-
-</aside>
-
-</div>
-
-</section>
-
-
-<section
-  id="candle"
-  class="hidden"
->
-
-<div class="grid">
-
-
-<div class="card">
-
-<div class="head">
-
-  <div>
-
-    <h2>
-      Selected candle
-    </h2>
-
-    <span class="muted">
-      Select a candle on the chart
-    </span>
-
-  </div>
-
-  <span
-    class="tag"
-    id="ctime"
-  >
-    Not selected
-  </span>
-
-</div>
-
-
-<div
-  id="candleChart"
-  class="chart"
->
-
-  <div class="gridlines"></div>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="head">
-
-  <h3>
-    Structure explanation
-  </h3>
-
-  <span
-    id="conf"
-    class="muted"
-  >
-    —
-  </span>
-
-</div>
-
-
-<div
-  id="ca"
-  class="notice"
->
-
-  Select a candle, then analyze it.
-
-  The backend will describe observable
-  structure around that candle.
-
-</div>
-
-
-<div id="details"></div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section
-  id="macro"
-  class="hidden"
->
-
-<div class="grid">
-
-
-<div class="card">
-
-<div class="head">
-
-  <h2>
-    Macro drivers
-  </h2>
-
-</div>
-
-<div id="macroRows"></div>
-
-</div>
-
-
-<div class="card">
-
-<div class="head">
-
-  <h2>
-    Cross-market
-  </h2>
-
-</div>
-
-<div id="crossRows"></div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section
-  id="calendar"
-  class="hidden"
->
-
-<div class="card">
-
-<div class="head">
-
-  <h2>
-    Economic calendar
-  </h2>
-
-  <span class="muted">
-    Next backend layer
-  </span>
-
-</div>
-
-
-<div class="notice">
-
-  Economic releases will be added after the
-  market-data/structure layer.
-
-  No catalyst will be claimed without
-  timestamped evidence.
-
-</div>
-
-</div>
-
-</section>
-
-
-<section
-  id="research"
-  class="hidden"
->
-
-<div class="card">
-
-<div class="head">
-
-  <h2>
-    AI Market Research
-  </h2>
-
-</div>
-
-
-<input
-  id="q"
-  style="width:100%;background:#0c0c12;border:1px solid #252531;color:white;border-radius:9px;padding:11px"
-  placeholder="Ask about a market move"
->
-
-
-<div class="actions">
-
-<button
-  class="btn primary"
-  onclick="research()"
->
-  Ask MarketLens AI
-</button>
-
-</div>
-
-
-<p
-  id="ans"
-  class="explain"
->
-
-  AI research will be connected after market
-  evidence and source layers are in place.
-
-</p>
-
-</div>
-
-</section>
-
-
-<div class="footer">
-
-  MarketLens AI · Market research/education
-  · No order execution
-
-</div>
-
-</div>
-
 
 <script>
 
-const API =
-  'https://market-lens-ai-backend-mu.vercel.app';
+const MARKET_API =
+  "https://market-lens-ai-backend-mu.vercel.app/api/market";
 
-const SYMBOL =
-  'NQ=F';
+const STRUCTURE_API =
+  "https://market-lens-ai-backend-mu.vercel.app/api/structure";
 
 let candles = [];
-
 let structure = null;
+let currentInterval = "5min";
 
-let selectedIndex = null;
+let chartScale = 1;
+let chartOffsetX = 0;
+let chartOffsetY = 0;
+
+let isDragging = false;
+let dragStartX = 0;
+let dragStartY = 0;
+let dragOriginX = 0;
+let dragOriginY = 0;
+let movedDuringDrag = false;
+
+let activePointers = new Map();
+let pinchStartDistance = null;
+let pinchStartScale = 1;
+
+let selectedCandle = null;
 
 
-function show(id,b){
+/* -----------------------------
+   CHART VIEW
+----------------------------- */
 
-  document
-    .querySelectorAll('section')
-    .forEach(
-      s => s.classList.add('hidden')
-    );
+function applyChartTransform(){
 
-  document
-    .getElementById(id)
-    .classList.remove('hidden');
+  const layer = document.getElementById("chartLayer");
 
-  document
-    .querySelectorAll('.nav button')
-    .forEach(
-      x => x.classList.remove('on')
-    );
-
-  b.classList.add('on');
-
+  layer.style.transform =
+    `translate(${chartOffsetX}px,${chartOffsetY}px) scale(${chartScale})`;
 }
 
 
-function fmt(n){
+function resetChartView(){
 
-  return n == null
-    ? '—'
-    : Number(n).toLocaleString(
-        undefined,
-        {
-          maximumFractionDigits:4
-        }
+  chartScale = 1;
+  chartOffsetX = 0;
+  chartOffsetY = 0;
+
+  applyChartTransform();
+}
+
+
+function zoomChart(amount){
+
+  chartScale += amount;
+
+  if(chartScale < .5) chartScale = .5;
+  if(chartScale > 4) chartScale = 4;
+
+  applyChartTransform();
+}
+
+
+function toggleFullscreen(){
+
+  const chart = document.getElementById("chart");
+  const button = document.getElementById("fullscreenBtn");
+
+  chart.classList.toggle("fullscreen");
+
+  if(chart.classList.contains("fullscreen")){
+    button.textContent = "✕ Exit Full Screen";
+  }else{
+    button.textContent = "⛶ Full Screen";
+  }
+
+  setTimeout(renderChart,100);
+}
+
+
+/* -----------------------------
+   POINTER PAN / PINCH
+----------------------------- */
+
+const chartElement = document.getElementById("chart");
+
+chartElement.addEventListener("pointerdown",e=>{
+
+  activePointers.set(e.pointerId,{
+    x:e.clientX,
+    y:e.clientY
+  });
+
+  chartElement.setPointerCapture(e.pointerId);
+
+  movedDuringDrag = false;
+
+  if(activePointers.size === 1){
+
+    isDragging = true;
+
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+
+    dragOriginX = chartOffsetX;
+    dragOriginY = chartOffsetY;
+
+  }else if(activePointers.size === 2){
+
+    isDragging = false;
+
+    const points = [...activePointers.values()];
+
+    pinchStartDistance =
+      Math.hypot(
+        points[0].x-points[1].x,
+        points[0].y-points[1].y
       );
 
-}
+    pinchStartScale = chartScale;
+  }
 
+});
+
+
+chartElement.addEventListener("pointermove",e=>{
+
+  if(!activePointers.has(e.pointerId)) return;
+
+  activePointers.set(e.pointerId,{
+    x:e.clientX,
+    y:e.clientY
+  });
+
+  if(activePointers.size === 1 && isDragging){
+
+    const dx = e.clientX - dragStartX;
+    const dy = e.clientY - dragStartY;
+
+    if(Math.abs(dx)>4 || Math.abs(dy)>4){
+      movedDuringDrag = true;
+    }
+
+    chartOffsetX = dragOriginX + dx;
+    chartOffsetY = dragOriginY + dy;
+
+    applyChartTransform();
+
+  }
+
+  if(activePointers.size === 2 && pinchStartDistance){
+
+    const points = [...activePointers.values()];
+
+    const distance =
+      Math.hypot(
+        points[0].x-points[1].x,
+        points[0].y-points[1].y
+      );
+
+    const ratio = distance / pinchStartDistance;
+
+    chartScale = pinchStartScale * ratio;
+
+    if(chartScale < .5) chartScale = .5;
+    if(chartScale > 4) chartScale = 4;
+
+    applyChartTransform();
+
+    movedDuringDrag = true;
+  }
+
+});
+
+
+chartElement.addEventListener("pointerup",e=>{
+
+  activePointers.delete(e.pointerId);
+
+  if(activePointers.size < 2){
+    pinchStartDistance = null;
+  }
+
+  if(activePointers.size === 0){
+    isDragging = false;
+  }
+
+});
+
+
+chartElement.addEventListener("pointercancel",e=>{
+
+  activePointers.delete(e.pointerId);
+
+  if(activePointers.size === 0){
+    isDragging = false;
+    pinchStartDistance = null;
+  }
+
+});
+
+
+/* -----------------------------
+   TIMEFRAME
+----------------------------- */
+
+document.querySelectorAll(".tf").forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    currentInterval = button.dataset.tf;
+
+    document.querySelectorAll(".tf")
+      .forEach(x=>x.classList.remove("active"));
+
+    button.classList.add("active");
+
+    document.getElementById("intervalSelect").value =
+      currentInterval;
+
+    loadMarket();
+
+  });
+
+});
+
+
+document.getElementById("intervalSelect")
+.addEventListener("change",e=>{
+
+  currentInterval = e.target.value;
+
+  document.querySelectorAll(".tf")
+    .forEach(x=>{
+      x.classList.toggle(
+        "active",
+        x.dataset.tf === currentInterval
+      );
+    });
+
+  loadMarket();
+
+});
+
+
+/* -----------------------------
+   LOAD MARKET
+----------------------------- */
 
 async function loadMarket(){
 
-  const interval =
-    document
-      .getElementById('interval')
-      .value;
+  const status = document.getElementById("status");
 
-  setStatus(
-    '● LOADING',
-    ''
-  );
+  status.textContent = "LOADING...";
+  status.style.color = "#f5c451";
 
   try{
 
     const url =
-      `${API}/api/market?symbol=${encodeURIComponent(SYMBOL)}&interval=${encodeURIComponent(interval)}&outputsize=100`;
+      `${MARKET_API}?symbol=NQ%3DF&interval=${encodeURIComponent(currentInterval)}&outputsize=100`;
 
-    const r =
-      await fetch(url);
+    const response = await fetch(url);
 
-    const data =
-      await r.json();
+    const data = await response.json();
 
-    if(
-      !r.ok ||
-      !data.ok
-    ){
-
-      throw new Error(
-        data.error ||
-        'Market request failed'
-      );
-
+    if(!response.ok || !data.ok){
+      throw new Error(data.error || "Market data failed");
     }
 
-
-    candles =
-      data.candles || [];
-
+    candles = data.candles || [];
 
     if(!candles.length){
-
-      throw new Error(
-        'No NQ futures candles were returned'
-      );
-
+      throw new Error("No candles returned");
     }
 
+    document.getElementById("price").textContent =
+      formatPrice(candles[candles.length-1].close);
 
-    document
-      .getElementById('tfLabel')
-      .textContent =
-      interval;
+    status.textContent = "NQ DATA CONNECTED";
+    status.style.color = "#62e6a5";
 
-
-    document
-      .getElementById('count')
-      .textContent =
-      candles.length;
-
-
-    const latest =
-      candles[candles.length - 1];
-
-
-    document
-      .getElementById('p')
-      .textContent =
-      fmt(latest.close);
-
-
-    document
-      .getElementById('big')
-      .textContent =
-      fmt(latest.close);
-
-
-    document
-      .getElementById('pc')
-      .textContent =
-      'Yahoo Finance · NQ futures';
-
-
-    document
-      .getElementById('ds')
-      .textContent =
-      'Connected';
-
-
-    document
-      .getElementById('mode')
-      .textContent =
-      data.provider ||
-      'Yahoo Finance';
-
-
-    setStatus(
-      '● NQ DATA CONNECTED',
-      'live'
-    );
-
-
-    selectedIndex =
-      null;
-
+    await loadStructure();
 
     renderChart();
 
+    generateAnalysis();
 
-    await analyzeStructure();
+  }catch(error){
 
+    console.error(error);
 
-  }catch(e){
+    status.textContent = "DATA ERROR";
+    status.style.color = "#ff7182";
 
-    setStatus(
-      '● ERROR',
-      ''
-    );
-
-
-    document
-      .getElementById('ds')
-      .textContent =
-      'Error';
-
-
-    document
-      .getElementById('regtext')
-      .innerHTML =
-      '<span class="error">' +
-      e.message +
-      '</span>';
+    document.getElementById("analysis").innerHTML =
+      `<span class="error">${escapeHtml(error.message)}</span>`;
 
   }
 
 }
 
 
-async function analyzeStructure(){
+/* -----------------------------
+   STRUCTURE
+----------------------------- */
 
-  if(candles.length < 10){
-
-    return;
-
-  }
-
+async function loadStructure(){
 
   try{
 
-    const r =
-      await fetch(
-        `${API}/api/structure`,
-        {
-          method:'POST',
+    const response = await fetch(STRUCTURE_API,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        candles,
+        lookback:5
+      })
+    });
 
-          headers:{
-            'Content-Type':
-              'application/json'
-          },
+    const data = await response.json();
 
-          body:
-            JSON.stringify({
-              candles,
-              lookback:2
-            })
-
-        }
-      );
-
-
-    structure =
-      await r.json();
-
-
-    if(!r.ok){
-
-      throw new Error(
-        structure.error ||
-        'Structure request failed'
-      );
-
+    if(!response.ok || !data.ok){
+      throw new Error(data.error || "Structure engine failed");
     }
 
+    structure =
+      data.structure ||
+      data;
 
-    document
-      .getElementById('ss')
-      .textContent =
-      'Connected';
+  }catch(error){
 
+    console.error("Structure:",error);
 
-    const s =
-      structure.summary || {};
-
-
-    const ev =
-      s.latestStructureEvent;
-
-
-    const disp =
-      s.latestDisplacement;
-
-
-    let label =
-      ev?.type ||
-      disp?.type ||
-      'No recent event';
-
-
-    document
-      .getElementById('structureLabel')
-      .textContent =
-      label.replaceAll(
-        '_',
-        ' '
-      );
-
-
-    document
-      .getElementById('reg')
-      .textContent =
-      label
-        .replaceAll(
-          '_',
-          ' '
-        )
-        .toUpperCase();
-
-
-    document
-      .getElementById('bias')
-      .textContent =
-      ev
-        ? ev.type.replaceAll(
-            '_',
-            ' '
-          )
-        : disp
-          ? disp.type.replaceAll(
-              '_',
-              ' '
-            )
-          : 'No break detected';
-
-
-    document
-      .getElementById('regtext')
-      .textContent =
-      `${s.swingHighCount || 0} swing highs, ` +
-      `${s.swingLowCount || 0} swing lows, ` +
-      `${s.bullishFVGCount || 0} bullish FVG candidates, ` +
-      `${s.bearishFVGCount || 0} bearish FVG candidates.`;
-
-
-    renderChart();
-
-
-  }catch(e){
-
-    document
-      .getElementById('ss')
-      .textContent =
-      'Error';
-
-
-    document
-      .getElementById('regtext')
-      .innerHTML =
-      '<span class="error">' +
-      e.message +
-      '</span>';
-
+    structure = null;
   }
 
 }
 
+
+/* -----------------------------
+   CHART RENDER
+----------------------------- */
 
 function renderChart(){
 
-  const el =
-    document.getElementById(
-      'chart'
-    );
+  const layer =
+    document.getElementById("chartLayer");
 
+  layer.innerHTML =
+    `<div class="gridlines"></div>`;
 
-  el.innerHTML =
-    '<div class="gridlines"></div>';
+  if(!candles.length) return;
 
+  const chart =
+    document.getElementById("chart");
 
-  if(!candles.length){
+  const width =
+    Math.max(chart.clientWidth,700);
 
-    return;
+  const height =
+    chart.clientHeight;
 
-  }
+  const padding = {
+    top:40,
+    right:55,
+    bottom:35,
+    left:10
+  };
 
+  const plotWidth =
+    width-padding.left-padding.right;
 
-  const max =
-    Math.max(
-      ...candles.map(
-        c => +c.high
-      )
-    );
+  const plotHeight =
+    height-padding.top-padding.bottom;
 
+  const highs =
+    candles.map(c=>Number(c.high));
 
-  const min =
-    Math.min(
-      ...candles.map(
-        c => +c.low
-      )
-    );
+  const lows =
+    candles.map(c=>Number(c.low));
 
+  let maxPrice = Math.max(...highs);
+  let minPrice = Math.min(...lows);
 
   const range =
-    Math.max(
-      max - min,
-      1
-    );
+    maxPrice-minPrice || 1;
 
+  maxPrice += range*.08;
+  minPrice -= range*.08;
 
-  candles.forEach(
-    (c,i)=>{
+  const priceRange =
+    maxPrice-minPrice;
 
-      const o =
-        +c.open;
+  const spacing =
+    plotWidth / candles.length;
 
-      const h =
-        +c.high;
+  const candleWidth =
+    Math.max(4,Math.min(9,spacing*.62));
 
-      const l =
-        +c.low;
 
-      const cl =
-        +c.close;
+  function priceY(price){
 
-
-      const bodyTop =
-        100 -
-        (
-          (
-            (
-              Math.max(o,cl) -
-              min
-            ) /
-            range
-          ) *
-          88 +
-          6
-        );
-
-
-      const bodyHeight =
-        Math.max(
-          1.4,
-          Math.abs(cl-o) /
-          range *
-          88
-        );
-
-
-      const x =
-        candles.length === 1
-          ? 48
-          : 2 +
-            i *
-            (
-              96 /
-              (
-                candles.length-1
-              )
-            );
-
-
-      const d =
-        document.createElement(
-          'div'
-        );
-
-
-      d.className =
-        'candle ' +
-        (
-          cl >= o
-            ? 'up'
-            : 'dn'
-        ) +
-        (
-          selectedIndex === i
-            ? ' selected'
-            : ''
-        );
-
-
-      d.style.left =
-        x + '%';
-
-
-      d.style.top =
-        bodyTop + '%';
-
-
-      d.style.height =
-        bodyHeight + '%';
-
-
-      const w =
-        document.createElement(
-          'i'
-        );
-
-
-      w.className =
-        'wick';
-
-
-      d.appendChild(w);
-
-
-      d.onclick =
-        () => selectCandle(i);
-
-
-      el.appendChild(d);
-
-    }
-  );
-
-
-  /*
-    CLEAN STRUCTURE LABELS
-
-    If several structure events occur
-    on the same candle, combine them
-    into ONE label rather than displaying
-    several labels on top of each other.
-  */
-
-  const events =
-    structure
-      ?.structures
-      ?.structureBreaks ||
-    [];
-
-
-  const grouped =
-    new Map();
-
-
-  events.forEach(
-    ev => {
-
-      const i =
-        ev.index;
-
-
-      if(
-        i < 0 ||
-        i >= candles.length
-      ){
-
-        return;
-
-      }
-
-
-      if(
-        !grouped.has(i)
-      ){
-
-        grouped.set(
-          i,
-          new Set()
-        );
-
-      }
-
-
-      grouped
-        .get(i)
-        .add(
-          ev.type
-        );
-
-    }
-  );
-
-
-  Array
-    .from(
-      grouped.entries()
-    )
-    .slice(-6)
-    .forEach(
-      ([i,types]) => {
-
-        const names =
-          Array
-            .from(types)
-            .map(
-              x =>
-                x.replaceAll(
-                  '_',
-                  ' '
-                )
-            );
-
-
-        const isBull =
-          names.some(
-            x =>
-              x.includes(
-                'up'
-              )
-          );
-
-
-        const m =
-          document.createElement(
-            'div'
-          );
-
-
-        m.className =
-          'marker ' +
-          (
-            isBull
-              ? 'bull'
-              : 'bear'
-          );
-
-
-        m.textContent =
-          names.join(
-            ' / '
-          );
-
-
-        const x =
-          candles.length === 1
-            ? 48
-            : 2 +
-              i *
-              (
-                96 /
-                (
-                  candles.length-1
-                )
-              );
-
-
-        m.style.left =
-          Math.min(
-            88,
-            Math.max(
-              1,
-              x
-            )
-          ) + '%';
-
-
-        m.style.top =
-          isBull
-            ? '8%'
-            : '84%';
-
-
-        el.appendChild(m);
-
-      }
-    );
-
-}
-
-
-function selectCandle(i){
-
-  selectedIndex =
-    i;
-
-
-  const c =
-    candles[i];
-
-
-  document
-    .getElementById('ctime')
-    .textContent =
-    c.datetime;
-
-
-  renderChart();
-
-
-  document
-    .getElementById('ca')
-    .textContent =
-    `Selected ${c.datetime}. ` +
-    `Open ${fmt(c.open)}, ` +
-    `high ${fmt(c.high)}, ` +
-    `low ${fmt(c.low)}, ` +
-    `close ${fmt(c.close)}.`;
-
-}
-
-
-function goAnalyze(){
-
-  if(
-    selectedIndex == null
-  ){
-
-    alert(
-      'Select a candle on the chart first.'
-    );
-
-    return;
+    return padding.top +
+      (maxPrice-price)/priceRange*plotHeight;
 
   }
 
 
-  const btn =
-    document
-      .querySelectorAll(
-        '.nav button'
-      )[1];
+  candles.forEach((candle,index)=>{
+
+    const x =
+      padding.left +
+      index*spacing +
+      spacing/2;
+
+    const openY = priceY(candle.open);
+    const closeY = priceY(candle.close);
+    const highY = priceY(candle.high);
+    const lowY = priceY(candle.low);
+
+    const top =
+      Math.min(openY,closeY);
+
+    const bodyHeight =
+      Math.max(2,Math.abs(closeY-openY));
+
+    const candle =
+      document.createElement("div");
+
+    candle.className =
+      "candle " +
+      (candle.close >= candle.open ? "up":"down");
+
+    if(selectedCandle === index){
+      candle.classList.add("selected");
+    }
+
+    candle.style.left =
+      `${x-candleWidth/2}px`;
+
+    candle.style.top =
+      `${highY}px`;
+
+    candle.style.width =
+      `${candleWidth}px`;
+
+    candle.style.height =
+      `${lowY-highY}px`;
+
+    const wick =
+      document.createElement("div");
+
+    wick.className = "wick";
+
+    wick.style.top = "0";
+    wick.style.height =
+      `${lowY-highY}px`;
+
+    const body =
+      document.createElement("div");
+
+    body.className = "body";
+
+    body.style.top =
+      `${top-highY}px`;
+
+    body.style.height =
+      `${bodyHeight}px`;
+
+    candle.appendChild(wick);
+    candle.appendChild(body);
+
+    candle.addEventListener("pointerup",e=>{
+
+      if(movedDuringDrag) return;
+
+      e.stopPropagation();
+
+      selectedCandle = index;
+
+      showCandleInfo(index);
+
+      renderChart();
+
+    });
+
+    layer.appendChild(candle);
+
+  });
 
 
-  show(
-    'candle',
-    btn
+  renderFVGs(
+    layer,
+    priceY,
+    padding,
+    spacing,
+    plotWidth
   );
 
+  renderLiquidity(
+    layer,
+    priceY,
+    padding,
+    spacing,
+    plotWidth
+  );
 
-  analyzeSelected();
+  renderDisplacement(
+    layer,
+    priceY,
+    padding,
+    spacing
+  );
+
+  renderStructureBreaks(
+    layer,
+    priceY,
+    padding,
+    spacing
+  );
+
+  updateMetrics();
+
+  applyChartTransform();
 
 }
 
 
-function analyzeSelected(){
+/* -----------------------------
+   FVG
+----------------------------- */
 
-  const c =
-    candles[selectedIndex];
+function renderFVGs(
+  layer,
+  priceY,
+  padding,
+  spacing,
+  plotWidth
+){
 
+  const gaps =
+    structure?.structures?.fairValueGaps ||
+    structure?.fairValueGaps ||
+    [];
 
-  const s =
-    structure?.structures ||
-    {};
+  gaps.forEach(gap=>{
 
+    const index =
+      Number(gap.index);
 
-  const swings =
-    (s.swings || [])
-      .filter(
-        x =>
-          x.index ===
-          selectedIndex
+    if(!Number.isFinite(index)) return;
+
+    const high =
+      Number(gap.high);
+
+    const low =
+      Number(gap.low);
+
+    if(!Number.isFinite(high) ||
+       !Number.isFinite(low)) return;
+
+    const x =
+      padding.left +
+      index*spacing;
+
+    const box =
+      document.createElement("div");
+
+    box.className =
+      "overlay fvg " +
+      (
+        gap.type === "bearish" ||
+        gap.type === "bearish_fvg"
+        ? "bearish"
+        : "bullish"
       );
+
+    box.style.left =
+      `${x}px`;
+
+    box.style.top =
+      `${priceY(high)}px`;
+
+    box.style.width =
+      `${Math.max(30,spacing*3)}px`;
+
+    box.style.height =
+      `${Math.max(4,priceY(low)-priceY(high))}px`;
+
+    layer.appendChild(box);
+
+  });
+
+}
+
+
+/* -----------------------------
+   LIQUIDITY
+----------------------------- */
+
+function renderLiquidity(
+  layer,
+  priceY,
+  padding,
+  spacing,
+  plotWidth
+){
+
+  const pools =
+    structure?.structures?.liquidityPools ||
+    structure?.liquidityPools ||
+    [];
+
+  pools.forEach(pool=>{
+
+    const price =
+      Number(
+        pool.price ??
+        pool.level ??
+        pool.value
+      );
+
+    if(!Number.isFinite(price)) return;
+
+    const line =
+      document.createElement("div");
+
+    line.className = "overlay liquidity";
+
+    line.style.left =
+      `${padding.left}px`;
+
+    line.style.right =
+      `${padding.right}px`;
+
+    line.style.top =
+      `${priceY(price)}px`;
+
+    layer.appendChild(line);
+
+  });
+
+}
+
+
+/* -----------------------------
+   DISPLACEMENT
+----------------------------- */
+
+function renderDisplacement(
+  layer,
+  priceY,
+  padding,
+  spacing
+){
+
+  const list =
+    structure?.structures?.displacement ||
+    structure?.displacement ||
+    [];
+
+  list.forEach(item=>{
+
+    const index =
+      Number(item.index);
+
+    if(!Number.isFinite(index)) return;
+
+    if(index<0 || index>=candles.length) return;
+
+    const candle =
+      candles[index];
+
+    const top =
+      priceY(candle.high);
+
+    const bottom =
+      priceY(candle.low);
+
+    const box =
+      document.createElement("div");
+
+    box.className = "overlay displacement";
+
+    box.style.left =
+      `${padding.left+index*spacing+spacing*.15}px`;
+
+    box.style.top =
+      `${top-3}px`;
+
+    box.style.width =
+      `${spacing*.7}px`;
+
+    box.style.height =
+      `${bottom-top+6}px`;
+
+    layer.appendChild(box);
+
+  });
+
+}
+
+
+/* -----------------------------
+   BOS / CHOCH
+----------------------------- */
+
+function renderStructureBreaks(
+  layer,
+  priceY,
+  padding,
+  spacing
+){
+
+  const events =
+    structure?.structures?.structureBreaks ||
+    structure?.structureBreaks ||
+    [];
+
+  const grouped = {};
+
+  events.forEach(event=>{
+
+    const index =
+      Number(event.index);
+
+    if(!Number.isFinite(index)) return;
+
+    if(!grouped[index]){
+      grouped[index] = [];
+    }
+
+    grouped[index].push(event);
+
+  });
+
+
+  Object.keys(grouped).forEach(key=>{
+
+    const index = Number(key);
+
+    const event =
+      grouped[index][0];
+
+    if(index<0 || index>=candles.length) return;
+
+    const candle =
+      candles[index];
+
+    const isChoch =
+      String(event.type || "")
+        .toLowerCase()
+        .includes("choch");
+
+    const label =
+      document.createElement("div");
+
+    label.className =
+      "structure-label " +
+      (isChoch ? "choch":"bos");
+
+    label.textContent =
+      isChoch ? "CHOCH":"BOS";
+
+    label.style.left =
+      `${padding.left+index*spacing}px`;
+
+    label.style.top =
+      `${priceY(
+        candle.high
+      )-22}px`;
+
+    layer.appendChild(label);
+
+  });
+
+}
+
+
+/* -----------------------------
+   METRICS
+----------------------------- */
+
+function updateMetrics(){
+
+  const structureEl =
+    document.getElementById("structureValue");
+
+  const displacementEl =
+    document.getElementById("displacementValue");
+
+  const liquidityEl =
+    document.getElementById("liquidityValue");
 
 
   const breaks =
-    (s.structureBreaks || [])
-      .filter(
-        x =>
-          x.index ===
-          selectedIndex
-      );
+    structure?.structures?.structureBreaks ||
+    structure?.structureBreaks ||
+    [];
+
+  const displacement =
+    structure?.structures?.displacement ||
+    structure?.displacement ||
+    [];
+
+  const liquidity =
+    structure?.structures?.liquidityPools ||
+    structure?.liquidityPools ||
+    [];
 
 
-  const disps =
-    (s.displacement || [])
-      .filter(
-        x =>
-          x.index ===
-          selectedIndex
-      );
+  if(breaks.length){
+
+    const latest =
+      breaks[breaks.length-1];
+
+    const type =
+      String(latest.type || "BOS");
+
+    structureEl.textContent =
+      type.toUpperCase();
+
+  }else{
+
+    structureEl.textContent =
+      "NO BREAK";
+
+  }
 
 
-  const fvgs =
-    (s.fairValueGaps || [])
-      .filter(
-        x =>
-          x.index ===
-          selectedIndex
-      );
+  if(displacement.length){
+
+    const latest =
+      displacement[displacement.length-1];
+
+    displacementEl.textContent =
+      String(
+        latest.type ||
+        "Detected"
+      )
+      .replaceAll("_"," ")
+      .toUpperCase();
+
+  }else{
+
+    displacementEl.textContent =
+      "NONE";
+
+  }
 
 
-  document
-    .getElementById('ctime')
-    .textContent =
-    c.datetime;
-
-
-  const observations = [
-
-    ...swings.map(
-      x =>
-        x.type.replaceAll(
-          '_',
-          ' '
-        )
-    ),
-
-    ...breaks.map(
-      x =>
-        x.type.replaceAll(
-          '_',
-          ' '
-        )
-    ),
-
-    ...disps.map(
-      x =>
-        x.type.replaceAll(
-          '_',
-          ' '
-        )
-    ),
-
-    ...fvgs.map(
-      x =>
-        x.type.replaceAll(
-          '_',
-          ' '
-        )
-    )
-
-  ];
-
-
-  document
-    .getElementById('ca')
-    .innerHTML =
-    '<b>Observable structure:</b> ' +
-    (
-      observations.length
-        ? observations.join(
-            ', '
-          )
-        : 'No specific structure event detected on this candle.'
-    ) +
-    '.';
-
-
-  document
-    .getElementById('conf')
-    .textContent =
-    'Algorithmic observation';
-
-
-  document
-    .getElementById('details')
-    .innerHTML = [
-
-      [
-        'Open / Close',
-        `${fmt(c.open)} / ${fmt(c.close)}`
-      ],
-
-      [
-        'High / Low',
-        `${fmt(c.high)} / ${fmt(c.low)}`
-      ],
-
-      [
-        'Volume',
-        c.volume == null
-          ? '—'
-          : fmt(c.volume)
-      ],
-
-      [
-        'FVG candidate',
-        fvgs.length
-          ? 'Detected'
-          : 'None'
-      ],
-
-      [
-        'Displacement',
-        disps.length
-          ? 'Detected'
-          : 'None'
-      ],
-
-      [
-        'Structure break',
-        breaks.length
-          ? breaks
-              .map(
-                x =>
-                  x.type.replaceAll(
-                    '_',
-                    ' '
-                  )
-              )
-              .join(
-                ', '
-              )
-          : 'None'
-      ]
-
-    ]
-
-    .map(
-      x =>
-        `<div class="row">
-          <span>${x[0]}</span>
-          <b>${x[1]}</b>
-        </div>`
-    )
-
-    .join('');
+  liquidityEl.textContent =
+    liquidity.length
+      ? `${liquidity.length} POOLS`
+      : "NONE";
 
 }
 
 
-function setStatus(
-  t,
-  cls
-){
+/* -----------------------------
+   CANDLE INFO
+----------------------------- */
 
-  const s =
-    document.getElementById(
-      'status'
-    );
+function showCandleInfo(index){
 
+  const candle =
+    candles[index];
 
-  s.textContent =
-    t;
+  if(!candle) return;
 
+  const body =
+    Math.abs(candle.close-candle.open);
 
-  s.className =
-    'status ' +
-    cls;
+  const range =
+    candle.high-candle.low;
 
-}
+  const bodyRatio =
+    range ? body/range : 0;
 
-
-function research(){
-
-  const q =
-    document
-      .getElementById('q')
-      .value ||
-    'Why did Nasdaq move?';
+  const direction =
+    candle.close >= candle.open
+      ? "Bullish"
+      : "Bearish";
 
 
-  document
-    .getElementById('ans')
-    .innerHTML =
-    '<b>' +
-    q +
-    '</b><br><br>' +
+  document.getElementById("candleInfo").innerHTML =
 
-    'Market evidence is connected. ' +
-
-    'News, economic-calendar and macro ' +
-    'evidence will be added before the AI ' +
-    'produces a catalyst explanation.';
+    `<strong>Candle ${index+1}</strong><br>
+     Time: ${formatDate(candle.datetime)}<br>
+     Open: ${formatPrice(candle.open)}<br>
+     High: ${formatPrice(candle.high)}<br>
+     Low: ${formatPrice(candle.low)}<br>
+     Close: ${formatPrice(candle.close)}<br>
+     Direction: ${direction}<br>
+     Body / Range: ${(bodyRatio*100).toFixed(1)}%`;
 
 }
 
 
-document
-  .getElementById('macroRows')
-  .innerHTML =
+/* -----------------------------
+   AI ANALYSIS
+----------------------------- */
 
-  [
-    'Treasury yields',
-    'Dollar',
-    'Oil',
-    'Volatility',
-    'Equity breadth'
-  ]
+function generateAnalysis(){
 
-  .map(
-    x =>
-      `<div class="row">
-        <span>${x}</span>
-        <b>Next layer</b>
-      </div>`
-  )
+  if(!candles.length) return;
 
-  .join('');
+  const latest =
+    candles[candles.length-1];
+
+  const previous =
+    candles[candles.length-2];
+
+  let text = "";
+
+  if(latest.close > previous.close){
+
+    text +=
+      "The latest candle is trading above the previous close, showing short-term upward pressure. ";
+
+  }else{
+
+    text +=
+      "The latest candle is trading below the previous close, showing short-term downward pressure. ";
+
+  }
 
 
-document
-  .getElementById('crossRows')
-  .innerHTML =
+  const breaks =
+    structure?.structures?.structureBreaks ||
+    structure?.structureBreaks ||
+    [];
 
-  [
-    'NASDAQ Futures — NQ',
-    'S&P 500',
-    '10Y yield',
-    'DXY',
-    'VIX'
-  ]
+  const displacement =
+    structure?.structures?.displacement ||
+    structure?.displacement ||
+    [];
 
-  .map(
-    x =>
-      `<div class="row">
-        <span>${x}</span>
-        <b>Next layer</b>
-      </div>`
-  )
+  const gaps =
+    structure?.structures?.fairValueGaps ||
+    structure?.fairValueGaps ||
+    [];
 
-  .join('');
+  const liquidity =
+    structure?.structures?.liquidityPools ||
+    structure?.liquidityPools ||
+    [];
 
+
+  if(breaks.length){
+
+    const latestBreak =
+      breaks[breaks.length-1];
+
+    text +=
+      `The structure engine detected ${String(
+        latestBreak.type || "a structure break"
+      ).replaceAll("_"," ")}. `;
+
+  }else{
+
+    text +=
+      "No confirmed recent structure break was detected by the current lookback. ";
+
+  }
+
+
+  if(displacement.length){
+
+    text +=
+      "Displacement has been detected, meaning there has been a relatively strong directional candle compared with the surrounding candles. ";
+
+  }
+
+
+  if(gaps.length){
+
+    text +=
+      `${gaps.length} fair value gap area${gaps.length===1?"":"s"} were detected. `;
+
+  }
+
+
+  if(liquidity.length){
+
+    text +=
+      `${liquidity.length} liquidity pool${liquidity.length===1?"":"s"} were detected. `;
+
+  }
+
+
+  text +=
+    "Use the higher-timeframe structure, liquidity location and session context before interpreting the move.";
+
+  document.getElementById("analysis").textContent =
+    text;
+
+}
+
+
+/* -----------------------------
+   HELPERS
+----------------------------- */
+
+function formatPrice(value){
+
+  const number =
+    Number(value);
+
+  if(!Number.isFinite(number)){
+    return "—";
+  }
+
+  return number.toLocaleString(
+    "en-US",
+    {
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    }
+  );
+
+}
+
+
+function formatDate(value){
+
+  try{
+
+    return new Date(value)
+      .toLocaleString(
+        "en-ZA",
+        {
+          day:"2-digit",
+          month:"short",
+          hour:"2-digit",
+          minute:"2-digit"
+        }
+      );
+
+  }catch{
+
+    return value;
+
+  }
+
+}
+
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* -----------------------------
+   KEYBOARD
+----------------------------- */
+
+document.addEventListener("keydown",e=>{
+
+  if(e.key === "+" || e.key === "="){
+    zoomChart(.15);
+  }
+
+  if(e.key === "-"){
+    zoomChart(-.15);
+  }
+
+  if(e.key === "Escape"){
+
+    const chart =
+      document.getElementById("chart");
+
+    if(chart.classList.contains("fullscreen")){
+      toggleFullscreen();
+    }
+
+  }
+
+});
+
+
+/* -----------------------------
+   START
+----------------------------- */
 
 loadMarket();
 
+</script>
+
+<script>
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./sw.js")
+      .catch(err=>console.log("SW error",err));
+  });
+}
 </script>
 
 </body>
