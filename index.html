@@ -1,21 +1,20 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MarketLens AI</title>
-<meta name="theme-color" content="#08080d">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="MarketLens AI">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0b10">
 <link rel="manifest" href="manifest.webmanifest">
+<title>MarketLens AI</title>
 <style>
-:root{--bg:#08080d;--p:#111119;--p2:#161620;--line:#292936;--t:#f5f3fa;--m:#9997a8;--v:#8b4dff;--g:#35d69a;--r:#ff5d6c;--a:#f5b942}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -15%,#29164b,#09090e 50%);color:var(--t);font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.app{max-width:1200px;margin:auto;padding:16px}.top{display:flex;justify-content:space-between;align-items:center;padding:8px 0 18px}.brand{font-weight:900;font-size:22px;letter-spacing:.04em}.brand span{color:#9b63ff}.status{border:1px solid var(--line);border-radius:20px;padding:8px 11px;color:var(--m);background:#101018}.status.live{color:var(--g);border-color:#245c49}.nav{display:flex;gap:7px;overflow:auto;margin-bottom:14px}.nav button,.btn{border:1px solid var(--line);background:#111119;color:#b9b7c4;border-radius:10px;padding:10px 13px;white-space:nowrap}.nav button.on,.btn.primary{background:#7131df;color:#fff;border-color:#8b4dff}.grid{display:grid;grid-template-columns:1.55fr .9fr;gap:14px}.card{background:linear-gradient(180deg,#12121a,#0d0d13);border:1px solid var(--line);border-radius:15px;padding:15px}.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.head h2,.head h3{margin:0}.muted{color:var(--m)}.price{font-size:27px;font-weight:850}.green{color:var(--g)}.red{color:var(--r)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}.metric{background:#111119;border:1px solid var(--line);border-radius:11px;padding:11px}.metric b{display:block;margin-top:5px;font-size:16px}.chart{height:410px;position:relative;overflow:hidden;background:#08090e;border:1px solid #22222c;border-radius:11px}.chart:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#fff1 1px,transparent 1px),linear-gradient(90deg,#fff1 1px,transparent 1px);background-size:20% 25%}.c{position:absolute;width:6px;border-radius:2px;z-index:2}.w{position:absolute;width:1px;background:#aaa;left:2.5px;top:-25%;height:150%}.up{background:#35d69a}.dn{background:#ff5d6c}.sel{position:absolute;width:12px;height:12px;border-radius:50%;background:#9b63ff;box-shadow:0 0 18px #9b63ff;z-index:4}.row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #22222c;gap:10px}.row:last-child{border:0}.tag{font-size:11px;padding:4px 7px;border-radius:7px;background:#282035;color:#c9adff}.notice{margin-top:11px;border-left:3px solid var(--a);padding:10px;background:#17140d;border-radius:8px;line-height:1.45}.explain{line-height:1.55;color:#c9c7d2}.input{width:100%;background:#0c0c12;border:1px solid var(--line);color:white;border-radius:9px;padding:11px}.actions{display:flex;gap:8px;margin-top:9px}.actions .btn{flex:1}.events{display:grid;gap:8px}.event{display:grid;grid-template-columns:62px 1fr auto;gap:8px;padding:10px;border:1px solid var(--line);border-radius:9px;background:#111119}.hidden{display:none}.small{font-size:12px}.footer{padding:18px 2px;color:#6e6c7b;text-align:center;font-size:12px}
-@media(max-width:800px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.chart{height:330px}}
+:root{--bg:#08080c;--card:#111119;--line:#252531;--text:#f4f2f8;--muted:#8e8b9b;--purple:#8b4dff;--green:#35d69a;--red:#ff5d6c;--amber:#f3b64b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#151020 0,#08080c 42%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif}.app{max-width:1250px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.brand{font-weight:900;font-size:22px;letter-spacing:.04em}.brand span{color:#9b63ff}.status{border:1px solid var(--line);border-radius:20px;padding:8px 11px;color:var(--muted);background:#101018}.status.live{color:var(--green);border-color:#245c49}.nav{display:flex;gap:7px;overflow:auto;margin-bottom:14px}.nav button,.btn,.select{border:1px solid var(--line);background:#111119;color:#b9b7c4;border-radius:10px;padding:10px 13px;white-space:nowrap}.nav button.on,.btn.primary{background:#7131df;color:#fff;border-color:#8b4dff}.grid{display:grid;grid-template-columns:1.55fr .9fr;gap:14px}.card{background:linear-gradient(180deg,#12121a,#0d0d13);border:1px solid var(--line);border-radius:15px;padding:15px}.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.head h2,.head h3{margin:0}.muted{color:var(--muted)}.price{font-size:27px;font-weight:850}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}.metric{background:#111119;border:1px solid var(--line);border-radius:11px;padding:11px}.metric b{display:block;margin-top:5px;font-size:16px}.toolbar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}.chart{height:430px;position:relative;overflow:hidden;background:#08090e;border:1px solid #22222c;border-radius:11px}.gridlines{position:absolute;inset:0;background-image:linear-gradient(#fff1 1px,transparent 1px),linear-gradient(90deg,#fff1 1px,transparent 1px);background-size:20% 25%}.candle{position:absolute;width:7px;border-radius:2px;z-index:2;cursor:pointer}.wick{position:absolute;width:1px;background:#aaa;left:3px;top:-45%;height:190%}.up{background:var(--green)}.dn{background:var(--red)}.candle.selected{outline:2px solid #fff;box-shadow:0 0 15px #9b63ff}.marker{position:absolute;z-index:5;font-size:9px;font-weight:800;background:#252035;border:1px solid #7546bb;color:#d9c5ff;padding:3px 4px;border-radius:5px;pointer-events:none}.marker.bull{border-color:#2f9871;color:#78efc0}.marker.bear{border-color:#ad3e4e;color:#ff9ba6}.actions{display:flex;gap:8px;margin-top:9px}.actions .btn{flex:1}.row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #22222c;gap:10px}.row:last-child{border:0}.tag{font-size:11px;padding:4px 7px;border-radius:7px;background:#282035;color:#c9adff}.notice{margin-top:11px;border-left:3px solid var(--amber);padding:10px;background:#17140d;border-radius:8px;line-height:1.45}.explain{line-height:1.55;color:#c9c7d2}.hidden{display:none}.small{font-size:12px}.footer{padding:18px 2px;color:#6e6c7b;text-align:center;font-size:12px}.error{color:#ff9ba6}.ok{color:#78efc0}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.chart{height:350px}}
 </style>
 </head>
-<body><div class="app">
-<header class="top"><div class="brand">MARKET<span>LENS</span> AI</div><div id="status" class="status">● DEMO DATA</div></header>
+<body>
+<div class="app">
+<header class="top"><div class="brand">MARKET<span>LENS</span> AI</div><div id="status" class="status">● CONNECTING</div></header>
 <div class="nav">
 <button class="on" onclick="show('dash',this)">Dashboard</button>
 <button onclick="show('candle',this)">Explain Candle</button>
@@ -26,54 +25,177 @@
 
 <section id="dash">
 <div class="metrics">
-<div class="metric"><span class="muted">NASDAQ</span><b id="p">—</b><span id="pc">Waiting</span></div>
-<div class="metric"><span class="muted">US 10Y</span><b id="y">—</b><span class="muted">backend feed</span></div>
-<div class="metric"><span class="muted">DXY</span><b id="d">—</b><span class="muted">backend feed</span></div>
-<div class="metric"><span class="muted">Oil</span><b id="o">—</b><span class="muted">backend feed</span></div>
+<div class="metric"><span class="muted">NASDAQ REF</span><b id="p">—</b><span id="pc">Loading</span></div>
+<div class="metric"><span class="muted">TIMEFRAME</span><b id="tfLabel">5m</b><span class="muted">backend</span></div>
+<div class="metric"><span class="muted">STRUCTURE</span><b id="structureLabel">—</b><span class="muted">algorithmic</span></div>
+<div class="metric"><span class="muted">CANDLES</span><b id="count">—</b><span class="muted">loaded</span></div>
 </div>
-<div class="grid"><div class="card">
-<div class="head"><div><h2>NASDAQ / NQ</h2><span class="muted">Live-ready chart · 1 minute</span></div><div class="price" id="big">—</div></div>
-<div id="chart" class="chart"></div>
-<div class="actions"><button class="btn primary" onclick="show('candle',document.querySelectorAll('.nav button')[1])">🔎 Explain selected candle</button><button class="btn" onclick="connect()">↻ Refresh data</button></div>
+<div class="grid">
+<div class="card">
+<div class="head"><div><h2>NASDAQ reference</h2><span class="muted">Multi-timeframe market data</span></div><div class="price" id="big">—</div></div>
+<div class="toolbar">
+<select id="interval" class="select" onchange="loadMarket()">
+<option value="5min">5 min</option><option value="15min">15 min</option><option value="30min">30 min</option><option value="1h">1 hour</option><option value="2h">2 hours</option><option value="4h">4 hours</option><option value="8h">8 hours</option><option value="1day">Daily</option><option value="1week">Weekly</option>
+</select>
+<button class="btn" onclick="loadMarket()">↻ Refresh</button>
 </div>
-<aside class="card"><div class="head"><h3>Market regime</h3><span class="tag" id="reg">WAITING</span></div>
-<div class="price" id="bias">Awaiting live data</div>
-<p class="explain" id="regtext">The production version will calculate regime from the live market feed plus rates, dollar, oil, news and economic events. It will not invent a catalyst when evidence is missing.</p>
-<div class="row"><span>Data connection</span><b id="ds">Not connected</b></div>
-<div class="row"><span>News connection</span><b id="ns">Not connected</b></div>
-<div class="row"><span>Economic calendar</span><b id="es">Not connected</b></div>
-</aside></div></section>
+<div id="chart" class="chart"><div class="gridlines"></div></div>
+<div class="actions"><button class="btn primary" onclick="goAnalyze()">🔎 Explain selected candle</button></div>
+</div>
+<aside class="card">
+<div class="head"><h3>Market structure</h3><span class="tag" id="reg">LOADING</span></div>
+<div class="price" id="bias">—</div>
+<p class="explain" id="regtext">Loading descriptive structure observations from the backend.</p>
+<div class="row"><span>Market feed</span><b id="ds">—</b></div>
+<div class="row"><span>Structure engine</span><b id="ss">—</b></div>
+<div class="row"><span>Data mode</span><b id="mode">—</b></div>
+<div class="notice small">Structures are algorithmic observations from price data. They are not guarantees of institutional intent or trade signals.</div>
+</aside>
+</div>
+</section>
 
 <section id="candle" class="hidden"><div class="grid"><div class="card">
-<div class="head"><div><h2>Selected candle</h2><span class="muted">Tap a candle in the live chart</span></div><span class="tag" id="ctime">Not selected</span></div>
-<div id="candleChart" class="chart"></div></div>
-<div class="card"><div class="head"><h3>Why did it move?</h3><span id="conf" class="muted">—</span></div>
-<div id="ca" class="notice">Select a candle, then tap Analyze. The backend will compare its timestamp with news, scheduled releases and cross-market moves.</div>
-<div class="actions"><button class="btn primary" onclick="analyze()">Analyze candle</button></div>
-<div id="details" class="rows"></div>
-<p class="muted small">Analysis categories: confirmed catalyst, likely catalyst, technical/liquidity move, or uncertain. The AI receives timestamped evidence rather than guessing from price alone.</p>
+<div class="head"><div><h2>Selected candle</h2><span class="muted">Select a candle on the chart</span></div><span class="tag" id="ctime">Not selected</span></div>
+<div id="candleChart" class="chart"><div class="gridlines"></div></div>
+</div>
+<div class="card"><div class="head"><h3>Structure explanation</h3><span id="conf" class="muted">—</span></div>
+<div id="ca" class="notice">Select a candle, then analyze it. The backend will describe observable structure around that candle.</div>
+<div id="details"></div>
 </div></div></section>
 
 <section id="macro" class="hidden"><div class="grid"><div class="card"><div class="head"><h2>Macro drivers</h2></div><div id="macroRows"></div></div><div class="card"><div class="head"><h2>Cross-market</h2></div><div id="crossRows"></div></div></div></section>
-
-<section id="calendar" class="hidden"><div class="card"><div class="head"><h2>Economic calendar</h2><span class="muted">Live backend required</span></div><div id="events" class="events"><div class="notice">Connect the backend to populate timestamped releases with actual / forecast / previous values.</div></div></div></section>
-
-<section id="research" class="hidden"><div class="card"><div class="head"><h2>AI Market Research</h2></div>
-<input id="q" class="input" placeholder="Ask: What caused the Nasdaq move at 20:11?">
-<div class="actions"><button class="btn primary" onclick="research()">Ask MarketLens AI</button></div>
-<p id="ans" class="explain">The live version will answer from timestamped market, news and economic evidence. It will cite the underlying events and distinguish verified facts from inference.</p>
-</div></section>
-<div class="footer">MarketLens AI · Live-data architecture · No order execution · Prototype until a backend and licensed data feed are connected.</div>
+<section id="calendar" class="hidden"><div class="card"><div class="head"><h2>Economic calendar</h2><span class="muted">Next backend layer</span></div><div class="notice">Economic releases will be added after the market-data/structure layer. No catalyst will be claimed without timestamped evidence.</div></div></section>
+<section id="research" class="hidden"><div class="card"><div class="head"><h2>AI Market Research</h2></div><input id="q" style="width:100%;background:#0c0c12;border:1px solid #252531;color:white;border-radius:9px;padding:11px" placeholder="Ask about a market move"><div class="actions"><button class="btn primary" onclick="research()">Ask MarketLens AI</button></div><p id="ans" class="explain">AI research will be connected after market evidence and source layers are in place.</p></div></section>
+<div class="footer">MarketLens AI · Market research/education · No order execution</div>
 </div>
+
 <script>
-let selected=null, live=false;
-const demo={price:23842.5,yield10:5.21,dxy:101.34,oil:101.42};
+const API='https://market-lens-ai-backend-mu.vercel.app';
+let candles=[], structure=null, selectedIndex=null;
+
 function show(id,b){document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('on'));b.classList.add('on')}
-function candles(){let el=document.getElementById('chart');el.innerHTML='';let n=48;for(let i=0;i<n;i++){let c=document.createElement('div');c.className='c '+(i%7<4?'up':'dn');c.style.left=(3+i*1.95)+'%';c.style.top=(30+(Math.sin(i*.65)*18)+(i%5)*3)+'%';c.style.height=(8+(i%4)*5)+'%';let w=document.createElement('i');w.className='w';c.appendChild(w);c.onclick=()=>{selected={index:i,time:new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})};document.getElementById('ctime').textContent=selected.time;document.getElementById('ca').innerHTML='Candle selected. Tap Analyze candle to send its timestamp to the evidence engine.'};el.appendChild(c)}}
-function paint(){document.getElementById('p').textContent=demo.price.toLocaleString();document.getElementById('big').textContent=demo.price.toLocaleString();document.getElementById('y').textContent=demo.yield10+'%';document.getElementById('d').textContent=demo.dxy;document.getElementById('o').textContent='$'+demo.oil;document.getElementById('pc').textContent='Demo';}
-function connect(){alert('The UI is ready. A secure backend and licensed live-data API key must be configured before this button can receive real-time NQ data. API keys should never be placed in this GitHub Pages code.');}
-async function analyze(){if(!selected){document.getElementById('ca').textContent='Please select a candle first.';return}document.getElementById('ca').innerHTML='<b>Analysis preview:</b> backend not connected yet. No catalyst will be claimed until timestamped evidence is retrieved.';document.getElementById('conf').textContent='Awaiting evidence';document.getElementById('details').innerHTML='<div class="row"><span>Candle time</span><b>'+selected.time+'</b></div><div class="row"><span>Scheduled release</span><b>Not checked</b></div><div class="row"><span>News headlines</span><b>Not checked</b></div><div class="row"><span>Cross-market confirmation</span><b>Not checked</b></div>'}
-async function research(){let q=document.getElementById('q').value||'Why did Nasdaq move?';document.getElementById('ans').innerHTML='<b>'+q+'</b><br><br>Backend not connected. Once deployed, MarketLens will retrieve timestamped evidence first and then generate a sourced explanation.'}
-function init(){candles();paint();document.getElementById('macroRows').innerHTML=['Oil / inflation','Treasury yields','Dollar','Geopolitical risk','Equity momentum'].map(x=>'<div class="row"><span>'+x+'</span><b>Awaiting live data</b></div>').join('');document.getElementById('crossRows').innerHTML=['NASDAQ','S&P 500','10Y yield','DXY','Brent'].map(x=>'<div class="row"><span>'+x+'</span><b>—</b></div>').join('')}
-init();
-</script></body></html>
+
+function fmt(n){return n==null?'—':Number(n).toLocaleString(undefined,{maximumFractionDigits:4})}
+
+async function loadMarket(){
+  const interval=document.getElementById('interval').value;
+  setStatus('● LOADING','');
+  try{
+    const r=await fetch(`${API}/api/market?symbol=QQQ&interval=${encodeURIComponent(interval)}&outputsize=100`);
+    const data=await r.json();
+    if(!r.ok) throw new Error(data.error||'Market request failed');
+    candles=data.values||[];
+    document.getElementById('tfLabel').textContent=interval;
+    document.getElementById('count').textContent=candles.length;
+    document.getElementById('p').textContent=fmt(candles.at(-1)?.close);
+    document.getElementById('big').textContent=fmt(candles.at(-1)?.close);
+    document.getElementById('pc').textContent=data.demo?'Demo backend data':'Provider data';
+    document.getElementById('ds').textContent='Connected';
+    document.getElementById('mode').textContent=data.demo?'Demo':'Provider';
+    setStatus(data.demo?'● BACKEND / DEMO':'● LIVE DATA',data.demo?'':'live');
+    renderChart();
+    await analyzeStructure();
+  }catch(e){
+    setStatus('● ERROR','');
+    document.getElementById('ds').textContent='Error';
+    document.getElementById('regtext').innerHTML='<span class="error">'+e.message+'</span>';
+  }
+}
+
+async function analyzeStructure(){
+  if(candles.length<10)return;
+  try{
+    const r=await fetch(`${API}/api/structure`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({candles,lookback:2})});
+    structure=await r.json();
+    if(!r.ok)throw new Error(structure.error||'Structure request failed');
+    document.getElementById('ss').textContent='Connected';
+    const s=structure.summary||{};
+    const ev=s.latestStructureEvent;
+    const disp=s.latestDisplacement;
+    let label=ev?.type||disp?.type||'No recent event';
+    document.getElementById('structureLabel').textContent=label.replaceAll('_',' ');
+    document.getElementById('reg').textContent=label.replaceAll('_',' ').toUpperCase();
+    document.getElementById('bias').textContent=ev?ev.type.replaceAll('_',' '):disp?disp.type.replaceAll('_',' '):'No break detected';
+    document.getElementById('regtext').textContent=`${s.swingHighCount} swing highs, ${s.swingLowCount} swing lows, ${s.bullishFVGCount} bullish FVG candidates, ${s.bearishFVGCount} bearish FVG candidates.`;
+    renderChart();
+  }catch(e){
+    document.getElementById('ss').textContent='Error';
+    document.getElementById('regtext').innerHTML='<span class="error">'+e.message+'</span>';
+  }
+}
+
+function renderChart(){
+  const el=document.getElementById('chart');
+  el.innerHTML='<div class="gridlines"></div>';
+  if(!candles.length)return;
+  const max=Math.max(...candles.map(c=>+c.high)), min=Math.min(...candles.map(c=>+c.low)), range=Math.max(max-min,1);
+  candles.forEach((c,i)=>{
+    const o=+c.open,h=+c.high,l=+c.low,cl=+c.close;
+    const bodyTop=100-((Math.max(o,cl)-min)/range*88+6);
+    const bodyHeight=Math.max(1.4,Math.abs(cl-o)/range*88);
+    const x=2+i*(96/(candles.length-1));
+    const d=document.createElement('div');
+    d.className='candle '+(cl>=o?'up':'dn')+(selectedIndex===i?' selected':'');
+    d.style.left=x+'%'; d.style.top=bodyTop+'%'; d.style.height=bodyHeight+'%';
+    const w=document.createElement('i'); w.className='wick'; d.appendChild(w);
+    d.onclick=()=>selectCandle(i);
+    el.appendChild(d);
+  });
+  // Overlay recent structural events on approximate candle positions.
+  const events=structure?.structures?.structureBreaks||[];
+  events.slice(-8).forEach(ev=>{
+    const i=ev.index;if(i<0||i>=candles.length)return;
+    const m=document.createElement('div');m.className='marker '+(ev.type.includes('up')?'bull':'bear');
+    m.textContent=ev.type.replaceAll('_',' ');
+    m.style.left=Math.min(88,Math.max(1,2+i*(96/(candles.length-1))))+'%';
+    m.style.top=ev.type.includes('up')?'8%':'84%';el.appendChild(m);
+  });
+}
+
+function selectCandle(i){
+  selectedIndex=i;
+  const c=candles[i];
+  document.getElementById('ctime').textContent=c.datetime;
+  renderChart();
+  document.getElementById('ca').textContent=`Selected ${c.datetime}. Open ${fmt(c.open)}, high ${fmt(c.high)}, low ${fmt(c.low)}, close ${fmt(c.close)}.`;
+}
+
+function goAnalyze(){
+  if(selectedIndex==null){
+    alert('Select a candle on the chart first.');
+    return;
+  }
+  const btn=document.querySelectorAll('.nav button')[1];
+  show('candle',btn);
+  analyzeSelected();
+}
+
+function analyzeSelected(){
+  const c=candles[selectedIndex];
+  const s=structure?.structures||{};
+  const swings=(s.swings||[]).filter(x=>x.index===selectedIndex);
+  const breaks=(s.structureBreaks||[]).filter(x=>x.index===selectedIndex);
+  const disps=(s.displacement||[]).filter(x=>x.index===selectedIndex);
+  const fvgs=(s.fairValueGaps||[]).filter(x=>x.index===selectedIndex);
+  document.getElementById('ctime').textContent=c.datetime;
+  document.getElementById('ca').innerHTML='<b>Observable structure:</b> '+([swings.map(x=>x.type.replaceAll('_',' ')),breaks.map(x=>x.type.replaceAll('_',' ')),disps.map(x=>x.type.replaceAll('_',' ')),fvgs.map(x=>x.type.replaceAll('_',' '))].flat().join(', ')||'No specific structure event detected on this candle.')+'.';
+  document.getElementById('conf').textContent='Algorithmic observation';
+  document.getElementById('details').innerHTML=[
+    ['Open / Close',`${fmt(c.open)} / ${fmt(c.close)}`],
+    ['High / Low',`${fmt(c.high)} / ${fmt(c.low)}`],
+    ['Volume',c.volume==null?'—':fmt(c.volume)],
+    ['FVG candidate',fvgs.length?'Detected':'None'],
+    ['Displacement',disps.length?'Detected':'None'],
+    ['Structure break',breaks.length?breaks.map(x=>x.type.replaceAll('_',' ')).join(', '):'None']
+  ].map(x=>`<div class="row"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('');
+}
+
+function setStatus(t,cls){const s=document.getElementById('status');s.textContent=t;s.className='status '+cls}
+function research(){const q=document.getElementById('q').value||'Why did Nasdaq move?';document.getElementById('ans').innerHTML='<b>'+q+'</b><br><br>Market evidence is connected. News, economic-calendar and macro evidence will be added before the AI produces a catalyst explanation.'}
+
+document.getElementById('macroRows').innerHTML=['Treasury yields','Dollar','Oil','Volatility','Equity breadth'].map(x=>`<div class="row"><span>${x}</span><b>Next layer</b></div>`).join('');
+document.getElementById('crossRows').innerHTML=['NASDAQ reference','S&P 500','10Y yield','DXY','VIX'].map(x=>`<div class="row"><span>${x}</span><b>Next layer</b></div>`).join('');
+loadMarket();
+</script>
+</body>
+</html>
