@@ -95,6 +95,35 @@ button,select{
   color:#768297;
 }
 
+.controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:16px;
+}
+
+.btn,
+select{
+  background:#151c28;
+  color:#f4f6fb;
+  border:1px solid #2a3446;
+  border-radius:10px;
+  padding:9px 12px;
+}
+
+.btn{
+  cursor:pointer;
+}
+
+.btn:active{
+  transform:scale(.98);
+}
+
+.btn.primary{
+  background:#7c3aed;
+  border-color:#8b5cf6;
+}
+
 .timeframes{
   display:flex;
   gap:6px;
@@ -184,45 +213,23 @@ button,select{
   margin-top:9px;
 }
 
-.btn,
-select{
-  background:#151c28;
-  color:#f4f6fb;
-  border:1px solid #2a3446;
-  border-radius:10px;
-  padding:9px 12px;
-}
-
-.btn{
-  cursor:pointer;
-}
-
-.btn:active{
-  transform:scale(.98);
-}
-
-.btn.primary{
-  background:#7c3aed;
-  border-color:#8b5cf6;
-}
-
 .candle{
   position:absolute;
+  width:7px;
   cursor:pointer;
 }
 
 .wick{
   position:absolute;
-  left:50%;
+  left:3px;
   width:1px;
   background:#aeb7c7;
-  transform:translateX(-50%);
 }
 
 .body{
   position:absolute;
   left:0;
-  width:100%;
+  width:7px;
   min-height:2px;
   border-radius:1px;
 }
@@ -395,8 +402,14 @@ select{
   line-height:1.5;
 }
 
+.loading{
+  color:#8793a5;
+  font-size:13px;
+}
+
 .error{
   color:#ff7182;
+  font-size:13px;
 }
 
 @media(max-width:700px){
@@ -441,31 +454,28 @@ select{
   <div class="card">
 
     <div class="market-top">
-
       <div>
         <div class="symbol">NASDAQ FUTURES · NQ=F</div>
-
         <div id="price" class="price">—</div>
-
         <div class="reference">
           Reference market for HFM USA100 / US Tech 100 CFD
         </div>
       </div>
 
-      <select id="intervalSelect">
-        <option value="1min">1 MIN</option>
-        <option value="5min" selected>5 MIN</option>
-        <option value="15min">15 MIN</option>
-        <option value="30min">30 MIN</option>
-        <option value="1h">1 HOUR</option>
-        <option value="1day">1 DAY</option>
-        <option value="1week">1 WEEK</option>
-      </select>
-
+      <div>
+        <select id="intervalSelect">
+          <option value="1min">1 MIN</option>
+          <option value="5min" selected>5 MIN</option>
+          <option value="15min">15 MIN</option>
+          <option value="30min">30 MIN</option>
+          <option value="1h">1 HOUR</option>
+          <option value="1day">1 DAY</option>
+          <option value="1week">1 WEEK</option>
+        </select>
+      </div>
     </div>
 
     <div class="timeframes">
-
       <button class="tf" data-tf="1min">1m</button>
       <button class="tf active" data-tf="5min">5m</button>
       <button class="tf" data-tf="15min">15m</button>
@@ -473,7 +483,6 @@ select{
       <button class="tf" data-tf="1h">1H</button>
       <button class="tf" data-tf="1day">1D</button>
       <button class="tf" data-tf="1week">1W</button>
-
     </div>
 
     <div class="chart-wrap">
@@ -498,28 +507,17 @@ select{
       </div>
 
       <div class="chart-controls">
-
         <button class="btn" onclick="zoomChart(-0.15)">−</button>
-
-        <button class="btn" onclick="resetChartView()">
-          ↺ Reset
-        </button>
-
+        <button class="btn" onclick="resetChartView()">↺ Reset</button>
         <button class="btn" onclick="zoomChart(0.15)">+</button>
-
-        <button
-          id="fullscreenBtn"
-          class="btn primary"
-          onclick="toggleFullscreen()">
+        <button id="fullscreenBtn" class="btn primary" onclick="toggleFullscreen()">
           ⛶ Full Screen
         </button>
-
       </div>
 
     </div>
 
   </div>
-
 
   <div class="card">
 
@@ -544,7 +542,6 @@ select{
 
   </div>
 
-
   <div class="card">
 
     <div class="analysis-title">
@@ -561,23 +558,19 @@ select{
 
   </div>
 
-
   <div class="card">
 
     <div class="notice">
-
       <strong>Important:</strong>
       MarketLens AI uses Nasdaq futures (NQ=F) as a reference market.
       HFM USA100 is a CFD and its exact price, spread and candle formation
       may differ from NQ futures. This application is for market analysis
       and education and does not execute trades.
-
     </div>
 
   </div>
 
 </div>
-
 
 <script>
 
@@ -586,7 +579,6 @@ const MARKET_API =
 
 const STRUCTURE_API =
   "https://market-lens-ai-backend-mu.vercel.app/api/structure";
-
 
 let candles = [];
 let structure = null;
@@ -597,51 +589,39 @@ let chartOffsetX = 0;
 let chartOffsetY = 0;
 
 let isDragging = false;
-
 let dragStartX = 0;
 let dragStartY = 0;
-
 let dragOriginX = 0;
 let dragOriginY = 0;
-
 let movedDuringDrag = false;
 
 let activePointers = new Map();
-
 let pinchStartDistance = null;
 let pinchStartScale = 1;
 
 let selectedCandle = null;
 
 
-const chartElement =
-  document.getElementById("chart");
-
-
-/* =========================
+/* -----------------------------
    CHART VIEW
-========================= */
+----------------------------- */
 
 function applyChartTransform(){
 
-  const layer =
-    document.getElementById("chartLayer");
+  const layer = document.getElementById("chartLayer");
 
   layer.style.transform =
     `translate(${chartOffsetX}px,${chartOffsetY}px) scale(${chartScale})`;
-
 }
 
 
 function resetChartView(){
 
   chartScale = 1;
-
   chartOffsetX = 0;
   chartOffsetY = 0;
 
   applyChartTransform();
-
 }
 
 
@@ -649,424 +629,245 @@ function zoomChart(amount){
 
   chartScale += amount;
 
-  if(chartScale < 0.5){
-    chartScale = 0.5;
-  }
-
-  if(chartScale > 4){
-    chartScale = 4;
-  }
+  if(chartScale < .5) chartScale = .5;
+  if(chartScale > 4) chartScale = 4;
 
   applyChartTransform();
-
 }
 
 
 function toggleFullscreen(){
 
-  const chart =
-    document.getElementById("chart");
-
-  const button =
-    document.getElementById("fullscreenBtn");
+  const chart = document.getElementById("chart");
+  const button = document.getElementById("fullscreenBtn");
 
   chart.classList.toggle("fullscreen");
 
   if(chart.classList.contains("fullscreen")){
-
-    button.textContent =
-      "✕ Exit Full Screen";
-
+    button.textContent = "✕ Exit Full Screen";
   }else{
-
-    button.textContent =
-      "⛶ Full Screen";
-
+    button.textContent = "⛶ Full Screen";
   }
 
-  setTimeout(()=>{
-    renderChart();
-  },100);
-
+  setTimeout(renderChart,100);
 }
 
 
-/* =========================
-   PAN / PINCH
-========================= */
+/* -----------------------------
+   POINTER PAN / PINCH
+----------------------------- */
 
-chartElement.addEventListener(
-  "pointerdown",
-  event => {
+const chartElement = document.getElementById("chart");
 
-    activePointers.set(
-      event.pointerId,
-      {
-        x:event.clientX,
-        y:event.clientY
-      }
-    );
+chartElement.addEventListener("pointerdown",e=>{
 
-    try{
-      chartElement.setPointerCapture(
-        event.pointerId
-      );
-    }catch{}
+  activePointers.set(e.pointerId,{
+    x:e.clientX,
+    y:e.clientY
+  });
 
-    movedDuringDrag = false;
+  chartElement.setPointerCapture(e.pointerId);
 
+  movedDuringDrag = false;
 
-    if(activePointers.size === 1){
+  if(activePointers.size === 1){
 
-      isDragging = true;
+    isDragging = true;
 
-      dragStartX =
-        event.clientX;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
 
-      dragStartY =
-        event.clientY;
+    dragOriginX = chartOffsetX;
+    dragOriginY = chartOffsetY;
 
-      dragOriginX =
-        chartOffsetX;
+  }else if(activePointers.size === 2){
 
-      dragOriginY =
-        chartOffsetY;
+    isDragging = false;
 
-    }
+    const points = [...activePointers.values()];
 
-
-    if(activePointers.size === 2){
-
-      isDragging = false;
-
-      const points =
-        [...activePointers.values()];
-
-      pinchStartDistance =
-        Math.hypot(
-          points[0].x-points[1].x,
-          points[0].y-points[1].y
-        );
-
-      pinchStartScale =
-        chartScale;
-
-    }
-
-  }
-);
-
-
-chartElement.addEventListener(
-  "pointermove",
-  event => {
-
-    if(!activePointers.has(event.pointerId)){
-      return;
-    }
-
-    activePointers.set(
-      event.pointerId,
-      {
-        x:event.clientX,
-        y:event.clientY
-      }
-    );
-
-
-    if(
-      activePointers.size === 1 &&
-      isDragging
-    ){
-
-      const dx =
-        event.clientX-dragStartX;
-
-      const dy =
-        event.clientY-dragStartY;
-
-
-      if(
-        Math.abs(dx)>4 ||
-        Math.abs(dy)>4
-      ){
-
-        movedDuringDrag = true;
-
-      }
-
-
-      chartOffsetX =
-        dragOriginX+dx;
-
-      chartOffsetY =
-        dragOriginY+dy;
-
-      applyChartTransform();
-
-    }
-
-
-    if(
-      activePointers.size === 2 &&
-      pinchStartDistance
-    ){
-
-      const points =
-        [...activePointers.values()];
-
-      const distance =
-        Math.hypot(
-          points[0].x-points[1].x,
-          points[0].y-points[1].y
-        );
-
-      const ratio =
-        distance/pinchStartDistance;
-
-      chartScale =
-        pinchStartScale*ratio;
-
-
-      if(chartScale<0.5){
-        chartScale=0.5;
-      }
-
-      if(chartScale>4){
-        chartScale=4;
-      }
-
-      movedDuringDrag = true;
-
-      applyChartTransform();
-
-    }
-
-  }
-);
-
-
-chartElement.addEventListener(
-  "pointerup",
-  event => {
-
-    activePointers.delete(
-      event.pointerId
-    );
-
-    if(activePointers.size<2){
-      pinchStartDistance=null;
-    }
-
-    if(activePointers.size===0){
-      isDragging=false;
-    }
-
-  }
-);
-
-
-chartElement.addEventListener(
-  "pointercancel",
-  event => {
-
-    activePointers.delete(
-      event.pointerId
-    );
-
-    if(activePointers.size===0){
-
-      isDragging=false;
-      pinchStartDistance=null;
-
-    }
-
-  }
-);
-
-
-/* =========================
-   TIMEFRAMES
-========================= */
-
-document
-.querySelectorAll(".tf")
-.forEach(button => {
-
-  button.addEventListener(
-    "click",
-    () => {
-
-      currentInterval =
-        button.dataset.tf;
-
-      document
-      .querySelectorAll(".tf")
-      .forEach(item => {
-
-        item.classList.remove(
-          "active"
-        );
-
-      });
-
-      button.classList.add(
-        "active"
+    pinchStartDistance =
+      Math.hypot(
+        points[0].x-points[1].x,
+        points[0].y-points[1].y
       );
 
-      document
-      .getElementById("intervalSelect")
-      .value =
-        currentInterval;
-
-      loadMarket();
-
-    }
-  );
+    pinchStartScale = chartScale;
+  }
 
 });
 
 
-document
-.getElementById("intervalSelect")
-.addEventListener(
-  "change",
-  event => {
+chartElement.addEventListener("pointermove",e=>{
 
-    currentInterval =
-      event.target.value;
+  if(!activePointers.has(e.pointerId)) return;
 
-    document
-    .querySelectorAll(".tf")
-    .forEach(button => {
+  activePointers.set(e.pointerId,{
+    x:e.clientX,
+    y:e.clientY
+  });
 
-      button.classList.toggle(
-        "active",
-        button.dataset.tf ===
-        currentInterval
+  if(activePointers.size === 1 && isDragging){
+
+    const dx = e.clientX - dragStartX;
+    const dy = e.clientY - dragStartY;
+
+    if(Math.abs(dx)>4 || Math.abs(dy)>4){
+      movedDuringDrag = true;
+    }
+
+    chartOffsetX = dragOriginX + dx;
+    chartOffsetY = dragOriginY + dy;
+
+    applyChartTransform();
+
+  }
+
+  if(activePointers.size === 2 && pinchStartDistance){
+
+    const points = [...activePointers.values()];
+
+    const distance =
+      Math.hypot(
+        points[0].x-points[1].x,
+        points[0].y-points[1].y
       );
 
-    });
+    const ratio = distance / pinchStartDistance;
+
+    chartScale = pinchStartScale * ratio;
+
+    if(chartScale < .5) chartScale = .5;
+    if(chartScale > 4) chartScale = 4;
+
+    applyChartTransform();
+
+    movedDuringDrag = true;
+  }
+
+});
+
+
+chartElement.addEventListener("pointerup",e=>{
+
+  activePointers.delete(e.pointerId);
+
+  if(activePointers.size < 2){
+    pinchStartDistance = null;
+  }
+
+  if(activePointers.size === 0){
+    isDragging = false;
+  }
+
+});
+
+
+chartElement.addEventListener("pointercancel",e=>{
+
+  activePointers.delete(e.pointerId);
+
+  if(activePointers.size === 0){
+    isDragging = false;
+    pinchStartDistance = null;
+  }
+
+});
+
+
+/* -----------------------------
+   TIMEFRAME
+----------------------------- */
+
+document.querySelectorAll(".tf").forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    currentInterval = button.dataset.tf;
+
+    document.querySelectorAll(".tf")
+      .forEach(x=>x.classList.remove("active"));
+
+    button.classList.add("active");
+
+    document.getElementById("intervalSelect").value =
+      currentInterval;
 
     loadMarket();
 
-  }
-);
+  });
+
+});
 
 
-/* =========================
+document.getElementById("intervalSelect")
+.addEventListener("change",e=>{
+
+  currentInterval = e.target.value;
+
+  document.querySelectorAll(".tf")
+    .forEach(x=>{
+      x.classList.toggle(
+        "active",
+        x.dataset.tf === currentInterval
+      );
+    });
+
+  loadMarket();
+
+});
+
+
+/* -----------------------------
    LOAD MARKET
-========================= */
+----------------------------- */
 
 async function loadMarket(){
 
-  const status =
-    document.getElementById("status");
+  const status = document.getElementById("status");
 
-  status.textContent =
-    "LOADING...";
-
-  status.style.color =
-    "#f5c451";
-
+  status.textContent = "LOADING...";
+  status.style.color = "#f5c451";
 
   try{
 
     const url =
       `${MARKET_API}?symbol=NQ%3DF&interval=${encodeURIComponent(currentInterval)}&outputsize=100`;
 
+    const response = await fetch(url);
 
-    const response =
-      await fetch(url);
+    const data = await response.json();
 
-
-    const data =
-      await response.json();
-
-
-    if(
-      !response.ok ||
-      !data.ok
-    ){
-
-      throw new Error(
-        data.error ||
-        "Market data failed"
-      );
-
+    if(!response.ok || !data.ok){
+      throw new Error(data.error || "Market data failed");
     }
 
-
-    candles =
-      data.candles || [];
-
+    candles = data.candles || [];
 
     if(!candles.length){
-
-      throw new Error(
-        "No candles returned"
-      );
-
+      throw new Error("No candles returned");
     }
 
+    document.getElementById("price").textContent =
+      formatPrice(candles[candles.length-1].close);
 
-    /* =========================
-       IMPORTANT FIX:
-       Render market immediately
-    ========================= */
+    status.textContent = "NQ DATA CONNECTED";
+    status.style.color = "#62e6a5";
 
-    const latest =
-      candles[candles.length-1];
+    await loadStructure();
 
-
-    document
-    .getElementById("price")
-    .textContent =
-      formatPrice(latest.close);
-
-
-    status.textContent =
-      "NQ DATA CONNECTED";
-
-    status.style.color =
-      "#62e6a5";
-
-
-    /* Draw candles immediately */
     renderChart();
 
-
-    /* Show basic analysis immediately */
-    generateBasicAnalysis();
-
-
-    /*
-      Structure is now loaded separately.
-      It can never prevent the market
-      candles from appearing.
-    */
-
-    loadStructureInBackground();
-
+    generateAnalysis();
 
   }catch(error){
 
-    console.error(
-      "Market error:",
-      error
-    );
+    console.error(error);
 
+    status.textContent = "DATA ERROR";
+    status.style.color = "#ff7182";
 
-    status.textContent =
-      "DATA ERROR";
-
-    status.style.color =
-      "#ff7182";
-
-
-    document
-    .getElementById("analysis")
-    .innerHTML =
+    document.getElementById("analysis").innerHTML =
       `<span class="error">${escapeHtml(error.message)}</span>`;
 
   }
@@ -1074,121 +875,67 @@ async function loadMarket(){
 }
 
 
-/* =========================
-   STRUCTURE BACKGROUND LOAD
-========================= */
+/* -----------------------------
+   STRUCTURE
+----------------------------- */
 
-async function loadStructureInBackground(){
+async function loadStructure(){
 
   try{
 
-    const response =
-      await fetch(
-        STRUCTURE_API,
-        {
-          method:"POST",
+    const response = await fetch(STRUCTURE_API,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        candles,
+        lookback:5
+      })
+    });
 
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
+    const data = await response.json();
 
-          body:JSON.stringify({
-            candles:candles,
-            lookback:5
-          })
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(
-      !response.ok ||
-      !data.ok
-    ){
-
-      throw new Error(
-        data.error ||
-        "Structure engine failed"
-      );
-
+    if(!response.ok || !data.ok){
+      throw new Error(data.error || "Structure engine failed");
     }
-
 
     structure =
       data.structure ||
       data;
 
-
-    /* Now add structure overlays */
-    renderChart();
-
-    generateAnalysis();
-
-
   }catch(error){
 
-    console.error(
-      "Structure error:",
-      error
-    );
-
-
-    /*
-      Market data remains working
-      even if structure fails.
-    */
+    console.error("Structure:",error);
 
     structure = null;
-
-    updateMetrics();
-
   }
 
 }
 
 
-/* =========================
-   CHART
-========================= */
+/* -----------------------------
+   CHART RENDER
+----------------------------- */
 
 function renderChart(){
 
   const layer =
-    document.getElementById(
-      "chartLayer"
-    );
-
+    document.getElementById("chartLayer");
 
   layer.innerHTML =
     `<div class="gridlines"></div>`;
 
-
-  if(!candles.length){
-    return;
-  }
-
+  if(!candles.length) return;
 
   const chart =
-    document.getElementById(
-      "chart"
-    );
-
+    document.getElementById("chart");
 
   const width =
-    Math.max(
-      chart.clientWidth,
-      700
-    );
-
+    Math.max(chart.clientWidth,700);
 
   const height =
     chart.clientHeight;
-
 
   const padding = {
     top:40,
@@ -1197,272 +944,157 @@ function renderChart(){
     left:10
   };
 
-
   const plotWidth =
-    width -
-    padding.left -
-    padding.right;
-
+    width-padding.left-padding.right;
 
   const plotHeight =
-    height -
-    padding.top -
-    padding.bottom;
-
+    height-padding.top-padding.bottom;
 
   const highs =
-    candles.map(
-      candle => Number(candle.high)
-    );
-
+    candles.map(c=>Number(c.high));
 
   const lows =
-    candles.map(
-      candle => Number(candle.low)
-    );
+    candles.map(c=>Number(c.low));
 
-
-  let maxPrice =
-    Math.max(...highs);
-
-
-  let minPrice =
-    Math.min(...lows);
-
+  let maxPrice = Math.max(...highs);
+  let minPrice = Math.min(...lows);
 
   const range =
     maxPrice-minPrice || 1;
 
-
   maxPrice += range*.08;
   minPrice -= range*.08;
-
 
   const priceRange =
     maxPrice-minPrice;
 
-
   const spacing =
-    plotWidth/candles.length;
-
+    plotWidth / candles.length;
 
   const candleWidth =
-    Math.max(
-      4,
-      Math.min(
-        9,
-        spacing*.62
-      )
-    );
+    Math.max(4,Math.min(9,spacing*.62));
 
 
   function priceY(price){
 
     return padding.top +
-      (
-        (maxPrice-price) /
-        priceRange
-      ) *
-      plotHeight;
+      (maxPrice-price)/priceRange*plotHeight;
 
   }
 
 
-  candles.forEach(
-    (candle,index) => {
+  candles.forEach((candle,index)=>{
 
-      const x =
-        padding.left +
-        index*spacing +
-        spacing/2;
+    const x =
+      padding.left +
+      index*spacing +
+      spacing/2;
 
+    const openY = priceY(candle.open);
+    const closeY = priceY(candle.close);
+    const highY = priceY(candle.high);
+    const lowY = priceY(candle.low);
 
-      const openY =
-        priceY(candle.open);
+    const top =
+      Math.min(openY,closeY);
 
+    const bodyHeight =
+      Math.max(2,Math.abs(closeY-openY));
 
-      const closeY =
-        priceY(candle.close);
+    const candle =
+      document.createElement("div");
 
+    candle.className =
+      "candle " +
+      (candle.close >= candle.open ? "up":"down");
 
-      const highY =
-        priceY(candle.high);
-
-
-      const lowY =
-        priceY(candle.low);
-
-
-      const top =
-        Math.min(
-          openY,
-          closeY
-        );
-
-
-      const bodyHeight =
-        Math.max(
-          2,
-          Math.abs(
-            closeY-openY
-          )
-        );
-
-
-      const candleElement =
-        document.createElement(
-          "div"
-        );
-
-
-      candleElement.className =
-        "candle " +
-        (
-          candle.close >=
-          candle.open
-            ? "up"
-            : "down"
-        );
-
-
-      if(
-        selectedCandle === index
-      ){
-
-        candleElement.classList.add(
-          "selected"
-        );
-
-      }
-
-
-      candleElement.style.left =
-        `${x-candleWidth/2}px`;
-
-
-      candleElement.style.top =
-        `${highY}px`;
-
-
-      candleElement.style.width =
-        `${candleWidth}px`;
-
-
-      candleElement.style.height =
-        `${Math.max(2,lowY-highY)}px`;
-
-
-      const wick =
-        document.createElement(
-          "div"
-        );
-
-
-      wick.className =
-        "wick";
-
-
-      wick.style.top =
-        "0";
-
-
-      wick.style.height =
-        `${Math.max(2,lowY-highY)}px`;
-
-
-      const body =
-        document.createElement(
-          "div"
-        );
-
-
-      body.className =
-        "body";
-
-
-      body.style.top =
-        `${top-highY}px`;
-
-
-      body.style.height =
-        `${bodyHeight}px`;
-
-
-      candleElement.appendChild(
-        wick
-      );
-
-
-      candleElement.appendChild(
-        body
-      );
-
-
-      candleElement.addEventListener(
-        "pointerup",
-        event => {
-
-          if(movedDuringDrag){
-            return;
-          }
-
-          event.stopPropagation();
-
-          selectedCandle =
-            index;
-
-          showCandleInfo(
-            index
-          );
-
-          renderChart();
-
-        }
-      );
-
-
-      layer.appendChild(
-        candleElement
-      );
-
+    if(selectedCandle === index){
+      candle.classList.add("selected");
     }
+
+    candle.style.left =
+      `${x-candleWidth/2}px`;
+
+    candle.style.top =
+      `${highY}px`;
+
+    candle.style.width =
+      `${candleWidth}px`;
+
+    candle.style.height =
+      `${lowY-highY}px`;
+
+    const wick =
+      document.createElement("div");
+
+    wick.className = "wick";
+
+    wick.style.top = "0";
+    wick.style.height =
+      `${lowY-highY}px`;
+
+    const body =
+      document.createElement("div");
+
+    body.className = "body";
+
+    body.style.top =
+      `${top-highY}px`;
+
+    body.style.height =
+      `${bodyHeight}px`;
+
+    candle.appendChild(wick);
+    candle.appendChild(body);
+
+    candle.addEventListener("pointerup",e=>{
+
+      if(movedDuringDrag) return;
+
+      e.stopPropagation();
+
+      selectedCandle = index;
+
+      showCandleInfo(index);
+
+      renderChart();
+
+    });
+
+    layer.appendChild(candle);
+
+  });
+
+
+  renderFVGs(
+    layer,
+    priceY,
+    padding,
+    spacing,
+    plotWidth
   );
 
+  renderLiquidity(
+    layer,
+    priceY,
+    padding,
+    spacing,
+    plotWidth
+  );
 
-  if(structure){
+  renderDisplacement(
+    layer,
+    priceY,
+    padding,
+    spacing
+  );
 
-    renderFVGs(
-      layer,
-      priceY,
-      padding,
-      spacing
-    );
-
-
-    renderLiquidity(
-      layer,
-      priceY,
-      padding
-    );
-
-
-    renderDisplacement(
-      layer,
-      priceY,
-      padding,
-      spacing
-    );
-
-
-    renderStructureBreaks(
-      layer,
-      priceY,
-      padding,
-      spacing
-    );
-
-  }
-
+  renderStructureBreaks(
+    layer,
+    priceY,
+    padding,
+    spacing
+  );
 
   updateMetrics();
 
@@ -1471,173 +1103,126 @@ function renderChart(){
 }
 
 
-/* =========================
+/* -----------------------------
    FVG
-========================= */
+----------------------------- */
 
 function renderFVGs(
   layer,
   priceY,
   padding,
-  spacing
+  spacing,
+  plotWidth
 ){
 
   const gaps =
-    structure?.structures
-      ?.fairValueGaps ||
+    structure?.structures?.fairValueGaps ||
     structure?.fairValueGaps ||
     [];
 
+  gaps.forEach(gap=>{
 
-  gaps.forEach(
-    gap => {
+    const index =
+      Number(gap.index);
 
-      const index =
-        Number(gap.index);
+    if(!Number.isFinite(index)) return;
 
+    const high =
+      Number(gap.high);
 
-      const high =
-        Number(gap.high);
+    const low =
+      Number(gap.low);
 
+    if(!Number.isFinite(high) ||
+       !Number.isFinite(low)) return;
 
-      const low =
-        Number(gap.low);
+    const x =
+      padding.left +
+      index*spacing;
 
+    const box =
+      document.createElement("div");
 
-      if(
-        !Number.isFinite(index) ||
-        !Number.isFinite(high) ||
-        !Number.isFinite(low)
-      ){
+    box.className =
+      "overlay fvg " +
+      (
+        gap.type === "bearish" ||
+        gap.type === "bearish_fvg"
+        ? "bearish"
+        : "bullish"
+      );
 
-        return;
+    box.style.left =
+      `${x}px`;
 
-      }
+    box.style.top =
+      `${priceY(high)}px`;
 
+    box.style.width =
+      `${Math.max(30,spacing*3)}px`;
 
-      const box =
-        document.createElement(
-          "div"
-        );
+    box.style.height =
+      `${Math.max(4,priceY(low)-priceY(high))}px`;
 
+    layer.appendChild(box);
 
-      const bearish =
-        String(
-          gap.type || ""
-        )
-        .toLowerCase()
-        .includes("bear");
-
-
-      box.className =
-        "overlay fvg " +
-        (
-          bearish
-            ? "bearish"
-            : "bullish"
-        );
-
-
-      box.style.left =
-        `${
-          padding.left +
-          index*spacing
-        }px`;
-
-
-      box.style.top =
-        `${priceY(high)}px`;
-
-
-      box.style.width =
-        `${Math.max(
-          30,
-          spacing*3
-        )}px`;
-
-
-      box.style.height =
-        `${Math.max(
-          4,
-          priceY(low) -
-          priceY(high)
-        )}px`;
-
-
-      layer.appendChild(box);
-
-    }
-  );
+  });
 
 }
 
 
-/* =========================
+/* -----------------------------
    LIQUIDITY
-========================= */
+----------------------------- */
 
 function renderLiquidity(
   layer,
   priceY,
-  padding
+  padding,
+  spacing,
+  plotWidth
 ){
 
   const pools =
-    structure?.structures
-      ?.liquidityPools ||
+    structure?.structures?.liquidityPools ||
     structure?.liquidityPools ||
     [];
 
+  pools.forEach(pool=>{
 
-  pools.forEach(
-    pool => {
+    const price =
+      Number(
+        pool.price ??
+        pool.level ??
+        pool.value
+      );
 
-      const price =
-        Number(
-          pool.price ??
-          pool.level ??
-          pool.value
-        );
+    if(!Number.isFinite(price)) return;
 
+    const line =
+      document.createElement("div");
 
-      if(!Number.isFinite(price)){
-        return;
-      }
+    line.className = "overlay liquidity";
 
+    line.style.left =
+      `${padding.left}px`;
 
-      const line =
-        document.createElement(
-          "div"
-        );
+    line.style.right =
+      `${padding.right}px`;
 
+    line.style.top =
+      `${priceY(price)}px`;
 
-      line.className =
-        "overlay liquidity";
+    layer.appendChild(line);
 
-
-      line.style.left =
-        `${padding.left}px`;
-
-
-      line.style.right =
-        `${padding.right}px`;
-
-
-      line.style.top =
-        `${priceY(price)}px`;
-
-
-      layer.appendChild(line);
-
-    }
-  );
+  });
 
 }
 
 
-/* =========================
+/* -----------------------------
    DISPLACEMENT
-========================= */
+----------------------------- */
 
 function renderDisplacement(
   layer,
@@ -1647,83 +1232,55 @@ function renderDisplacement(
 ){
 
   const list =
-    structure?.structures
-      ?.displacement ||
+    structure?.structures?.displacement ||
     structure?.displacement ||
     [];
 
+  list.forEach(item=>{
 
-  list.forEach(
-    item => {
+    const index =
+      Number(item.index);
 
-      const index =
-        Number(item.index);
+    if(!Number.isFinite(index)) return;
 
+    if(index<0 || index>=candles.length) return;
 
-      if(
-        !Number.isFinite(index) ||
-        index < 0 ||
-        index >= candles.length
-      ){
+    const candle =
+      candles[index];
 
-        return;
+    const top =
+      priceY(candle.high);
 
-      }
+    const bottom =
+      priceY(candle.low);
 
+    const box =
+      document.createElement("div");
 
-      const candle =
-        candles[index];
+    box.className = "overlay displacement";
 
+    box.style.left =
+      `${padding.left+index*spacing+spacing*.15}px`;
 
-      const top =
-        priceY(candle.high);
+    box.style.top =
+      `${top-3}px`;
 
+    box.style.width =
+      `${spacing*.7}px`;
 
-      const bottom =
-        priceY(candle.low);
+    box.style.height =
+      `${bottom-top+6}px`;
 
+    layer.appendChild(box);
 
-      const box =
-        document.createElement(
-          "div"
-        );
-
-
-      box.className =
-        "overlay displacement";
-
-
-      box.style.left =
-        `${
-          padding.left +
-          index*spacing +
-          spacing*.15
-        }px`;
-
-
-      box.style.top =
-        `${top-3}px`;
-
-
-      box.style.width =
-        `${spacing*.7}px`;
-
-
-      box.style.height =
-        `${bottom-top+6}px`;
-
-
-      layer.appendChild(box);
-
-    }
-  );
+  });
 
 }
 
 
-/* =========================
+/* -----------------------------
    BOS / CHOCH
-========================= */
+----------------------------- */
 
 function renderStructureBreaks(
   layer,
@@ -1733,157 +1290,98 @@ function renderStructureBreaks(
 ){
 
   const events =
-    structure?.structures
-      ?.structureBreaks ||
+    structure?.structures?.structureBreaks ||
     structure?.structureBreaks ||
     [];
 
-
   const grouped = {};
 
+  events.forEach(event=>{
 
-  events.forEach(
-    event => {
+    const index =
+      Number(event.index);
 
-      const index =
-        Number(event.index);
+    if(!Number.isFinite(index)) return;
 
-
-      if(!Number.isFinite(index)){
-        return;
-      }
-
-
-      if(!grouped[index]){
-        grouped[index] = [];
-      }
-
-
-      grouped[index].push(
-        event
-      );
-
+    if(!grouped[index]){
+      grouped[index] = [];
     }
-  );
+
+    grouped[index].push(event);
+
+  });
 
 
-  Object.keys(grouped)
-  .forEach(
-    key => {
+  Object.keys(grouped).forEach(key=>{
 
-      const index =
-        Number(key);
+    const index = Number(key);
 
+    const event =
+      grouped[index][0];
 
-      const event =
-        grouped[index][0];
+    if(index<0 || index>=candles.length) return;
 
+    const candle =
+      candles[index];
 
-      if(
-        index < 0 ||
-        index >= candles.length
-      ){
-
-        return;
-
-      }
-
-
-      const candle =
-        candles[index];
-
-
-      const isChoch =
-        String(
-          event.type || ""
-        )
+    const isChoch =
+      String(event.type || "")
         .toLowerCase()
         .includes("choch");
 
+    const label =
+      document.createElement("div");
 
-      const label =
-        document.createElement(
-          "div"
-        );
+    label.className =
+      "structure-label " +
+      (isChoch ? "choch":"bos");
 
+    label.textContent =
+      isChoch ? "CHOCH":"BOS";
 
-      label.className =
-        "structure-label " +
-        (
-          isChoch
-            ? "choch"
-            : "bos"
-        );
+    label.style.left =
+      `${padding.left+index*spacing}px`;
 
+    label.style.top =
+      `${priceY(
+        candle.high
+      )-22}px`;
 
-      label.textContent =
-        isChoch
-          ? "CHOCH"
-          : "BOS";
+    layer.appendChild(label);
 
-
-      label.style.left =
-        `${
-          padding.left +
-          index*spacing
-        }px`;
-
-
-      label.style.top =
-        `${priceY(
-          candle.high
-        )-22}px`;
-
-
-      layer.appendChild(label);
-
-    }
-  );
+  });
 
 }
 
 
-/* =========================
+/* -----------------------------
    METRICS
-========================= */
+----------------------------- */
 
 function updateMetrics(){
 
   const structureEl =
-    document.getElementById(
-      "structureValue"
-    );
-
+    document.getElementById("structureValue");
 
   const displacementEl =
-    document.getElementById(
-      "displacementValue"
-    );
-
+    document.getElementById("displacementValue");
 
   const liquidityEl =
-    document.getElementById(
-      "liquidityValue"
-    );
+    document.getElementById("liquidityValue");
 
 
   const breaks =
-    structure?.structures
-      ?.structureBreaks ||
+    structure?.structures?.structureBreaks ||
     structure?.structureBreaks ||
     [];
 
-
   const displacement =
-    structure?.structures
-      ?.displacement ||
+    structure?.structures?.displacement ||
     structure?.displacement ||
     [];
 
-
   const liquidity =
-    structure?.structures
-      ?.liquidityPools ||
+    structure?.structures?.liquidityPools ||
     structure?.liquidityPools ||
     [];
 
@@ -1893,17 +1391,11 @@ function updateMetrics(){
     const latest =
       breaks[breaks.length-1];
 
+    const type =
+      String(latest.type || "BOS");
 
     structureEl.textContent =
-      String(
-        latest.type ||
-        "BOS"
-      )
-      .replaceAll(
-        "_",
-        " "
-      )
-      .toUpperCase();
+      type.toUpperCase();
 
   }else{
 
@@ -1916,20 +1408,14 @@ function updateMetrics(){
   if(displacement.length){
 
     const latest =
-      displacement[
-        displacement.length-1
-      ];
-
+      displacement[displacement.length-1];
 
     displacementEl.textContent =
       String(
         latest.type ||
-        "DETECTED"
+        "Detected"
       )
-      .replaceAll(
-        "_",
-        " "
-      )
+      .replaceAll("_"," ")
       .toUpperCase();
 
   }else{
@@ -1948,90 +1434,63 @@ function updateMetrics(){
 }
 
 
-/* =========================
-   BASIC ANALYSIS
-========================= */
+/* -----------------------------
+   CANDLE INFO
+----------------------------- */
 
-function generateBasicAnalysis(){
+function showCandleInfo(index){
 
-  if(!candles.length){
-    return;
-  }
+  const candle =
+    candles[index];
 
+  if(!candle) return;
 
-  const latest =
-    candles[
-      candles.length-1
-    ];
+  const body =
+    Math.abs(candle.close-candle.open);
 
+  const range =
+    candle.high-candle.low;
 
-  const previous =
-    candles[
-      candles.length-2
-    ];
+  const bodyRatio =
+    range ? body/range : 0;
 
-
-  let text = "";
-
-
-  if(
-    latest.close >
-    previous.close
-  ){
-
-    text +=
-      "NQ is currently showing short-term upward pressure. ";
-
-  }else{
-
-    text +=
-      "NQ is currently showing short-term downward pressure. ";
-
-  }
+  const direction =
+    candle.close >= candle.open
+      ? "Bullish"
+      : "Bearish";
 
 
-  text +=
-    "Market structure and liquidity analysis are loading in the background.";
+  document.getElementById("candleInfo").innerHTML =
 
-
-  document
-  .getElementById("analysis")
-  .textContent =
-    text;
+    `<strong>Candle ${index+1}</strong><br>
+     Time: ${formatDate(candle.datetime)}<br>
+     Open: ${formatPrice(candle.open)}<br>
+     High: ${formatPrice(candle.high)}<br>
+     Low: ${formatPrice(candle.low)}<br>
+     Close: ${formatPrice(candle.close)}<br>
+     Direction: ${direction}<br>
+     Body / Range: ${(bodyRatio*100).toFixed(1)}%`;
 
 }
 
 
-/* =========================
-   FULL ANALYSIS
-========================= */
+/* -----------------------------
+   AI ANALYSIS
+----------------------------- */
 
 function generateAnalysis(){
 
-  if(!candles.length){
-    return;
-  }
-
+  if(!candles.length) return;
 
   const latest =
-    candles[
-      candles.length-1
-    ];
-
+    candles[candles.length-1];
 
   const previous =
-    candles[
-      candles.length-2
-    ];
-
+    candles[candles.length-2];
 
   let text = "";
 
-
-  if(
-    latest.close >
-    previous.close
-  ){
+  if(latest.close > previous.close){
 
     text +=
       "The latest candle is trading above the previous close, showing short-term upward pressure. ";
@@ -2045,29 +1504,22 @@ function generateAnalysis(){
 
 
   const breaks =
-    structure?.structures
-      ?.structureBreaks ||
+    structure?.structures?.structureBreaks ||
     structure?.structureBreaks ||
     [];
 
-
   const displacement =
-    structure?.structures
-      ?.displacement ||
+    structure?.structures?.displacement ||
     structure?.displacement ||
     [];
 
-
   const gaps =
-    structure?.structures
-      ?.fairValueGaps ||
+    structure?.structures?.fairValueGaps ||
     structure?.fairValueGaps ||
     [];
 
-
   const liquidity =
-    structure?.structures
-      ?.liquidityPools ||
+    structure?.structures?.liquidityPools ||
     structure?.liquidityPools ||
     [];
 
@@ -2075,20 +1527,12 @@ function generateAnalysis(){
   if(breaks.length){
 
     const latestBreak =
-      breaks[
-        breaks.length-1
-      ];
-
+      breaks[breaks.length-1];
 
     text +=
       `The structure engine detected ${String(
-        latestBreak.type ||
-        "a structure break"
-      )
-      .replaceAll(
-        "_",
-        " "
-      )}. `;
+        latestBreak.type || "a structure break"
+      ).replaceAll("_"," ")}. `;
 
   }else{
 
@@ -2101,7 +1545,7 @@ function generateAnalysis(){
   if(displacement.length){
 
     text +=
-      "Displacement has been detected, indicating a relatively strong directional move. ";
+      "Displacement has been detected, meaning there has been a relatively strong directional candle compared with the surrounding candles. ";
 
   }
 
@@ -2109,11 +1553,7 @@ function generateAnalysis(){
   if(gaps.length){
 
     text +=
-      `${gaps.length} fair value gap area${
-        gaps.length===1
-          ? ""
-          : "s"
-      } were detected. `;
+      `${gaps.length} fair value gap area${gaps.length===1?"":"s"} were detected. `;
 
   }
 
@@ -2121,124 +1561,32 @@ function generateAnalysis(){
   if(liquidity.length){
 
     text +=
-      `${liquidity.length} liquidity pool${
-        liquidity.length===1
-          ? ""
-          : "s"
-      } were detected. `;
+      `${liquidity.length} liquidity pool${liquidity.length===1?"":"s"} were detected. `;
 
   }
 
 
   text +=
-    "Use higher-timeframe structure, liquidity location and session context when interpreting the move.";
+    "Use the higher-timeframe structure, liquidity location and session context before interpreting the move.";
 
-
-  document
-  .getElementById("analysis")
-  .textContent =
+  document.getElementById("analysis").textContent =
     text;
 
 }
 
 
-/* =========================
-   CANDLE INFORMATION
-========================= */
-
-function showCandleInfo(index){
-
-  const candle =
-    candles[index];
-
-
-  if(!candle){
-    return;
-  }
-
-
-  const body =
-    Math.abs(
-      candle.close -
-      candle.open
-    );
-
-
-  const range =
-    candle.high -
-    candle.low;
-
-
-  const bodyRatio =
-    range
-      ? body/range
-      : 0;
-
-
-  const direction =
-    candle.close >=
-    candle.open
-      ? "Bullish"
-      : "Bearish";
-
-
-  document
-  .getElementById("candleInfo")
-  .innerHTML =
-
-    `<strong>Candle ${
-      index+1
-    }</strong><br>
-    Time: ${
-      formatDate(
-        candle.datetime
-      )
-    }<br>
-    Open: ${
-      formatPrice(
-        candle.open
-      )
-    }<br>
-    High: ${
-      formatPrice(
-        candle.high
-      )
-    }<br>
-    Low: ${
-      formatPrice(
-        candle.low
-      )
-    }<br>
-    Close: ${
-      formatPrice(
-        candle.close
-      )
-    }<br>
-    Direction: ${
-      direction
-    }<br>
-    Body / Range: ${
-      (bodyRatio*100)
-      .toFixed(1)
-    }%`;
-
-}
-
-
-/* =========================
+/* -----------------------------
    HELPERS
-========================= */
+----------------------------- */
 
 function formatPrice(value){
 
   const number =
     Number(value);
 
-
   if(!Number.isFinite(number)){
     return "—";
   }
-
 
   return number.toLocaleString(
     "en-US",
@@ -2278,111 +1626,58 @@ function formatDate(value){
 function escapeHtml(value){
 
   return String(value)
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
-/* =========================
+/* -----------------------------
    KEYBOARD
-========================= */
+----------------------------- */
 
-document.addEventListener(
-  "keydown",
-  event => {
+document.addEventListener("keydown",e=>{
 
-    if(
-      event.key === "+" ||
-      event.key === "="
-    ){
+  if(e.key === "+" || e.key === "="){
+    zoomChart(.15);
+  }
 
-      zoomChart(.15);
+  if(e.key === "-"){
+    zoomChart(-.15);
+  }
 
-    }
+  if(e.key === "Escape"){
 
+    const chart =
+      document.getElementById("chart");
 
-    if(event.key === "-"){
-
-      zoomChart(-.15);
-
-    }
-
-
-    if(event.key === "Escape"){
-
-      const chart =
-        document.getElementById(
-          "chart"
-        );
-
-
-      if(
-        chart.classList.contains(
-          "fullscreen"
-        )
-      ){
-
-        toggleFullscreen();
-
-      }
-
+    if(chart.classList.contains("fullscreen")){
+      toggleFullscreen();
     }
 
   }
-);
+
+});
 
 
-/* =========================
+/* -----------------------------
    START
-========================= */
+----------------------------- */
 
 loadMarket();
 
 </script>
 
-
 <script>
-
 if("serviceWorker" in navigator){
-
-  window.addEventListener(
-    "load",
-    () => {
-
-      navigator.serviceWorker
-        .register("./sw.js")
-        .catch(
-          error =>
-            console.log(
-              "SW error",
-              error
-            )
-        );
-
-    }
-  );
-
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./sw.js")
+      .catch(err=>console.log("SW error",err));
+  });
 }
-
 </script>
 
 </body>
