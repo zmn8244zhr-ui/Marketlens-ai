@@ -20,7 +20,9 @@
   --amber:#f3b64b
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box
+}
 
 body{
   margin:0;
@@ -48,7 +50,9 @@ body{
   letter-spacing:.04em
 }
 
-.brand span{color:#9b63ff}
+.brand span{
+  color:#9b63ff
+}
 
 .status{
   border:1px solid var(--line);
@@ -114,7 +118,9 @@ body{
   margin:0
 }
 
-.muted{color:var(--muted)}
+.muted{
+  color:var(--muted)
+}
 
 .price{
   font-size:27px;
@@ -183,8 +189,13 @@ body{
   height:190%
 }
 
-.up{background:var(--green)}
-.dn{background:var(--red)}
+.up{
+  background:var(--green)
+}
+
+.dn{
+  background:var(--red)
+}
 
 .candle.selected{
   outline:2px solid #fff;
@@ -199,9 +210,10 @@ body{
   background:#252035;
   border:1px solid #7546bb;
   color:#d9c5ff;
-  padding:3px 4px;
+  padding:3px 5px;
   border-radius:5px;
-  pointer-events:none
+  pointer-events:none;
+  white-space:nowrap
 }
 
 .marker.bull{
@@ -220,7 +232,9 @@ body{
   margin-top:9px
 }
 
-.actions .btn{flex:1}
+.actions .btn{
+  flex:1
+}
 
 .row{
   display:flex;
@@ -230,7 +244,9 @@ body{
   gap:10px
 }
 
-.row:last-child{border:0}
+.row:last-child{
+  border:0
+}
 
 .tag{
   font-size:11px;
@@ -254,9 +270,13 @@ body{
   color:#c9c7d2
 }
 
-.hidden{display:none}
+.hidden{
+  display:none
+}
 
-.small{font-size:12px}
+.small{
+  font-size:12px
+}
 
 .footer{
   padding:18px 2px;
@@ -265,13 +285,28 @@ body{
   font-size:12px
 }
 
-.error{color:#ff9ba6}
-.ok{color:#78efc0}
+.error{
+  color:#ff9ba6
+}
+
+.ok{
+  color:#78efc0
+}
 
 @media(max-width:800px){
-  .grid{grid-template-columns:1fr}
-  .metrics{grid-template-columns:repeat(2,1fr)}
-  .chart{height:350px}
+
+  .grid{
+    grid-template-columns:1fr
+  }
+
+  .metrics{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .chart{
+    height:350px
+  }
+
 }
 </style>
 </head>
@@ -281,132 +316,303 @@ body{
 <div class="app">
 
 <header class="top">
-  <div class="brand">MARKET<span>LENS</span> AI</div>
-  <div id="status" class="status">● CONNECTING</div>
+
+  <div class="brand">
+    MARKET<span>LENS</span> AI
+  </div>
+
+  <div id="status" class="status">
+    ● CONNECTING
+  </div>
+
 </header>
 
+
 <div class="nav">
-  <button class="on" onclick="show('dash',this)">Dashboard</button>
-  <button onclick="show('candle',this)">Explain Candle</button>
-  <button onclick="show('macro',this)">Macro</button>
-  <button onclick="show('calendar',this)">Calendar</button>
-  <button onclick="show('research',this)">AI Research</button>
+
+  <button class="on" onclick="show('dash',this)">
+    Dashboard
+  </button>
+
+  <button onclick="show('candle',this)">
+    Explain Candle
+  </button>
+
+  <button onclick="show('macro',this)">
+    Macro
+  </button>
+
+  <button onclick="show('calendar',this)">
+    Calendar
+  </button>
+
+  <button onclick="show('research',this)">
+    AI Research
+  </button>
+
 </div>
+
 
 <section id="dash">
 
 <div class="metrics">
 
   <div class="metric">
-    <span class="muted">NASDAQ FUTURES</span>
+    <span class="muted">
+      NASDAQ FUTURES
+    </span>
+
     <b id="p">—</b>
-    <span id="pc">Loading</span>
+
+    <span id="pc">
+      Loading
+    </span>
   </div>
 
-  <div class="metric">
-    <span class="muted">TIMEFRAME</span>
-    <b id="tfLabel">5m</b>
-    <span class="muted">NQ futures</span>
-  </div>
 
   <div class="metric">
-    <span class="muted">STRUCTURE</span>
-    <b id="structureLabel">—</b>
-    <span class="muted">algorithmic</span>
+
+    <span class="muted">
+      TIMEFRAME
+    </span>
+
+    <b id="tfLabel">
+      5m
+    </b>
+
+    <span class="muted">
+      NQ futures
+    </span>
+
   </div>
 
+
   <div class="metric">
-    <span class="muted">CANDLES</span>
-    <b id="count">—</b>
-    <span class="muted">loaded</span>
+
+    <span class="muted">
+      STRUCTURE
+    </span>
+
+    <b id="structureLabel">
+      —
+    </b>
+
+    <span class="muted">
+      algorithmic
+    </span>
+
+  </div>
+
+
+  <div class="metric">
+
+    <span class="muted">
+      CANDLES
+    </span>
+
+    <b id="count">
+      —
+    </b>
+
+    <span class="muted">
+      loaded
+    </span>
+
   </div>
 
 </div>
 
+
 <div class="grid">
+
 
 <div class="card">
 
 <div class="head">
 
   <div>
-    <h2>NASDAQ FUTURES — NQ</h2>
+
+    <h2>
+      NASDAQ FUTURES — NQ
+    </h2>
+
     <span class="muted">
       Reference market for HFM USA100 CFD
     </span>
+
   </div>
 
-  <div class="price" id="big">—</div>
+  <div class="price" id="big">
+    —
+  </div>
 
 </div>
+
 
 <div class="toolbar">
 
-<select id="interval" class="select" onchange="loadMarket()">
+<select
+  id="interval"
+  class="select"
+  onchange="loadMarket()"
+>
 
-  <option value="1min">1 min</option>
-  <option value="5min" selected>5 min</option>
-  <option value="15min">15 min</option>
-  <option value="30min">30 min</option>
-  <option value="1h">1 hour</option>
-  <option value="1day">Daily</option>
-  <option value="1week">Weekly</option>
+  <option value="1min">
+    1 min
+  </option>
+
+  <option value="5min" selected>
+    5 min
+  </option>
+
+  <option value="15min">
+    15 min
+  </option>
+
+  <option value="30min">
+    30 min
+  </option>
+
+  <option value="1h">
+    1 hour
+  </option>
+
+  <option value="1day">
+    Daily
+  </option>
+
+  <option value="1week">
+    Weekly
+  </option>
 
 </select>
 
-<button class="btn" onclick="loadMarket()">↻ Refresh</button>
+
+<button
+  class="btn"
+  onclick="loadMarket()"
+>
+  ↻ Refresh
+</button>
 
 </div>
+
 
 <div id="chart" class="chart">
+
   <div class="gridlines"></div>
+
 </div>
+
 
 <div class="actions">
-  <button class="btn primary" onclick="goAnalyze()">
+
+  <button
+    class="btn primary"
+    onclick="goAnalyze()"
+  >
     🔎 Explain selected candle
   </button>
+
 </div>
 
 </div>
+
 
 <aside class="card">
 
 <div class="head">
-  <h3>Market structure</h3>
-  <span class="tag" id="reg">LOADING</span>
+
+  <h3>
+    Market structure
+  </h3>
+
+  <span
+    class="tag"
+    id="reg"
+  >
+    LOADING
+  </span>
+
 </div>
 
-<div class="price" id="bias">—</div>
 
-<p class="explain" id="regtext">
+<div class="price" id="bias">
+  —
+</div>
+
+
+<p
+  class="explain"
+  id="regtext"
+>
   Loading descriptive structure observations from the backend.
 </p>
 
-<div class="row">
-  <span>Market feed</span>
-  <b id="ds">—</b>
-</div>
 
 <div class="row">
-  <span>Structure engine</span>
-  <b id="ss">—</b>
+
+  <span>
+    Market feed
+  </span>
+
+  <b id="ds">
+    —
+  </b>
+
 </div>
 
-<div class="row">
-  <span>Data source</span>
-  <b id="mode">—</b>
-</div>
 
 <div class="row">
-  <span>Instrument</span>
-  <b>NQ=F</b>
+
+  <span>
+    Structure engine
+  </span>
+
+  <b id="ss">
+    —
+  </b>
+
 </div>
+
+
+<div class="row">
+
+  <span>
+    Data source
+  </span>
+
+  <b id="mode">
+    —
+  </b>
+
+</div>
+
+
+<div class="row">
+
+  <span>
+    Instrument
+  </span>
+
+  <b>
+    NQ=F
+  </b>
+
+</div>
+
 
 <div class="notice small">
-  NQ futures are being used as a reference market for HFM's USA100 CFD.
+
+  NQ futures are being used as a reference
+  market for HFM's USA100 CFD.
+
   The two feeds may not have identical prices.
-  Structures are algorithmic observations and are not guarantees of institutional intent or trade signals.
+
+  Structures are algorithmic observations and
+  are not guarantees of institutional intent or
+  trade signals.
+
 </div>
 
 </aside>
@@ -416,40 +622,82 @@ body{
 </section>
 
 
-<section id="candle" class="hidden">
+<section
+  id="candle"
+  class="hidden"
+>
 
 <div class="grid">
+
 
 <div class="card">
 
 <div class="head">
 
   <div>
-    <h2>Selected candle</h2>
-    <span class="muted">Select a candle on the chart</span>
+
+    <h2>
+      Selected candle
+    </h2>
+
+    <span class="muted">
+      Select a candle on the chart
+    </span>
+
   </div>
 
-  <span class="tag" id="ctime">Not selected</span>
+  <span
+    class="tag"
+    id="ctime"
+  >
+    Not selected
+  </span>
 
 </div>
 
-<div id="candleChart" class="chart">
+
+<div
+  id="candleChart"
+  class="chart"
+>
+
   <div class="gridlines"></div>
+
 </div>
 
 </div>
+
 
 <div class="card">
 
 <div class="head">
-  <h3>Structure explanation</h3>
-  <span id="conf" class="muted">—</span>
+
+  <h3>
+    Structure explanation
+  </h3>
+
+  <span
+    id="conf"
+    class="muted"
+  >
+    —
+  </span>
+
 </div>
 
-<div id="ca" class="notice">
+
+<div
+  id="ca"
+  class="notice"
+>
+
   Select a candle, then analyze it.
-  The backend will describe observable structure around that candle.
+
+  The backend will describe observable
+  structure around that candle.
+
 </div>
+
 
 <div id="details"></div>
 
@@ -460,24 +708,37 @@ body{
 </section>
 
 
-<section id="macro" class="hidden">
+<section
+  id="macro"
+  class="hidden"
+>
 
 <div class="grid">
+
 
 <div class="card">
 
 <div class="head">
-  <h2>Macro drivers</h2>
+
+  <h2>
+    Macro drivers
+  </h2>
+
 </div>
 
 <div id="macroRows"></div>
 
 </div>
 
+
 <div class="card">
 
 <div class="head">
-  <h2>Cross-market</h2>
+
+  <h2>
+    Cross-market
+  </h2>
+
 </div>
 
 <div id="crossRows"></div>
@@ -489,18 +750,34 @@ body{
 </section>
 
 
-<section id="calendar" class="hidden">
+<section
+  id="calendar"
+  class="hidden"
+>
 
 <div class="card">
 
 <div class="head">
-  <h2>Economic calendar</h2>
-  <span class="muted">Next backend layer</span>
+
+  <h2>
+    Economic calendar
+  </h2>
+
+  <span class="muted">
+    Next backend layer
+  </span>
+
 </div>
 
+
 <div class="notice">
-  Economic releases will be added after the market-data/structure layer.
-  No catalyst will be claimed without timestamped evidence.
+
+  Economic releases will be added after the
+  market-data/structure layer.
+
+  No catalyst will be claimed without
+  timestamped evidence.
+
 </div>
 
 </div>
@@ -508,13 +785,21 @@ body{
 </section>
 
 
-<section id="research" class="hidden">
+<section
+  id="research"
+  class="hidden"
+>
 
 <div class="card">
 
 <div class="head">
-  <h2>AI Market Research</h2>
+
+  <h2>
+    AI Market Research
+  </h2>
+
 </div>
+
 
 <input
   id="q"
@@ -522,16 +807,27 @@ body{
   placeholder="Ask about a market move"
 >
 
+
 <div class="actions">
 
-<button class="btn primary" onclick="research()">
+<button
+  class="btn primary"
+  onclick="research()"
+>
   Ask MarketLens AI
 </button>
 
 </div>
 
-<p id="ans" class="explain">
-  AI research will be connected after market evidence and source layers are in place.
+
+<p
+  id="ans"
+  class="explain"
+>
+
+  AI research will be connected after market
+  evidence and source layers are in place.
+
 </p>
 
 </div>
@@ -540,7 +836,10 @@ body{
 
 
 <div class="footer">
-  MarketLens AI · Market research/education · No order execution
+
+  MarketLens AI · Market research/education
+  · No order execution
+
 </div>
 
 </div>
@@ -548,12 +847,16 @@ body{
 
 <script>
 
-const API = 'https://market-lens-ai-backend-mu.vercel.app';
+const API =
+  'https://market-lens-ai-backend-mu.vercel.app';
 
-const SYMBOL = 'NQ=F';
+const SYMBOL =
+  'NQ=F';
 
 let candles = [];
+
 let structure = null;
+
 let selectedIndex = null;
 
 
@@ -561,7 +864,9 @@ function show(id,b){
 
   document
     .querySelectorAll('section')
-    .forEach(s => s.classList.add('hidden'));
+    .forEach(
+      s => s.classList.add('hidden')
+    );
 
   document
     .getElementById(id)
@@ -569,9 +874,12 @@ function show(id,b){
 
   document
     .querySelectorAll('.nav button')
-    .forEach(x => x.classList.remove('on'));
+    .forEach(
+      x => x.classList.remove('on')
+    );
 
   b.classList.add('on');
+
 }
 
 
@@ -579,9 +887,12 @@ function fmt(n){
 
   return n == null
     ? '—'
-    : Number(n).toLocaleString(undefined,{
-        maximumFractionDigits:4
-      });
+    : Number(n).toLocaleString(
+        undefined,
+        {
+          maximumFractionDigits:4
+        }
+      );
 
 }
 
@@ -589,28 +900,42 @@ function fmt(n){
 async function loadMarket(){
 
   const interval =
-    document.getElementById('interval').value;
+    document
+      .getElementById('interval')
+      .value;
 
-  setStatus('● LOADING','');
+  setStatus(
+    '● LOADING',
+    ''
+  );
 
   try{
 
     const url =
       `${API}/api/market?symbol=${encodeURIComponent(SYMBOL)}&interval=${encodeURIComponent(interval)}&outputsize=100`;
 
-    const r = await fetch(url);
+    const r =
+      await fetch(url);
 
-    const data = await r.json();
+    const data =
+      await r.json();
 
-    if(!r.ok || !data.ok){
+    if(
+      !r.ok ||
+      !data.ok
+    ){
 
       throw new Error(
-        data.error || 'Market request failed'
+        data.error ||
+        'Market request failed'
       );
 
     }
 
-    candles = data.candles || [];
+
+    candles =
+      data.candles || [];
+
 
     if(!candles.length){
 
@@ -620,48 +945,87 @@ async function loadMarket(){
 
     }
 
-    document.getElementById('tfLabel').textContent =
+
+    document
+      .getElementById('tfLabel')
+      .textContent =
       interval;
 
-    document.getElementById('count').textContent =
+
+    document
+      .getElementById('count')
+      .textContent =
       candles.length;
 
-    const latest = candles[candles.length - 1];
 
-    document.getElementById('p').textContent =
+    const latest =
+      candles[candles.length - 1];
+
+
+    document
+      .getElementById('p')
+      .textContent =
       fmt(latest.close);
 
-    document.getElementById('big').textContent =
+
+    document
+      .getElementById('big')
+      .textContent =
       fmt(latest.close);
 
-    document.getElementById('pc').textContent =
+
+    document
+      .getElementById('pc')
+      .textContent =
       'Yahoo Finance · NQ futures';
 
-    document.getElementById('ds').textContent =
+
+    document
+      .getElementById('ds')
+      .textContent =
       'Connected';
 
-    document.getElementById('mode').textContent =
-      data.provider || 'Yahoo Finance';
+
+    document
+      .getElementById('mode')
+      .textContent =
+      data.provider ||
+      'Yahoo Finance';
+
 
     setStatus(
-      '● NQ DATA LIVE',
+      '● NQ DATA CONNECTED',
       'live'
     );
 
-    selectedIndex = null;
+
+    selectedIndex =
+      null;
+
 
     renderChart();
 
+
     await analyzeStructure();
+
 
   }catch(e){
 
-    setStatus('● ERROR','');
+    setStatus(
+      '● ERROR',
+      ''
+    );
 
-    document.getElementById('ds').textContent =
+
+    document
+      .getElementById('ds')
+      .textContent =
       'Error';
 
-    document.getElementById('regtext').innerHTML =
+
+    document
+      .getElementById('regtext')
+      .innerHTML =
       '<span class="error">' +
       e.message +
       '</span>';
@@ -679,23 +1043,33 @@ async function analyzeStructure(){
 
   }
 
+
   try{
 
-    const r = await fetch(
-      `${API}/api/structure`,
-      {
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json'
-        },
-        body:JSON.stringify({
-          candles,
-          lookback:2
-        })
-      }
-    );
+    const r =
+      await fetch(
+        `${API}/api/structure`,
+        {
+          method:'POST',
 
-    structure = await r.json();
+          headers:{
+            'Content-Type':
+              'application/json'
+          },
+
+          body:
+            JSON.stringify({
+              candles,
+              lookback:2
+            })
+
+        }
+      );
+
+
+    structure =
+      await r.json();
+
 
     if(!r.ok){
 
@@ -706,56 +1080,90 @@ async function analyzeStructure(){
 
     }
 
-    document.getElementById('ss').textContent =
+
+    document
+      .getElementById('ss')
+      .textContent =
       'Connected';
+
 
     const s =
       structure.summary || {};
 
+
     const ev =
       s.latestStructureEvent;
 
+
     const disp =
       s.latestDisplacement;
+
 
     let label =
       ev?.type ||
       disp?.type ||
       'No recent event';
 
-    document.getElementById('structureLabel')
-      .textContent =
-      label.replaceAll('_',' ');
 
-    document.getElementById('reg')
+    document
+      .getElementById('structureLabel')
+      .textContent =
+      label.replaceAll(
+        '_',
+        ' '
+      );
+
+
+    document
+      .getElementById('reg')
       .textContent =
       label
-        .replaceAll('_',' ')
+        .replaceAll(
+          '_',
+          ' '
+        )
         .toUpperCase();
 
-    document.getElementById('bias')
+
+    document
+      .getElementById('bias')
       .textContent =
       ev
-        ? ev.type.replaceAll('_',' ')
+        ? ev.type.replaceAll(
+            '_',
+            ' '
+          )
         : disp
-          ? disp.type.replaceAll('_',' ')
+          ? disp.type.replaceAll(
+              '_',
+              ' '
+            )
           : 'No break detected';
 
-    document.getElementById('regtext')
+
+    document
+      .getElementById('regtext')
       .textContent =
       `${s.swingHighCount || 0} swing highs, ` +
       `${s.swingLowCount || 0} swing lows, ` +
       `${s.bullishFVGCount || 0} bullish FVG candidates, ` +
       `${s.bearishFVGCount || 0} bearish FVG candidates.`;
 
+
     renderChart();
+
 
   }catch(e){
 
-    document.getElementById('ss').textContent =
+    document
+      .getElementById('ss')
+      .textContent =
       'Error';
 
-    document.getElementById('regtext').innerHTML =
+
+    document
+      .getElementById('regtext')
+      .innerHTML =
       '<span class="error">' +
       e.message +
       '</span>';
@@ -768,10 +1176,14 @@ async function analyzeStructure(){
 function renderChart(){
 
   const el =
-    document.getElementById('chart');
+    document.getElementById(
+      'chart'
+    );
+
 
   el.innerHTML =
     '<div class="gridlines"></div>';
+
 
   if(!candles.length){
 
@@ -779,93 +1191,164 @@ function renderChart(){
 
   }
 
+
   const max =
-    Math.max(...candles.map(c => +c.high));
+    Math.max(
+      ...candles.map(
+        c => +c.high
+      )
+    );
+
 
   const min =
-    Math.min(...candles.map(c => +c.low));
+    Math.min(
+      ...candles.map(
+        c => +c.low
+      )
+    );
+
 
   const range =
-    Math.max(max - min,1);
+    Math.max(
+      max - min,
+      1
+    );
 
-  candles.forEach((c,i)=>{
 
-    const o = +c.open;
-    const h = +c.high;
-    const l = +c.low;
-    const cl = +c.close;
+  candles.forEach(
+    (c,i)=>{
 
-    const bodyTop =
-      100 -
-      (
+      const o =
+        +c.open;
+
+      const h =
+        +c.high;
+
+      const l =
+        +c.low;
+
+      const cl =
+        +c.close;
+
+
+      const bodyTop =
+        100 -
         (
-          (Math.max(o,cl)-min) /
-          range
-        ) * 88 + 6
-      );
-
-    const bodyHeight =
-      Math.max(
-        1.4,
-        Math.abs(cl-o) /
-        range *
-        88
-      );
-
-    const x =
-      candles.length === 1
-        ? 48
-        : 2 +
-          i *
           (
-            96 /
-            (candles.length-1)
-          );
+            (
+              Math.max(o,cl) -
+              min
+            ) /
+            range
+          ) *
+          88 +
+          6
+        );
 
-    const d =
-      document.createElement('div');
 
-    d.className =
-      'candle ' +
-      (cl >= o ? 'up' : 'dn') +
-      (selectedIndex === i
-        ? ' selected'
-        : '');
+      const bodyHeight =
+        Math.max(
+          1.4,
+          Math.abs(cl-o) /
+          range *
+          88
+        );
 
-    d.style.left =
-      x + '%';
 
-    d.style.top =
-      bodyTop + '%';
+      const x =
+        candles.length === 1
+          ? 48
+          : 2 +
+            i *
+            (
+              96 /
+              (
+                candles.length-1
+              )
+            );
 
-    d.style.height =
-      bodyHeight + '%';
 
-    const w =
-      document.createElement('i');
+      const d =
+        document.createElement(
+          'div'
+        );
 
-    w.className =
-      'wick';
 
-    d.appendChild(w);
+      d.className =
+        'candle ' +
+        (
+          cl >= o
+            ? 'up'
+            : 'dn'
+        ) +
+        (
+          selectedIndex === i
+            ? ' selected'
+            : ''
+        );
 
-    d.onclick =
-      () => selectCandle(i);
 
-    el.appendChild(d);
+      d.style.left =
+        x + '%';
 
-  });
 
+      d.style.top =
+        bodyTop + '%';
+
+
+      d.style.height =
+        bodyHeight + '%';
+
+
+      const w =
+        document.createElement(
+          'i'
+        );
+
+
+      w.className =
+        'wick';
+
+
+      d.appendChild(w);
+
+
+      d.onclick =
+        () => selectCandle(i);
+
+
+      el.appendChild(d);
+
+    }
+  );
+
+
+  /*
+    CLEAN STRUCTURE LABELS
+
+    If several structure events occur
+    on the same candle, combine them
+    into ONE label rather than displaying
+    several labels on top of each other.
+  */
 
   const events =
-    structure?.structures?.structureBreaks || [];
+    structure
+      ?.structures
+      ?.structureBreaks ||
+    [];
 
-  events
-    .slice(-8)
-    .forEach(ev=>{
+
+  const grouped =
+    new Map();
+
+
+  events.forEach(
+    ev => {
 
       const i =
         ev.index;
+
 
       if(
         i < 0 ||
@@ -876,44 +1359,112 @@ function renderChart(){
 
       }
 
-      const m =
-        document.createElement('div');
 
-      m.className =
-        'marker ' +
-        (
-          ev.type.includes('up')
-            ? 'bull'
-            : 'bear'
+      if(
+        !grouped.has(i)
+      ){
+
+        grouped.set(
+          i,
+          new Set()
         );
 
-      m.textContent =
-        ev.type.replaceAll('_',' ');
+      }
 
-      const x =
-        candles.length === 1
-          ? 48
-          : 2 +
-            i *
-            (
-              96 /
-              (candles.length-1)
+
+      grouped
+        .get(i)
+        .add(
+          ev.type
+        );
+
+    }
+  );
+
+
+  Array
+    .from(
+      grouped.entries()
+    )
+    .slice(-6)
+    .forEach(
+      ([i,types]) => {
+
+        const names =
+          Array
+            .from(types)
+            .map(
+              x =>
+                x.replaceAll(
+                  '_',
+                  ' '
+                )
             );
 
-      m.style.left =
-        Math.min(
-          88,
-          Math.max(1,x)
-        ) + '%';
 
-      m.style.top =
-        ev.type.includes('up')
-          ? '8%'
-          : '84%';
+        const isBull =
+          names.some(
+            x =>
+              x.includes(
+                'up'
+              )
+          );
 
-      el.appendChild(m);
 
-    });
+        const m =
+          document.createElement(
+            'div'
+          );
+
+
+        m.className =
+          'marker ' +
+          (
+            isBull
+              ? 'bull'
+              : 'bear'
+          );
+
+
+        m.textContent =
+          names.join(
+            ' / '
+          );
+
+
+        const x =
+          candles.length === 1
+            ? 48
+            : 2 +
+              i *
+              (
+                96 /
+                (
+                  candles.length-1
+                )
+              );
+
+
+        m.style.left =
+          Math.min(
+            88,
+            Math.max(
+              1,
+              x
+            )
+          ) + '%';
+
+
+        m.style.top =
+          isBull
+            ? '8%'
+            : '84%';
+
+
+        el.appendChild(m);
+
+      }
+    );
 
 }
 
@@ -923,16 +1474,22 @@ function selectCandle(i){
   selectedIndex =
     i;
 
+
   const c =
     candles[i];
 
-  document.getElementById('ctime')
+
+  document
+    .getElementById('ctime')
     .textContent =
     c.datetime;
 
+
   renderChart();
 
-  document.getElementById('ca')
+
+  document
+    .getElementById('ca')
     .textContent =
     `Selected ${c.datetime}. ` +
     `Open ${fmt(c.open)}, ` +
@@ -945,7 +1502,9 @@ function selectCandle(i){
 
 function goAnalyze(){
 
-  if(selectedIndex == null){
+  if(
+    selectedIndex == null
+  ){
 
     alert(
       'Select a candle on the chart first.'
@@ -955,15 +1514,19 @@ function goAnalyze(){
 
   }
 
+
   const btn =
-    document.querySelectorAll(
-      '.nav button'
-    )[1];
+    document
+      .querySelectorAll(
+        '.nav button'
+      )[1];
+
 
   show(
     'candle',
     btn
   );
+
 
   analyzeSelected();
 
@@ -975,80 +1538,113 @@ function analyzeSelected(){
   const c =
     candles[selectedIndex];
 
+
   const s =
-    structure?.structures || {};
+    structure?.structures ||
+    {};
+
 
   const swings =
     (s.swings || [])
       .filter(
         x =>
-          x.index === selectedIndex
+          x.index ===
+          selectedIndex
       );
+
 
   const breaks =
     (s.structureBreaks || [])
       .filter(
         x =>
-          x.index === selectedIndex
+          x.index ===
+          selectedIndex
       );
+
 
   const disps =
     (s.displacement || [])
       .filter(
         x =>
-          x.index === selectedIndex
+          x.index ===
+          selectedIndex
       );
+
 
   const fvgs =
     (s.fairValueGaps || [])
       .filter(
         x =>
-          x.index === selectedIndex
+          x.index ===
+          selectedIndex
       );
 
-  document.getElementById('ctime')
+
+  document
+    .getElementById('ctime')
     .textContent =
     c.datetime;
+
 
   const observations = [
 
     ...swings.map(
       x =>
-        x.type.replaceAll('_',' ')
+        x.type.replaceAll(
+          '_',
+          ' '
+        )
     ),
 
     ...breaks.map(
       x =>
-        x.type.replaceAll('_',' ')
+        x.type.replaceAll(
+          '_',
+          ' '
+        )
     ),
 
     ...disps.map(
       x =>
-        x.type.replaceAll('_',' ')
+        x.type.replaceAll(
+          '_',
+          ' '
+        )
     ),
 
     ...fvgs.map(
       x =>
-        x.type.replaceAll('_',' ')
+        x.type.replaceAll(
+          '_',
+          ' '
+        )
     )
 
   ];
 
-  document.getElementById('ca')
+
+  document
+    .getElementById('ca')
     .innerHTML =
     '<b>Observable structure:</b> ' +
     (
       observations.length
-        ? observations.join(', ')
+        ? observations.join(
+            ', '
+          )
         : 'No specific structure event detected on this candle.'
     ) +
     '.';
 
-  document.getElementById('conf')
+
+  document
+    .getElementById('conf')
     .textContent =
     'Algorithmic observation';
 
-  document.getElementById('details')
+
+  document
+    .getElementById('details')
     .innerHTML = [
 
       [
@@ -1093,7 +1689,9 @@ function analyzeSelected(){
                     ' '
                   )
               )
-              .join(', ')
+              .join(
+                ', '
+              )
           : 'None'
       ]
 
@@ -1112,18 +1710,24 @@ function analyzeSelected(){
 }
 
 
-function setStatus(t,cls){
+function setStatus(
+  t,
+  cls
+){
 
   const s =
     document.getElementById(
       'status'
     );
 
+
   s.textContent =
     t;
 
+
   s.className =
-    'status ' + cls;
+    'status ' +
+    cls;
 
 }
 
@@ -1131,25 +1735,32 @@ function setStatus(t,cls){
 function research(){
 
   const q =
-    document.getElementById('q')
+    document
+      .getElementById('q')
       .value ||
     'Why did Nasdaq move?';
 
-  document.getElementById('ans')
+
+  document
+    .getElementById('ans')
     .innerHTML =
     '<b>' +
     q +
     '</b><br><br>' +
+
     'Market evidence is connected. ' +
-    'News, economic-calendar and macro evidence ' +
-    'will be added before the AI produces a ' +
-    'catalyst explanation.';
+
+    'News, economic-calendar and macro ' +
+    'evidence will be added before the AI ' +
+    'produces a catalyst explanation.';
 
 }
 
 
-document.getElementById('macroRows')
+document
+  .getElementById('macroRows')
   .innerHTML =
+
   [
     'Treasury yields',
     'Dollar',
@@ -1169,8 +1780,10 @@ document.getElementById('macroRows')
   .join('');
 
 
-document.getElementById('crossRows')
+document
+  .getElementById('crossRows')
   .innerHTML =
+
   [
     'NASDAQ Futures — NQ',
     'S&P 500',
