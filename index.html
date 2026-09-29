@@ -144,8 +144,6 @@ select,
   color:#fff;
 }
 
-/* CHART */
-
 .chart-wrap{
   margin-top:15px;
 }
@@ -426,8 +424,6 @@ select,
   transform:translateY(-50%);
 }
 
-/* SIGNAL */
-
 .signal-header{
   display:flex;
   justify-content:space-between;
@@ -479,8 +475,6 @@ select,
   font-size:10px;
   line-height:1.4;
 }
-
-/* METRICS */
 
 .info-grid{
   display:grid;
@@ -541,9 +535,7 @@ select,
   color:#ff7182;
 }
 
-/* =========================
-   AI CHART ANALYZER
-========================= */
+/* AI ANALYZER */
 
 .ai-card{
   border-color:#30234d;
@@ -866,9 +858,7 @@ select,
 </div>
 
 
-<!-- =========================
-     AI CHART ANALYZER
-========================= -->
+<!-- AI CHART ANALYZER -->
 
 <div class="card ai-card">
 
@@ -879,7 +869,8 @@ select,
   <div class="ai-subtitle">
     Upload a clean chart screenshot from TradingView, MT5 or another platform.
     MarketLens AI will inspect the visible structure and return ICT/SMC observations,
-    scenarios, liquidity, FVGs, BOS/CHoCH, displacement, order blocks, AMD and session context.
+    scenarios, liquidity, FVGs, BOS/CHoCH, displacement, order blocks,
+    AMD and session context.
   </div>
 
   <div class="upload-box">
@@ -908,7 +899,10 @@ select,
 
     </div>
 
-    <div id="aiStatus" class="ai-status"></div>
+    <div
+      id="aiStatus"
+      class="ai-status"
+    ></div>
 
     <div
       id="previewWrap"
@@ -952,9 +946,7 @@ select,
 </div>
 
 
-<!-- =========================
-     LIVE MARKET CHART
-========================= -->
+<!-- LIVE MARKET -->
 
 <div class="card">
 
@@ -981,36 +973,21 @@ select,
 
     <select id="intervalSelect">
 
-      <option value="1min">
-        1 MIN
-      </option>
+      <option value="1min">1 MIN</option>
 
-      <option
-        value="5min"
-        selected
-      >
+      <option value="5min" selected>
         5 MIN
       </option>
 
-      <option value="15min">
-        15 MIN
-      </option>
+      <option value="15min">15 MIN</option>
 
-      <option value="30min">
-        30 MIN
-      </option>
+      <option value="30min">30 MIN</option>
 
-      <option value="1h">
-        1 HOUR
-      </option>
+      <option value="1h">1 HOUR</option>
 
-      <option value="1day">
-        1 DAY
-      </option>
+      <option value="1day">1 DAY</option>
 
-      <option value="1week">
-        1 WEEK
-      </option>
+      <option value="1week">1 WEEK</option>
 
     </select>
 
@@ -1019,52 +996,31 @@ select,
 
   <div class="timeframes">
 
-    <button
-      class="tf"
-      data-tf="1min"
-    >
+    <button class="tf" data-tf="1min">
       1m
     </button>
 
-    <button
-      class="tf active"
-      data-tf="5min"
-    >
+    <button class="tf active" data-tf="5min">
       5m
     </button>
 
-    <button
-      class="tf"
-      data-tf="15min"
-    >
+    <button class="tf" data-tf="15min">
       15m
     </button>
 
-    <button
-      class="tf"
-      data-tf="30min"
-    >
+    <button class="tf" data-tf="30min">
       30m
     </button>
 
-    <button
-      class="tf"
-      data-tf="1h"
-    >
+    <button class="tf" data-tf="1h">
       1H
     </button>
 
-    <button
-      class="tf"
-      data-tf="1day"
-    >
+    <button class="tf" data-tf="1day">
       1D
     </button>
 
-    <button
-      class="tf"
-      data-tf="1week"
-    >
+    <button class="tf" data-tf="1week">
       1W
     </button>
 
@@ -1073,19 +1029,13 @@ select,
 
   <div class="chart-wrap">
 
-    <div
-      id="chart"
-      class="chart"
-    >
+    <div id="chart" class="chart">
 
       <div class="fullscreen-title">
         NQ FUTURES · 5 MIN
       </div>
 
-      <div
-        id="chartLayer"
-        class="chart-layer"
-      >
+      <div id="chartLayer" class="chart-layer">
 
         <div class="gridlines"></div>
 
@@ -1333,9 +1283,7 @@ select,
 
 <script>
 
-/* =========================
-   API CONNECTIONS
-========================= */
+/* API */
 
 const MARKET_API =
   "https://market-lens-ai-backend-mu.vercel.app/api/market";
@@ -1347,9 +1295,7 @@ const CHART_ANALYSIS_API =
   "https://market-lens-ai-backend-mu.vercel.app/api/analyze-chart";
 
 
-/* =========================
-   STATE
-========================= */
+/* STATE */
 
 let candles = [];
 
@@ -1386,16 +1332,14 @@ let selectedCandle = null;
 let uploadedImageData = null;
 
 
-const $ = id =>
-  document.getElementById(id);
+const $ =
+  id => document.getElementById(id);
 
 const chartElement =
   $("chart");
 
 
-/* =========================
-   CHART VIEW
-========================= */
+/* CHART VIEW */
 
 function applyChartTransform(){
 
@@ -1444,10 +1388,14 @@ function toggleFullscreen(){
   const button =
     $("fullscreenBtn");
 
-  chart.classList.toggle("fullscreen");
+  chart.classList.toggle(
+    "fullscreen"
+  );
 
   button.textContent =
-    chart.classList.contains("fullscreen")
+    chart.classList.contains(
+      "fullscreen"
+    )
       ? "✕ Exit Full Screen"
       : "⛶ Full Screen";
 
@@ -1459,9 +1407,7 @@ function toggleFullscreen(){
 }
 
 
-/* =========================
-   POINTER / PAN / PINCH
-========================= */
+/* POINTERS */
 
 chartElement.addEventListener(
   "pointerdown",
@@ -1518,7 +1464,6 @@ chartElement.addEventListener(
         Math.hypot(
           points[0].x -
           points[1].x,
-
           points[0].y -
           points[1].y
         );
@@ -1609,7 +1554,6 @@ chartElement.addEventListener(
         Math.hypot(
           points[0].x -
           points[1].x,
-
           points[0].y -
           points[1].y
         );
@@ -1646,79 +1590,82 @@ chartElement.addEventListener(
 [
   "pointerup",
   "pointercancel"
-].forEach(type => {
+].forEach(
+  type => {
 
-  chartElement.addEventListener(
-    type,
-    e => {
+    chartElement.addEventListener(
+      type,
+      e => {
 
-      activePointers.delete(
-        e.pointerId
-      );
-
-
-      if(
-        activePointers.size < 2
-      ){
-
-        pinchStartDistance =
-          null;
-
-      }
+        activePointers.delete(
+          e.pointerId
+        );
 
 
-      if(
-        activePointers.size === 0
-      ){
+        if(
+          activePointers.size < 2
+        ){
 
-        isDragging = false;
+          pinchStartDistance =
+            null;
 
-        hideCrosshair();
-
-      }
-
-    }
-  );
-
-});
+        }
 
 
-/* =========================
-   TIMEFRAMES
-========================= */
+        if(
+          activePointers.size === 0
+        ){
 
-document
-  .querySelectorAll(".tf")
-  .forEach(button => {
+          isDragging = false;
 
-    button.addEventListener(
-      "click",
-      () => {
+          hideCrosshair();
 
-        currentInterval =
-          button.dataset.tf;
-
-
-        document
-          .querySelectorAll(".tf")
-          .forEach(x =>
-            x.classList.toggle(
-              "active",
-              x === button
-            )
-          );
-
-
-        $("intervalSelect").value =
-          currentInterval;
-
-
-        loadMarket();
+        }
 
       }
     );
 
-  });
+  }
+);
+
+
+/* TIMEFRAMES */
+
+document
+  .querySelectorAll(".tf")
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          currentInterval =
+            button.dataset.tf;
+
+
+          document
+            .querySelectorAll(".tf")
+            .forEach(
+              x =>
+                x.classList.toggle(
+                  "active",
+                  x === button
+                )
+            );
+
+
+          $("intervalSelect").value =
+            currentInterval;
+
+
+          loadMarket();
+
+        }
+      );
+
+    }
+  );
 
 
 $("intervalSelect")
@@ -1732,12 +1679,13 @@ $("intervalSelect")
 
       document
         .querySelectorAll(".tf")
-        .forEach(x =>
-          x.classList.toggle(
-            "active",
-            x.dataset.tf ===
-            currentInterval
-          )
+        .forEach(
+          x =>
+            x.classList.toggle(
+              "active",
+              x.dataset.tf ===
+              currentInterval
+            )
         );
 
 
@@ -1747,9 +1695,7 @@ $("intervalSelect")
   );
 
 
-/* =========================
-   MARKET DATA
-========================= */
+/* MARKET */
 
 async function loadMarket(){
 
@@ -1815,13 +1761,13 @@ async function loadMarket(){
 
     await loadStructure();
 
-
     renderChart();
 
     generateAnalysis();
 
+  }
 
-  }catch(error){
+  catch(error){
 
     console.error(error);
 
@@ -1835,7 +1781,9 @@ async function loadMarket(){
 
     $("analysis").innerHTML =
       `<span class="error">
-        ${escapeHtml(error.message)}
+        ${escapeHtml(
+          error.message
+        )}
       </span>`;
 
   }
@@ -1843,9 +1791,7 @@ async function loadMarket(){
 }
 
 
-/* =========================
-   STRUCTURE
-========================= */
+/* STRUCTURE */
 
 async function loadStructure(){
 
@@ -1892,8 +1838,9 @@ async function loadStructure(){
       data.structure ||
       data;
 
+  }
 
-  }catch(error){
+  catch(error){
 
     console.error(
       "Structure:",
@@ -1907,9 +1854,7 @@ async function loadStructure(){
 }
 
 
-/* =========================
-   FVG QUALITY
-========================= */
+/* FVG QUALITY */
 
 function getFVGQuality(gap){
 
@@ -1955,6 +1900,7 @@ function getFVGQuality(gap){
 
   const averageRange =
     recent.length
+
       ? recent.reduce(
           (
             sum,
@@ -2030,7 +1976,6 @@ function getFVGQuality(gap){
       Number(
         candles[i].high
       ) >= low &&
-
       Number(
         candles[i].low
       ) <= high
@@ -2075,13 +2020,11 @@ function getFVGQuality(gap){
 
   for(
     let i = index + 1;
-
     i <=
       Math.min(
         candles.length - 1,
         index + 3
       );
-
     i++
   ){
 
@@ -2143,38 +2086,43 @@ function getHighProbabilityFVGs(){
 
 
   return gaps
-    .map(gap => {
 
-      const q =
-        getFVGQuality(gap);
+    .map(
+      gap => {
+
+        const q =
+          getFVGQuality(
+            gap
+          );
 
 
-      return {
-        ...gap,
+        return {
+          ...gap,
 
-        probabilityScore:
-          q.score,
+          probabilityScore:
+            q.score,
 
-        probabilityReasons:
-          q.reasons
+          probabilityReasons:
+            q.reasons
 
-      };
+        };
 
-    })
+      }
+    )
 
     .filter(
       gap =>
         gap.probabilityScore >= 3
     )
 
-    .slice(-20);
+    .slice(
+      -20
+    );
 
 }
 
 
-/* =========================
-   RENDER CHART
-========================= */
+/* RENDER */
 
 function renderChart(){
 
@@ -2227,22 +2175,28 @@ function renderChart(){
 
   const highs =
     candles.map(
-      c => Number(c.high)
+      c =>
+        Number(c.high)
     );
 
 
   const lows =
     candles.map(
-      c => Number(c.low)
+      c =>
+        Number(c.low)
     );
 
 
   let maxPrice =
-    Math.max(...highs);
+    Math.max(
+      ...highs
+    );
 
 
   let minPrice =
-    Math.min(...lows);
+    Math.min(
+      ...lows
+    );
 
 
   const range =
@@ -2278,12 +2232,17 @@ function renderChart(){
     );
 
 
-  function priceY(price){
+  function priceY(
+    price
+  ){
 
     return padding.top +
 
       (
-        (maxPrice - price) /
+        (
+          maxPrice -
+          price
+        ) /
         priceRange
       ) *
 
@@ -2293,7 +2252,10 @@ function renderChart(){
 
 
   candles.forEach(
-    (candle,index) => {
+    (
+      candle,
+      index
+    ) => {
 
       const x =
         padding.left +
@@ -2302,19 +2264,27 @@ function renderChart(){
 
 
       const openY =
-        priceY(candle.open);
+        priceY(
+          candle.open
+        );
 
 
       const closeY =
-        priceY(candle.close);
+        priceY(
+          candle.close
+        );
 
 
       const highY =
-        priceY(candle.high);
+        priceY(
+          candle.high
+        );
 
 
       const lowY =
-        priceY(candle.low);
+        priceY(
+          candle.low
+        );
 
 
       const top =
@@ -2328,7 +2298,8 @@ function renderChart(){
         Math.max(
           2,
           Math.abs(
-            closeY - openY
+            closeY -
+            openY
           )
         );
 
@@ -2341,7 +2312,6 @@ function renderChart(){
 
       el.className =
         "candle " +
-
         (
           candle.close >=
           candle.open
@@ -2353,7 +2323,8 @@ function renderChart(){
 
 
       if(
-        selectedCandle === index
+        selectedCandle ===
+        index
       ){
 
         el.classList.add(
@@ -2364,7 +2335,8 @@ function renderChart(){
 
 
       el.style.left =
-        `${x - candleWidth / 2}px`;
+        `${x -
+          candleWidth / 2}px`;
 
       el.style.top =
         `${highY}px`;
@@ -2373,7 +2345,8 @@ function renderChart(){
         `${candleWidth}px`;
 
       el.style.height =
-        `${lowY - highY}px`;
+        `${lowY -
+          highY}px`;
 
 
       const wick =
@@ -2385,17 +2358,15 @@ function renderChart(){
       wick.className =
         "wick";
 
-
       wick.style.left =
         `${candleWidth / 2}px`;
-
 
       wick.style.top =
         "0";
 
-
       wick.style.height =
-        `${lowY - highY}px`;
+        `${lowY -
+          highY}px`;
 
 
       const body =
@@ -2407,14 +2378,12 @@ function renderChart(){
       body.className =
         "body";
 
-
       body.style.top =
-        `${top - highY}px`;
-
+        `${top -
+          highY}px`;
 
       body.style.width =
         `${candleWidth}px`;
-
 
       body.style.height =
         `${bodyHeight}px`;
@@ -2501,9 +2470,7 @@ function renderChart(){
 }
 
 
-/* =========================
-   FVG OVERLAY
-========================= */
+/* FVG */
 
 function renderFVGs(
   layer,
@@ -2513,98 +2480,107 @@ function renderFVGs(
 ){
 
   getHighProbabilityFVGs()
-    .forEach(gap => {
+    .forEach(
+      gap => {
 
-      const index =
-        Number(
-          gap.index
-        );
-
-
-      const high =
-        Number(
-          gap.high
-        );
+        const index =
+          Number(
+            gap.index
+          );
 
 
-      const low =
-        Number(
-          gap.low
-        );
+        const high =
+          Number(
+            gap.high
+          );
 
 
-      if(
-        !Number.isFinite(index) ||
-        !Number.isFinite(high) ||
-        !Number.isFinite(low)
-      )
-        return;
+        const low =
+          Number(
+            gap.low
+          );
 
 
-      const bearish =
-        String(
-          gap.type || ""
+        if(
+          !Number.isFinite(
+            index
+          ) ||
+          !Number.isFinite(
+            high
+          ) ||
+          !Number.isFinite(
+            low
+          )
         )
-        .toLowerCase()
-        .includes("bear");
+          return;
 
 
-      const box =
-        document.createElement(
-          "div"
+        const bearish =
+          String(
+            gap.type || ""
+          )
+          .toLowerCase()
+          .includes(
+            "bear"
+          );
+
+
+        const box =
+          document.createElement(
+            "div"
+          );
+
+
+        box.className =
+          "overlay fvg high-probability " +
+          (
+            bearish
+              ? "bearish"
+              : "bullish"
+          );
+
+
+        box.style.left =
+          `${padding.left +
+            index * spacing}px`;
+
+
+        box.style.top =
+          `${priceY(
+            high
+          )}px`;
+
+
+        box.style.width =
+          `${Math.max(
+            30,
+            spacing * 3
+          )}px`;
+
+
+        box.style.height =
+          `${Math.max(
+            4,
+            priceY(low) -
+            priceY(high)
+          )}px`;
+
+
+        box.title =
+          `High Probability FVG · Score ${gap.probabilityScore}/5 · ${gap.probabilityReasons.join(", ")}`;
+
+
+        layer.appendChild(
+          box
         );
 
-
-      box.className =
-        "overlay fvg high-probability " +
-
-        (
-          bearish
-            ? "bearish"
-            : "bullish"
-        );
-
-
-      box.style.left =
-        `${padding.left +
-          index * spacing}px`;
-
-
-      box.style.top =
-        `${priceY(high)}px`;
-
-
-      box.style.width =
-        `${Math.max(
-          30,
-          spacing * 3
-        )}px`;
-
-
-      box.style.height =
-        `${Math.max(
-          4,
-          priceY(low) -
-          priceY(high)
-        )}px`;
-
-
-      box.title =
-        `High Probability FVG · Score ${gap.probabilityScore}/5 · ${gap.probabilityReasons.join(", ")}`;
-
-
-      layer.appendChild(
-        box
-      );
-
-    });
+      }
+    );
 
 }
 
 
-/* =========================
-   LIQUIDITY
-========================= */
+/* LIQUIDITY */
 
 function renderLiquidity(
   layer,
@@ -2630,7 +2606,9 @@ function renderLiquidity(
 
 
       if(
-        !Number.isFinite(price)
+        !Number.isFinite(
+          price
+        )
       )
         return;
 
@@ -2654,7 +2632,9 @@ function renderLiquidity(
 
 
       line.style.top =
-        `${priceY(price)}px`;
+        `${priceY(
+          price
+        )}px`;
 
 
       layer.appendChild(
@@ -2667,9 +2647,7 @@ function renderLiquidity(
 }
 
 
-/* =========================
-   DISPLACEMENT
-========================= */
+/* DISPLACEMENT */
 
 function renderDisplacement(
   layer,
@@ -2694,7 +2672,9 @@ function renderDisplacement(
 
 
       if(
-        !Number.isFinite(index) ||
+        !Number.isFinite(
+          index
+        ) ||
         index < 0 ||
         index >= candles.length
       )
@@ -2742,7 +2722,9 @@ function renderDisplacement(
 
 
       box.style.height =
-        `${bottom - top + 6}px`;
+        `${bottom -
+          top +
+          6}px`;
 
 
       layer.appendChild(
@@ -2755,9 +2737,7 @@ function renderDisplacement(
 }
 
 
-/* =========================
-   CHART UI
-========================= */
+/* CHART UI */
 
 function renderChartUI(
   priceY,
@@ -2811,7 +2791,8 @@ function renderChartUI(
     $("priceAxis");
 
 
-  axis.innerHTML = "";
+  axis.innerHTML =
+    "";
 
 
   for(
@@ -2822,10 +2803,11 @@ function renderChartUI(
 
     const value =
       maxPrice -
-
       (
-        (maxPrice -
-        minPrice) *
+        (
+          maxPrice -
+          minPrice
+        ) *
         i / 4
       );
 
@@ -2868,7 +2850,8 @@ function renderTimeAxis(){
     $("timeAxis");
 
 
-  axis.innerHTML = "";
+  axis.innerHTML =
+    "";
 
 
   const count =
@@ -2888,7 +2871,8 @@ function renderTimeAxis(){
       Math.round(
         i *
         (
-          candles.length - 1
+          candles.length -
+          1
         ) /
         Math.max(
           1,
@@ -2912,7 +2896,8 @@ function renderTimeAxis(){
         index /
         Math.max(
           1,
-          candles.length - 1
+          candles.length -
+          1
         ) *
         100
       }%`;
@@ -2933,11 +2918,11 @@ function renderTimeAxis(){
 }
 
 
-/* =========================
-   CROSSHAIR
-========================= */
+/* CROSSHAIR */
 
-function showCrosshair(event){
+function showCrosshair(
+  event
+){
 
   if(
     !candles.length ||
@@ -2989,7 +2974,9 @@ function showCrosshair(event){
 
 
   let ratio =
-    (x - left) /
+    (
+      x - left
+    ) /
     plotWidth;
 
 
@@ -3007,7 +2994,8 @@ function showCrosshair(event){
     Math.round(
       ratio *
       (
-        candles.length - 1
+        candles.length -
+        1
       )
     );
 
@@ -3022,27 +3010,23 @@ function showCrosshair(event){
 
   const px =
     left +
-
     index /
     Math.max(
       1,
-      candles.length - 1
+      candles.length -
+      1
     ) *
-
     plotWidth;
 
 
   const v =
     $("crosshairV");
 
-
   const h =
     $("crosshairH");
 
-
   const time =
     $("crosshairTime");
-
 
   const price =
     $("crosshairPrice");
@@ -3054,20 +3038,16 @@ function showCrosshair(event){
   h.style.top =
     `${y}px`;
 
-
   time.style.left =
     `${px}px`;
-
 
   time.textContent =
     formatDate(
       candle.datetime
     );
 
-
   price.style.top =
     `${y}px`;
-
 
   price.textContent =
     formatPrice(
@@ -3097,7 +3077,8 @@ function hideCrosshair(){
     "crosshairH",
     "crosshairTime",
     "crosshairPrice"
-  ].forEach(
+  ]
+  .forEach(
     id => {
 
       $(id).style.display =
@@ -3109,15 +3090,12 @@ function hideCrosshair(){
 }
 
 
-/* =========================
-   SIGNAL
-========================= */
+/* SIGNAL */
 
 function updateSignalBox(){
 
   const badge =
     $("signalBadge");
-
 
   const reason =
     $("signalReason");
@@ -3171,21 +3149,24 @@ function updateSignalBox(){
       Math.abs(high),
       Math.abs(low),
       1
-    ) * .001;
+    ) *
+    .001;
 
 
   const near =
     current >=
-      low - proximity &&
-
+      low -
+      proximity &&
     current <=
-      high + proximity;
+      high +
+      proximity;
 
 
   const type =
     String(
       latest.type || ""
-    ).toLowerCase();
+    )
+    .toLowerCase();
 
 
   const bullish =
@@ -3244,16 +3225,14 @@ function updateSignalBox(){
 
 
     reason.textContent =
-      `High-probability ${bullish ? "bullish" : bearish ? "bearish" : "FVG"} detected, but price is not currently interacting with the zone. Score ${latest.probabilityScore}/5.`;
+      `High-probability FVG detected, but price is not currently interacting with the zone. Score ${latest.probabilityScore}/5.`;
 
   }
 
 }
 
 
-/* =========================
-   METRICS
-========================= */
+/* METRICS */
 
 function updateMetrics(){
 
@@ -3307,11 +3286,11 @@ function updateMetrics(){
 }
 
 
-/* =========================
-   CANDLE INFORMATION
-========================= */
+/* CANDLE */
 
-function showCandleInfo(index){
+function showCandleInfo(
+  index
+){
 
   const candle =
     candles[index];
@@ -3362,9 +3341,7 @@ function showCandleInfo(index){
 }
 
 
-/* =========================
-   MARKET ANALYSIS
-========================= */
+/* ANALYSIS */
 
 function generateAnalysis(){
 
@@ -3450,11 +3427,11 @@ function generateAnalysis(){
 }
 
 
-/* =========================
-   HELPERS
-========================= */
+/* HELPERS */
 
-function formatPrice(value){
+function formatPrice(
+  value
+){
 
   const n =
     Number(value);
@@ -3477,7 +3454,9 @@ function formatPrice(value){
 }
 
 
-function formatDate(value){
+function formatDate(
+  value
+){
 
   try{
 
@@ -3493,7 +3472,9 @@ function formatDate(value){
       }
     );
 
-  }catch{
+  }
+
+  catch{
 
     return value;
 
@@ -3502,13 +3483,16 @@ function formatDate(value){
 }
 
 
-function formatAxisDate(value){
+function formatAxisDate(
+  value
+){
 
   try{
 
     return new Date(
       value
-    ).toLocaleString(
+    )
+    .toLocaleString(
       "en-ZA",
       {
         day:"2-digit",
@@ -3523,7 +3507,9 @@ function formatAxisDate(value){
       ""
     );
 
-  }catch{
+  }
+
+  catch{
 
     return value;
 
@@ -3532,7 +3518,9 @@ function formatAxisDate(value){
 }
 
 
-function escapeHtml(value){
+function escapeHtml(
+  value
+){
 
   return String(value)
 
@@ -3564,9 +3552,10 @@ function escapeHtml(value){
 }
 
 
-/* =========================
-   AI CHART UPLOAD
-========================= */
+/* ==================================================
+   AI UPLOAD
+   SAFARI-SAFE VERSION
+================================================== */
 
 $("chartUpload")
 .addEventListener(
@@ -3688,7 +3677,7 @@ $("clearChartBtn")
 );
 
 
-/* ANALYZE */
+/* ANALYZE BUTTON */
 
 $("analyzeChartBtn")
 .addEventListener(
@@ -3697,11 +3686,22 @@ $("analyzeChartBtn")
 );
 
 
-/* =========================
-   COMPRESS IMAGE
-========================= */
+/* ==================================================
+   SAFARI-SAFE IMAGE READER
 
-async function compressImage(file){
+   IMPORTANT:
+   We no longer create a canvas or call
+   canvas.toDataURL().
+   Safari was throwing:
+   "The string did not match the expected pattern."
+
+   We simply send the original image as a
+   base64 data URL.
+================================================== */
+
+async function compressImage(
+  file
+){
 
   return new Promise(
     (
@@ -3709,7 +3709,21 @@ async function compressImage(file){
       reject
     ) => {
 
+      if(!file){
+
+        reject(
+          new Error(
+            "No image selected."
+          )
+        );
+
+        return;
+
+      }
+
+
       if(
+        !file.type ||
         !file.type.startsWith(
           "image/"
         )
@@ -3733,109 +3747,72 @@ async function compressImage(file){
       reader.onload =
         () => {
 
-          const img =
-            new Image();
-
-
-          img.onload =
-            () => {
-
-              const max =
-                1800;
-
-
-              const scale =
-                Math.min(
-                  1,
-                  max /
-                  Math.max(
-                    img.width,
-                    img.height
-                  )
-                );
-
-
-              const width =
-                Math.max(
-                  1,
-                  Math.round(
-                    img.width *
-                    scale
-                  )
-                );
-
-
-              const height =
-                Math.max(
-                  1,
-                  Math.round(
-                    img.height *
-                    scale
-                  )
-                );
-
-
-              const canvas =
-                document.createElement(
-                  "canvas"
-                );
-
-
-              canvas.width =
-                width;
-
-
-              canvas.height =
-                height;
-
-
-              const ctx =
-                canvas.getContext(
-                  "2d"
-                );
-
-
-              ctx.drawImage(
-                img,
-                0,
-                0,
-                width,
-                height
-              );
-
-
-              resolve(
-                canvas.toDataURL(
-                  "image/jpeg",
-                  .88
-                )
-              );
-
-            };
-
-
-          img.onerror =
-            () =>
-              reject(
-                new Error(
-                  "Could not decode the image."
-                )
-              );
-
-
-          img.src =
+          const result =
             reader.result;
+
+
+          if(
+            typeof result !==
+            "string"
+          ){
+
+            reject(
+              new Error(
+                "Could not read the selected image."
+              )
+            );
+
+            return;
+
+          }
+
+
+          if(
+            !result.startsWith(
+              "data:image/"
+            )
+          ){
+
+            reject(
+              new Error(
+                "The selected file is not a valid image."
+              )
+            );
+
+            return;
+
+          }
+
+
+          resolve(
+            result
+          );
 
         };
 
 
       reader.onerror =
-        () =>
+        () => {
+
           reject(
             new Error(
               "Could not read the image."
             )
           );
+
+        };
+
+
+      reader.onabort =
+        () => {
+
+          reject(
+            new Error(
+              "Image reading was cancelled."
+            )
+          );
+
+        };
 
 
       reader.readAsDataURL(
@@ -3848,9 +3825,9 @@ async function compressImage(file){
 }
 
 
-/* =========================
-   AI ANALYSIS REQUEST
-========================= */
+/* ==================================================
+   AI REQUEST
+================================================== */
 
 async function analyzeUploadedChart(){
 
@@ -3982,9 +3959,9 @@ async function analyzeUploadedChart(){
 }
 
 
-/* =========================
-   RENDER AI RESULTS
-========================= */
+/* ==================================================
+   AI RESULTS
+================================================== */
 
 function renderAIResults(
   analysis
@@ -4032,8 +4009,6 @@ function renderAIResults(
     );
 
 
-  /* SUMMARY */
-
   const summary =
     document.createElement(
       "div"
@@ -4073,8 +4048,6 @@ function renderAIResults(
   );
 
 
-  /* TOP */
-
   const top =
     document.createElement(
       "div"
@@ -4084,8 +4057,6 @@ function renderAIResults(
   top.className =
     "ai-top";
 
-
-  /* BIAS */
 
   const biasBox =
     document.createElement(
@@ -4097,18 +4068,12 @@ function renderAIResults(
     "ai-bias";
 
 
-  const biasDirection =
-    String(
-      bias.label ||
-      "Neutral"
-    );
-
-
   biasBox.innerHTML =
 
     `<div class="ai-bias-label">
       ${escapeHtml(
-        biasDirection
+        bias.label ||
+        "Neutral"
       )}
     </div>
 
@@ -4134,8 +4099,6 @@ function renderAIResults(
     biasBox
   );
 
-
-  /* AMD */
 
   const amd =
     a.amd || {};
@@ -4203,8 +4166,6 @@ function renderAIResults(
   );
 
 
-  /* ICT */
-
   addAISection(
     wrap,
     "Key ICT / SMC Observations",
@@ -4218,9 +4179,7 @@ function renderAIResults(
 
         body:
           `${item.direction || "neutral"} · ` +
-
           `${item.label || ""}` +
-
           (
             item.reason
               ? ` — ${item.reason}`
@@ -4231,8 +4190,6 @@ function renderAIResults(
     )
   );
 
-
-  /* SCENARIOS */
 
   addAISection(
     wrap,
@@ -4251,8 +4208,6 @@ function renderAIResults(
     )
   );
 
-
-  /* SESSIONS */
 
   const sessionItems =
     [];
@@ -4313,8 +4268,6 @@ function renderAIResults(
   );
 
 
-  /* WARNINGS */
-
   if(
     Array.isArray(
       a.warnings
@@ -4333,7 +4286,6 @@ function renderAIResults(
 
 
     warnings.innerHTML =
-
       "<strong>Warnings:</strong><br>" +
 
       a.warnings
@@ -4372,9 +4324,7 @@ function renderAIResults(
 }
 
 
-/* =========================
-   AI SECTION
-========================= */
+/* AI SECTIONS */
 
 function addAISection(
   parent,
@@ -4429,8 +4379,6 @@ function addAISection(
   }
 
 
-  /* SCENARIOS */
-
   if(
     items[0]?.scenario !==
     undefined
@@ -4454,8 +4402,6 @@ function addAISection(
 
   }
 
-
-  /* NORMAL ITEMS */
 
   const grid =
     document.createElement(
@@ -4515,9 +4461,7 @@ function addAISection(
 }
 
 
-/* =========================
-   SCENARIO
-========================= */
+/* SCENARIO */
 
 function renderScenario(
   scenario,
@@ -4662,9 +4606,7 @@ function renderScenario(
 }
 
 
-/* =========================
-   AI CHART ANNOTATIONS
-========================= */
+/* AI OVERLAY */
 
 function renderAIOverlay(
   annotations
@@ -4727,8 +4669,6 @@ function renderAIOverlay(
 
               : "neutral";
 
-
-        /* BOX */
 
         if(
           Number.isFinite(
@@ -4799,8 +4739,6 @@ function renderAIOverlay(
         }
 
 
-        /* MARKER */
-
         const marker =
           document.createElement(
             "div"
@@ -4823,8 +4761,6 @@ function renderAIOverlay(
           marker
         );
 
-
-        /* LABEL */
 
         const tag =
           document.createElement(
@@ -4860,9 +4796,7 @@ function renderAIOverlay(
 }
 
 
-/* =========================
-   KEYBOARD
-========================= */
+/* KEYBOARD */
 
 document.addEventListener(
   "keydown",
@@ -4908,9 +4842,7 @@ document.addEventListener(
 );
 
 
-/* =========================
-   START
-========================= */
+/* START */
 
 loadMarket();
 
