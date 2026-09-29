@@ -22,12 +22,19 @@ html,body{
 }
 
 body{min-height:100vh}
-button,select{font:inherit}
+
+button,select,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
 
 .app{
   max-width:1100px;
   margin:auto;
-  padding:18px;
+  padding:16px;
 }
 
 .header{
@@ -35,7 +42,7 @@ button,select{font:inherit}
   justify-content:space-between;
   align-items:center;
   gap:12px;
-  margin-bottom:18px;
+  margin-bottom:16px;
 }
 
 .logo{
@@ -44,10 +51,12 @@ button,select{font:inherit}
   letter-spacing:-.5px;
 }
 
-.logo span{color:#8b5cf6}
+.logo span{
+  color:#8b5cf6;
+}
 
 .status{
-  font-size:12px;
+  font-size:11px;
   padding:7px 10px;
   border-radius:999px;
   background:#102318;
@@ -55,7 +64,8 @@ button,select{font:inherit}
   border:1px solid #1d5d3b;
 }
 
-.card{
+.card,
+.signal-card{
   background:#0e131d;
   border:1px solid #202838;
   border-radius:18px;
@@ -88,6 +98,29 @@ button,select{font:inherit}
   color:#768297;
 }
 
+select,
+.btn{
+  background:#151c28;
+  color:#f4f6fb;
+  border:1px solid #2a3446;
+  border-radius:10px;
+  padding:9px 12px;
+}
+
+.btn:active{
+  transform:scale(.98);
+}
+
+.btn.primary{
+  background:#7c3aed;
+  border-color:#8b5cf6;
+}
+
+.btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
 .timeframes{
   display:flex;
   gap:6px;
@@ -103,7 +136,6 @@ button,select{font:inherit}
   background:#111722;
   border:1px solid #273142;
   color:#9ba6b8;
-  cursor:pointer;
 }
 
 .tf.active{
@@ -112,23 +144,11 @@ button,select{font:inherit}
   color:#fff;
 }
 
-select,
-.btn{
-  background:#151c28;
-  color:#f4f6fb;
-  border:1px solid #2a3446;
-  border-radius:10px;
-  padding:9px 12px;
-}
+/* CHART */
 
-.btn{cursor:pointer}
-.btn:active{transform:scale(.98)}
-.btn.primary{
-  background:#7c3aed;
-  border-color:#8b5cf6;
+.chart-wrap{
+  margin-top:15px;
 }
-
-.chart-wrap{margin-top:15px}
 
 .chart{
   position:relative;
@@ -149,7 +169,6 @@ select,
   width:100vw;
   height:100vh;
   border-radius:0;
-  background:#070a10;
 }
 
 .chart-layer{
@@ -166,7 +185,6 @@ select,
     linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
     linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
   background-size:60px 50px;
-  pointer-events:none;
 }
 
 .fullscreen-title{
@@ -177,10 +195,11 @@ select,
   left:16px;
   font-size:13px;
   color:#aeb7c7;
-  pointer-events:none;
 }
 
-.chart.fullscreen .fullscreen-title{display:block}
+.chart.fullscreen .fullscreen-title{
+  display:block;
+}
 
 .chart-controls{
   display:flex;
@@ -206,8 +225,13 @@ select,
   min-height:2px;
 }
 
-.up .body{background:#20d98b}
-.down .body{background:#ef5b6b}
+.up .body{
+  background:#20d98b;
+}
+
+.down .body{
+  background:#ef5b6b;
+}
 
 .selected .body{
   outline:2px solid #fff;
@@ -280,9 +304,17 @@ select,
   display:inline-block;
 }
 
-.dot.fvg{background:#39d99a}
-.dot.liq{background:#f5c451}
-.dot.disp{background:#60a5fa}
+.dot.fvg{
+  background:#39d99a;
+}
+
+.dot.liq{
+  background:#f5c451;
+}
+
+.dot.disp{
+  background:#60a5fa;
+}
 
 .price-axis{
   position:absolute;
@@ -394,13 +426,7 @@ select,
   transform:translateY(-50%);
 }
 
-.signal-card{
-  background:#0e131d;
-  border:1px solid #202838;
-  border-radius:18px;
-  padding:14px 16px;
-  margin-bottom:16px;
-}
+/* SIGNAL */
 
 .signal-header{
   display:flex;
@@ -422,19 +448,19 @@ select,
   border:1px solid;
 }
 
-.signal-badge.wait{
+.wait{
   color:#f5c451;
   border-color:#7b6320;
   background:#2a2410;
 }
 
-.signal-badge.buy{
+.buy{
   color:#55e7a5;
   border-color:#257554;
   background:#143c2d;
 }
 
-.signal-badge.sell{
+.sell{
   color:#ff7b8c;
   border-color:#8b3e4c;
   background:#42212b;
@@ -453,6 +479,8 @@ select,
   font-size:10px;
   line-height:1.4;
 }
+
+/* METRICS */
 
 .info-grid{
   display:grid;
@@ -513,16 +541,310 @@ select,
   color:#ff7182;
 }
 
+/* =========================
+   AI CHART ANALYZER
+========================= */
+
+.ai-card{
+  border-color:#30234d;
+  background:linear-gradient(180deg,#11101b,#0e131d);
+}
+
+.ai-subtitle{
+  font-size:12px;
+  color:#8f9aab;
+  line-height:1.5;
+  margin-bottom:12px;
+}
+
+.upload-box{
+  border:1px dashed #3a3150;
+  border-radius:14px;
+  padding:12px;
+  background:#0a0e16;
+}
+
+.upload-row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.file-label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 13px;
+  border-radius:10px;
+  background:#171226;
+  border:1px solid #46366c;
+  color:#fff;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.file-label input{
+  display:none;
+}
+
+.ai-actions{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+
+.ai-status{
+  margin-top:9px;
+  font-size:11px;
+  color:#8894a8;
+  min-height:17px;
+}
+
+.ai-status.loading{
+  color:#c4a7ff;
+}
+
+.ai-status.error{
+  color:#ff7182;
+}
+
+.ai-status.success{
+  color:#62e6a5;
+}
+
+.preview-wrap{
+  position:relative;
+  margin-top:12px;
+  border-radius:12px;
+  overflow:auto;
+  background:#070a10;
+  border:1px solid #252c3b;
+  max-height:650px;
+  text-align:center;
+}
+
+.preview-wrap img{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:620px;
+  object-fit:contain;
+}
+
+.ai-overlay{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+.ai-mark{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  min-width:9px;
+  height:9px;
+  border-radius:50%;
+  border:1px solid #fff;
+  box-shadow:0 0 0 3px rgba(124,58,237,.28);
+  background:#8b5cf6;
+}
+
+.ai-mark.bullish{
+  background:#20d98b;
+}
+
+.ai-mark.bearish{
+  background:#ef5b6b;
+}
+
+.ai-mark.neutral{
+  background:#f5c451;
+}
+
+.ai-box{
+  position:absolute;
+  border:1px solid #8b5cf6;
+  background:rgba(139,92,246,.10);
+  border-radius:4px;
+}
+
+.ai-box.bullish{
+  border-color:#20d98b;
+  background:rgba(32,217,139,.08);
+}
+
+.ai-box.bearish{
+  border-color:#ef5b6b;
+  background:rgba(239,91,107,.08);
+}
+
+.ai-tag{
+  position:absolute;
+  transform:translate(-50%,-115%);
+  font-size:9px;
+  font-weight:700;
+  padding:3px 5px;
+  border-radius:5px;
+  background:#111722;
+  border:1px solid #30394b;
+  color:#fff;
+  white-space:nowrap;
+  max-width:150px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.ai-results{
+  margin-top:14px;
+}
+
+.ai-summary{
+  background:#111722;
+  border:1px solid #202a3a;
+  border-radius:12px;
+  padding:12px;
+  line-height:1.5;
+  color:#c0c8d5;
+  font-size:12px;
+}
+
+.ai-top{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:10px;
+  margin-top:10px;
+}
+
+.ai-bias{
+  border-radius:12px;
+  padding:12px;
+  border:1px solid #30394b;
+  background:#111722;
+}
+
+.ai-bias-label{
+  font-size:18px;
+  font-weight:800;
+}
+
+.ai-confidence{
+  font-size:11px;
+  color:#7f8b9e;
+  margin-top:4px;
+}
+
+.ai-section-title{
+  font-size:12px;
+  font-weight:800;
+  margin:15px 0 8px;
+  color:#dce1ea;
+}
+
+.ai-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+
+.ai-item{
+  background:#111722;
+  border:1px solid #202a3a;
+  border-radius:10px;
+  padding:10px;
+  font-size:11px;
+  color:#aeb8c8;
+  line-height:1.45;
+}
+
+.ai-item strong{
+  color:#e8ebf2;
+}
+
+.ai-scenario{
+  background:#111722;
+  border:1px solid #202a3a;
+  border-radius:12px;
+  padding:12px;
+  margin-bottom:8px;
+}
+
+.scenario-head{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:center;
+}
+
+.scenario-title{
+  font-weight:800;
+  font-size:12px;
+}
+
+.scenario-meta{
+  font-size:10px;
+  color:#8f9aab;
+}
+
+.scenario-body{
+  margin-top:8px;
+  font-size:11px;
+  color:#aeb8c8;
+  line-height:1.5;
+}
+
+.ai-warnings{
+  margin-top:10px;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #5d4b20;
+  background:#221d0d;
+  color:#d8bd70;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.ai-empty{
+  color:#778398;
+  font-size:11px;
+}
+
 @media(max-width:700px){
-  .app{padding:12px}
-  .chart{height:430px}
-  .info-grid{grid-template-columns:1fr 1fr}
-  .price{font-size:26px}
+
+  .app{
+    padding:12px;
+  }
+
+  .chart{
+    height:430px;
+  }
+
+  .info-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .price{
+    font-size:26px;
+  }
+
+  .ai-top{
+    grid-template-columns:1fr;
+  }
+
+  .ai-grid{
+    grid-template-columns:1fr;
+  }
 }
 
 @media(max-width:430px){
-  .chart{height:390px}
-  .info-grid{grid-template-columns:1fr}
+
+  .chart{
+    height:390px;
+  }
+
+  .info-grid{
+    grid-template-columns:1fr;
+  }
 }
 </style>
 </head>
@@ -532,96 +854,368 @@ select,
 <div class="app">
 
 <div class="header">
-  <div class="logo">Market<span>Lens</span> AI</div>
-  <div id="status" class="status">CONNECTING...</div>
+
+  <div class="logo">
+    Market<span>Lens</span> AI
+  </div>
+
+  <div id="status" class="status">
+    CONNECTING...
+  </div>
+
 </div>
+
+
+<!-- =========================
+     AI CHART ANALYZER
+========================= -->
+
+<div class="card ai-card">
+
+  <div class="analysis-title">
+    AI Chart Analyzer
+  </div>
+
+  <div class="ai-subtitle">
+    Upload a clean chart screenshot from TradingView, MT5 or another platform.
+    MarketLens AI will inspect the visible structure and return ICT/SMC observations,
+    scenarios, liquidity, FVGs, BOS/CHoCH, displacement, order blocks, AMD and session context.
+  </div>
+
+  <div class="upload-box">
+
+    <div class="upload-row">
+
+      <label class="file-label">
+
+        <span>📷 Upload Chart</span>
+
+        <input
+          id="chartUpload"
+          type="file"
+          accept="image/*"
+        >
+
+      </label>
+
+      <button
+        id="clearChartBtn"
+        class="btn"
+        type="button"
+      >
+        Clear
+      </button>
+
+    </div>
+
+    <div id="aiStatus" class="ai-status"></div>
+
+    <div
+      id="previewWrap"
+      class="preview-wrap"
+      hidden
+    >
+
+      <img
+        id="chartPreview"
+        alt="Uploaded trading chart"
+      >
+
+      <div
+        id="aiOverlay"
+        class="ai-overlay"
+      ></div>
+
+    </div>
+
+    <div class="ai-actions">
+
+      <button
+        id="analyzeChartBtn"
+        class="btn primary"
+        type="button"
+        disabled
+      >
+        ✨ Analyze Chart with AI
+      </button>
+
+    </div>
+
+  </div>
+
+  <div
+    id="aiResults"
+    class="ai-results"
+    hidden
+  ></div>
+
+</div>
+
+
+<!-- =========================
+     LIVE MARKET CHART
+========================= -->
 
 <div class="card">
 
   <div class="market-top">
 
     <div>
-      <div class="symbol">NASDAQ FUTURES · NQ=F</div>
-      <div id="price" class="price">—</div>
+
+      <div class="symbol">
+        NASDAQ FUTURES · NQ=F
+      </div>
+
+      <div
+        id="price"
+        class="price"
+      >
+        —
+      </div>
+
       <div class="reference">
         Reference market for HFM USA100 / US Tech 100 CFD
       </div>
+
     </div>
 
     <select id="intervalSelect">
-      <option value="1min">1 MIN</option>
-      <option value="5min" selected>5 MIN</option>
-      <option value="15min">15 MIN</option>
-      <option value="30min">30 MIN</option>
-      <option value="1h">1 HOUR</option>
-      <option value="1day">1 DAY</option>
-      <option value="1week">1 WEEK</option>
+
+      <option value="1min">
+        1 MIN
+      </option>
+
+      <option
+        value="5min"
+        selected
+      >
+        5 MIN
+      </option>
+
+      <option value="15min">
+        15 MIN
+      </option>
+
+      <option value="30min">
+        30 MIN
+      </option>
+
+      <option value="1h">
+        1 HOUR
+      </option>
+
+      <option value="1day">
+        1 DAY
+      </option>
+
+      <option value="1week">
+        1 WEEK
+      </option>
+
     </select>
 
   </div>
 
+
   <div class="timeframes">
-    <button class="tf" data-tf="1min">1m</button>
-    <button class="tf active" data-tf="5min">5m</button>
-    <button class="tf" data-tf="15min">15m</button>
-    <button class="tf" data-tf="30min">30m</button>
-    <button class="tf" data-tf="1h">1H</button>
-    <button class="tf" data-tf="1day">1D</button>
-    <button class="tf" data-tf="1week">1W</button>
+
+    <button
+      class="tf"
+      data-tf="1min"
+    >
+      1m
+    </button>
+
+    <button
+      class="tf active"
+      data-tf="5min"
+    >
+      5m
+    </button>
+
+    <button
+      class="tf"
+      data-tf="15min"
+    >
+      15m
+    </button>
+
+    <button
+      class="tf"
+      data-tf="30min"
+    >
+      30m
+    </button>
+
+    <button
+      class="tf"
+      data-tf="1h"
+    >
+      1H
+    </button>
+
+    <button
+      class="tf"
+      data-tf="1day"
+    >
+      1D
+    </button>
+
+    <button
+      class="tf"
+      data-tf="1week"
+    >
+      1W
+    </button>
+
   </div>
+
 
   <div class="chart-wrap">
 
-    <div id="chart" class="chart">
+    <div
+      id="chart"
+      class="chart"
+    >
 
       <div class="fullscreen-title">
         NQ FUTURES · 5 MIN
       </div>
 
-      <div id="chartLayer" class="chart-layer">
+      <div
+        id="chartLayer"
+        class="chart-layer"
+      >
+
         <div class="gridlines"></div>
+
       </div>
 
-      <div id="currentPriceLine" class="current-price-line"></div>
-      <div id="currentPriceLabel" class="current-price-label">—</div>
+      <div
+        id="currentPriceLine"
+        class="current-price-line"
+      ></div>
 
-      <div id="priceAxis" class="price-axis"></div>
-      <div id="timeAxis" class="time-axis"></div>
+      <div
+        id="currentPriceLabel"
+        class="current-price-label"
+      >
+        —
+      </div>
 
-      <div id="crosshairV" class="crosshair-v"></div>
-      <div id="crosshairH" class="crosshair-h"></div>
-      <div id="crosshairTime" class="crosshair-time"></div>
-      <div id="crosshairPrice" class="crosshair-price"></div>
+      <div
+        id="priceAxis"
+        class="price-axis"
+      ></div>
+
+      <div
+        id="timeAxis"
+        class="time-axis"
+      ></div>
+
+      <div
+        id="crosshairV"
+        class="crosshair-v"
+      ></div>
+
+      <div
+        id="crosshairH"
+        class="crosshair-h"
+      ></div>
+
+      <div
+        id="crosshairTime"
+        class="crosshair-time"
+      ></div>
+
+      <div
+        id="crosshairPrice"
+        class="crosshair-price"
+      ></div>
 
       <div class="legend">
-        <span><i class="dot fvg"></i>High Prob. FVG</span>
-        <span><i class="dot liq"></i>Liquidity</span>
-        <span><i class="dot disp"></i>Displacement</span>
+
+        <span>
+          <i class="dot fvg"></i>
+          High Prob. FVG
+        </span>
+
+        <span>
+          <i class="dot liq"></i>
+          Liquidity
+        </span>
+
+        <span>
+          <i class="dot disp"></i>
+          Displacement
+        </span>
+
       </div>
 
     </div>
 
+
     <div class="chart-controls">
-      <button class="btn" onclick="zoomChart(-0.15)">−</button>
-      <button class="btn" onclick="resetChartView()">↺ Reset</button>
-      <button class="btn" onclick="zoomChart(0.15)">+</button>
-      <button id="fullscreenBtn" class="btn primary" onclick="toggleFullscreen()">
+
+      <button
+        class="btn"
+        onclick="zoomChart(-.15)"
+      >
+        −
+      </button>
+
+      <button
+        class="btn"
+        onclick="resetChartView()"
+      >
+        ↺ Reset
+      </button>
+
+      <button
+        class="btn"
+        onclick="zoomChart(.15)"
+      >
+        +
+      </button>
+
+      <button
+        id="fullscreenBtn"
+        class="btn primary"
+        onclick="toggleFullscreen()"
+      >
         ⛶ Full Screen
       </button>
+
     </div>
 
   </div>
 
 </div>
 
+
+<!-- SIGNAL -->
+
 <div class="signal-card">
 
   <div class="signal-header">
-    <div class="signal-title">MarketLens Signal</div>
-    <div id="signalBadge" class="signal-badge wait">WAIT</div>
+
+    <div class="signal-title">
+      MarketLens Signal
+    </div>
+
+    <div
+      id="signalBadge"
+      class="signal-badge wait"
+    >
+      WAIT
+    </div>
+
   </div>
 
-  <div id="signalReason" class="signal-reason">
+  <div
+    id="signalReason"
+    class="signal-reason"
+  >
     Waiting for high-probability FVG analysis...
   </div>
 
@@ -632,28 +1226,66 @@ select,
 
 </div>
 
+
+<!-- METRICS -->
+
 <div class="card">
 
   <div class="info-grid">
 
     <div class="metric">
-      <div class="metric-title">FVG</div>
-      <div id="structureValue" class="metric-value">—</div>
+
+      <div class="metric-title">
+        FVG
+      </div>
+
+      <div
+        id="structureValue"
+        class="metric-value"
+      >
+        —
+      </div>
+
     </div>
 
-    <div class="metric">
-      <div class="metric-title">Displacement</div>
-      <div id="displacementValue" class="metric-value">—</div>
-    </div>
 
     <div class="metric">
-      <div class="metric-title">Liquidity</div>
-      <div id="liquidityValue" class="metric-value">—</div>
+
+      <div class="metric-title">
+        Displacement
+      </div>
+
+      <div
+        id="displacementValue"
+        class="metric-value"
+      >
+        —
+      </div>
+
+    </div>
+
+
+    <div class="metric">
+
+      <div class="metric-title">
+        Liquidity
+      </div>
+
+      <div
+        id="liquidityValue"
+        class="metric-value"
+      >
+        —
+      </div>
+
     </div>
 
   </div>
 
 </div>
+
+
+<!-- ANALYSIS -->
 
 <div class="card">
 
@@ -661,31 +1293,49 @@ select,
     MarketLens AI Analysis
   </div>
 
-  <div id="analysis" class="analysis">
+  <div
+    id="analysis"
+    class="analysis"
+  >
     Waiting for market data...
   </div>
 
-  <div id="candleInfo" class="candle-info">
+  <div
+    id="candleInfo"
+    class="candle-info"
+  >
     Tap a candle to inspect it.
   </div>
 
 </div>
 
+
+<!-- NOTICE -->
+
 <div class="card">
 
   <div class="notice">
+
     <strong>Important:</strong>
+
     MarketLens AI uses Nasdaq futures (NQ=F) as a reference market.
     HFM USA100 is a CFD and its exact price, spread and candle formation
-    may differ from NQ futures. This application is for market analysis
-    and education and does not execute trades.
+    may differ from NQ futures.
+
+    This application is for market analysis and education and does not execute trades.
+
   </div>
 
 </div>
 
 </div>
 
+
 <script>
+
+/* =========================
+   API CONNECTIONS
+========================= */
 
 const MARKET_API =
   "https://market-lens-ai-backend-mu.vercel.app/api/market";
@@ -693,26 +1343,54 @@ const MARKET_API =
 const STRUCTURE_API =
   "https://market-lens-ai-backend-mu.vercel.app/api/structure";
 
+const CHART_ANALYSIS_API =
+  "https://market-lens-ai-backend-mu.vercel.app/api/analyze-chart";
+
+
+/* =========================
+   STATE
+========================= */
+
 let candles = [];
+
 let structure = null;
+
 let currentInterval = "5min";
 
 let chartScale = 1;
+
 let chartOffsetX = 0;
+
 let chartOffsetY = 0;
 
 let isDragging = false;
+
 let dragStartX = 0;
+
 let dragStartY = 0;
+
 let dragOriginX = 0;
+
 let dragOriginY = 0;
+
 let movedDuringDrag = false;
 
 let activePointers = new Map();
+
 let pinchStartDistance = null;
+
 let pinchStartScale = 1;
 
 let selectedCandle = null;
+
+let uploadedImageData = null;
+
+
+const $ = id =>
+  document.getElementById(id);
+
+const chartElement =
+  $("chart");
 
 
 /* =========================
@@ -721,36 +1399,50 @@ let selectedCandle = null;
 
 function applyChartTransform(){
 
-  document.getElementById("chartLayer").style.transform =
+  $("chartLayer").style.transform =
     `translate(${chartOffsetX}px,${chartOffsetY}px) scale(${chartScale})`;
 
 }
 
+
 function resetChartView(){
 
   chartScale = 1;
+
   chartOffsetX = 0;
+
   chartOffsetY = 0;
 
   applyChartTransform();
 
 }
 
+
 function zoomChart(amount){
 
   chartScale += amount;
 
-  if(chartScale < .5) chartScale = .5;
-  if(chartScale > 4) chartScale = 4;
+  chartScale =
+    Math.max(
+      .5,
+      Math.min(
+        4,
+        chartScale
+      )
+    );
 
   applyChartTransform();
 
 }
 
+
 function toggleFullscreen(){
 
-  const chart = document.getElementById("chart");
-  const button = document.getElementById("fullscreenBtn");
+  const chart =
+    $("chart");
+
+  const button =
+    $("fullscreenBtn");
 
   chart.classList.toggle("fullscreen");
 
@@ -759,7 +1451,10 @@ function toggleFullscreen(){
       ? "✕ Exit Full Screen"
       : "⛶ Full Screen";
 
-  setTimeout(renderChart,100);
+  setTimeout(
+    renderChart,
+    100
+  );
 
 }
 
@@ -768,130 +1463,222 @@ function toggleFullscreen(){
    POINTER / PAN / PINCH
 ========================= */
 
-const chartElement =
-  document.getElementById("chart");
+chartElement.addEventListener(
+  "pointerdown",
+  e => {
 
-chartElement.addEventListener("pointerdown",e=>{
+    activePointers.set(
+      e.pointerId,
+      {
+        x:e.clientX,
+        y:e.clientY
+      }
+    );
 
-  activePointers.set(e.pointerId,{
-    x:e.clientX,
-    y:e.clientY
-  });
+    chartElement.setPointerCapture(
+      e.pointerId
+    );
 
-  chartElement.setPointerCapture(e.pointerId);
+    movedDuringDrag = false;
 
-  movedDuringDrag = false;
 
-  if(activePointers.size === 1){
+    if(
+      activePointers.size === 1
+    ){
 
-    isDragging = true;
+      isDragging = true;
 
-    dragStartX = e.clientX;
-    dragStartY = e.clientY;
+      dragStartX =
+        e.clientX;
 
-    dragOriginX = chartOffsetX;
-    dragOriginY = chartOffsetY;
+      dragStartY =
+        e.clientY;
+
+      dragOriginX =
+        chartOffsetX;
+
+      dragOriginY =
+        chartOffsetY;
+
+    }
+
+
+    if(
+      activePointers.size === 2
+    ){
+
+      isDragging = false;
+
+      const points =
+        [
+          ...activePointers.values()
+        ];
+
+      pinchStartDistance =
+        Math.hypot(
+          points[0].x -
+          points[1].x,
+
+          points[0].y -
+          points[1].y
+        );
+
+      pinchStartScale =
+        chartScale;
+
+    }
 
   }
+);
 
-  if(activePointers.size === 2){
 
-    isDragging = false;
+chartElement.addEventListener(
+  "pointermove",
+  e => {
 
-    const points =
-      [...activePointers.values()];
+    if(
+      !activePointers.has(
+        e.pointerId
+      )
+    )
+      return;
 
-    pinchStartDistance =
-      Math.hypot(
-        points[0].x-points[1].x,
-        points[0].y-points[1].y
-      );
 
-    pinchStartScale = chartScale;
+    activePointers.set(
+      e.pointerId,
+      {
+        x:e.clientX,
+        y:e.clientY
+      }
+    );
 
-  }
 
-});
+    showCrosshair(e);
 
-chartElement.addEventListener("pointermove",e=>{
 
-  if(!activePointers.has(e.pointerId)) return;
+    if(
+      activePointers.size === 1 &&
+      isDragging
+    ){
 
-  activePointers.set(e.pointerId,{
-    x:e.clientX,
-    y:e.clientY
-  });
+      const dx =
+        e.clientX -
+        dragStartX;
 
-  showCrosshair(e);
+      const dy =
+        e.clientY -
+        dragStartY;
 
-  if(activePointers.size === 1 && isDragging){
 
-    const dx = e.clientX-dragStartX;
-    const dy = e.clientY-dragStartY;
+      if(
+        Math.abs(dx) > 4 ||
+        Math.abs(dy) > 4
+      ){
 
-    if(Math.abs(dx)>4 || Math.abs(dy)>4)
+        movedDuringDrag =
+          true;
+
+      }
+
+
+      chartOffsetX =
+        dragOriginX +
+        dx;
+
+      chartOffsetY =
+        dragOriginY +
+        dy;
+
+
+      applyChartTransform();
+
+    }
+
+
+    if(
+      activePointers.size === 2 &&
+      pinchStartDistance
+    ){
+
+      const points =
+        [
+          ...activePointers.values()
+        ];
+
+      const distance =
+        Math.hypot(
+          points[0].x -
+          points[1].x,
+
+          points[0].y -
+          points[1].y
+        );
+
+
+      chartScale =
+        pinchStartScale *
+        (
+          distance /
+          pinchStartDistance
+        );
+
+
+      chartScale =
+        Math.max(
+          .5,
+          Math.min(
+            4,
+            chartScale
+          )
+        );
+
+
+      applyChartTransform();
+
       movedDuringDrag = true;
 
-    chartOffsetX = dragOriginX+dx;
-    chartOffsetY = dragOriginY+dy;
-
-    applyChartTransform();
+    }
 
   }
+);
 
-  if(activePointers.size === 2 && pinchStartDistance){
 
-    const points =
-      [...activePointers.values()];
+[
+  "pointerup",
+  "pointercancel"
+].forEach(type => {
 
-    const distance =
-      Math.hypot(
-        points[0].x-points[1].x,
-        points[0].y-points[1].y
+  chartElement.addEventListener(
+    type,
+    e => {
+
+      activePointers.delete(
+        e.pointerId
       );
 
-    chartScale =
-      pinchStartScale *
-      (distance/pinchStartDistance);
 
-    chartScale =
-      Math.max(.5,Math.min(4,chartScale));
+      if(
+        activePointers.size < 2
+      ){
 
-    applyChartTransform();
+        pinchStartDistance =
+          null;
 
-    movedDuringDrag = true;
+      }
 
-  }
 
-});
+      if(
+        activePointers.size === 0
+      ){
 
-chartElement.addEventListener("pointerup",e=>{
+        isDragging = false;
 
-  activePointers.delete(e.pointerId);
+        hideCrosshair();
 
-  if(activePointers.size < 2)
-    pinchStartDistance = null;
+      }
 
-  if(activePointers.size === 0){
-
-    isDragging = false;
-    hideCrosshair();
-
-  }
-
-});
-
-chartElement.addEventListener("pointercancel",e=>{
-
-  activePointers.delete(e.pointerId);
-
-  if(activePointers.size === 0){
-
-    isDragging = false;
-    pinchStartDistance = null;
-    hideCrosshair();
-
-  }
+    }
+  );
 
 });
 
@@ -900,42 +1687,64 @@ chartElement.addEventListener("pointercancel",e=>{
    TIMEFRAMES
 ========================= */
 
-document.querySelectorAll(".tf").forEach(button=>{
+document
+  .querySelectorAll(".tf")
+  .forEach(button => {
 
-  button.addEventListener("click",()=>{
+    button.addEventListener(
+      "click",
+      () => {
 
-    currentInterval = button.dataset.tf;
+        currentInterval =
+          button.dataset.tf;
 
-    document.querySelectorAll(".tf")
-      .forEach(x=>x.classList.remove("active"));
 
-    button.classList.add("active");
+        document
+          .querySelectorAll(".tf")
+          .forEach(x =>
+            x.classList.toggle(
+              "active",
+              x === button
+            )
+          );
 
-    document.getElementById("intervalSelect").value =
-      currentInterval;
 
-    loadMarket();
+        $("intervalSelect").value =
+          currentInterval;
+
+
+        loadMarket();
+
+      }
+    );
 
   });
 
-});
 
-document.getElementById("intervalSelect")
-.addEventListener("change",e=>{
+$("intervalSelect")
+  .addEventListener(
+    "change",
+    e => {
 
-  currentInterval = e.target.value;
+      currentInterval =
+        e.target.value;
 
-  document.querySelectorAll(".tf")
-    .forEach(x=>{
-      x.classList.toggle(
-        "active",
-        x.dataset.tf === currentInterval
-      );
-    });
 
-  loadMarket();
+      document
+        .querySelectorAll(".tf")
+        .forEach(x =>
+          x.classList.toggle(
+            "active",
+            x.dataset.tf ===
+            currentInterval
+          )
+        );
 
-});
+
+      loadMarket();
+
+    }
+  );
 
 
 /* =========================
@@ -944,48 +1753,90 @@ document.getElementById("intervalSelect")
 
 async function loadMarket(){
 
-  const status =
-    document.getElementById("status");
+  $("status").textContent =
+    "LOADING...";
 
-  status.textContent = "LOADING...";
-  status.style.color = "#f5c451";
+  $("status").style.color =
+    "#f5c451";
+
 
   try{
 
-    const url =
-      `${MARKET_API}?symbol=NQ%3DF&interval=${encodeURIComponent(currentInterval)}&outputsize=100`;
+    const response =
+      await fetch(
+        `${MARKET_API}?symbol=NQ%3DF&interval=${encodeURIComponent(currentInterval)}&outputsize=100`
+      );
 
-    const response = await fetch(url);
-    const data = await response.json();
 
-    if(!response.ok || !data.ok)
-      throw new Error(data.error || "Market data failed");
+    const data =
+      await response.json();
 
-    candles = data.candles || [];
 
-    if(!candles.length)
-      throw new Error("No candles returned");
+    if(
+      !response.ok ||
+      !data.ok
+    ){
 
-    document.getElementById("price").textContent =
-      formatPrice(candles[candles.length-1].close);
+      throw new Error(
+        data.error ||
+        "Market data failed"
+      );
 
-    status.textContent = "NQ DATA CONNECTED";
-    status.style.color = "#62e6a5";
+    }
+
+
+    candles =
+      data.candles || [];
+
+
+    if(
+      !candles.length
+    ){
+
+      throw new Error(
+        "No candles returned"
+      );
+
+    }
+
+
+    $("price").textContent =
+      formatPrice(
+        candles.at(-1).close
+      );
+
+
+    $("status").textContent =
+      "NQ DATA CONNECTED";
+
+    $("status").style.color =
+      "#62e6a5";
+
 
     await loadStructure();
 
+
     renderChart();
+
     generateAnalysis();
+
 
   }catch(error){
 
     console.error(error);
 
-    status.textContent = "DATA ERROR";
-    status.style.color = "#ff7182";
 
-    document.getElementById("analysis").innerHTML =
-      `<span class="error">${escapeHtml(error.message)}</span>`;
+    $("status").textContent =
+      "DATA ERROR";
+
+    $("status").style.color =
+      "#ff7182";
+
+
+    $("analysis").innerHTML =
+      `<span class="error">
+        ${escapeHtml(error.message)}
+      </span>`;
 
   }
 
@@ -993,7 +1844,7 @@ async function loadMarket(){
 
 
 /* =========================
-   STRUCTURE DATA
+   STRUCTURE
 ========================= */
 
 async function loadStructure(){
@@ -1001,29 +1852,54 @@ async function loadStructure(){
   try{
 
     const response =
-      await fetch(STRUCTURE_API,{
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          candles,
-          lookback:5
-        })
-      });
+      await fetch(
+        STRUCTURE_API,
+        {
+          method:"POST",
 
-    const data = await response.json();
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
 
-    if(!response.ok || !data.ok)
-      throw new Error(data.error || "Structure engine failed");
+          body:
+            JSON.stringify({
+              candles,
+              lookback:5
+            })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(
+      !response.ok ||
+      !data.ok
+    ){
+
+      throw new Error(
+        data.error ||
+        "Structure engine failed"
+      );
+
+    }
+
 
     structure =
       data.structure ||
       data;
 
+
   }catch(error){
 
-    console.error("Structure:",error);
+    console.error(
+      "Structure:",
+      error
+    );
+
     structure = null;
 
   }
@@ -1038,147 +1914,217 @@ async function loadStructure(){
 function getFVGQuality(gap){
 
   let score = 0;
-  const reasons = [];
 
-  const index = Number(gap.index);
+  let reasons = [];
+
+  const index =
+    Number(gap.index);
+
+  const high =
+    Number(gap.high);
+
+  const low =
+    Number(gap.low);
+
 
   if(
     !Number.isFinite(index) ||
     index < 0 ||
-    index >= candles.length
+    index >= candles.length ||
+    !Number.isFinite(high) ||
+    !Number.isFinite(low)
   ){
-    return {score:0,reasons:[]};
+
+    return {
+      score:0,
+      reasons:[]
+    };
+
   }
 
-  const high = Number(gap.high);
-  const low = Number(gap.low);
-
-  if(!Number.isFinite(high) || !Number.isFinite(low))
-    return {score:0,reasons:[]};
-
-  const gapSize = Math.abs(high-low);
 
   const recent =
     candles.slice(
-      Math.max(0,index-10),
+      Math.max(
+        0,
+        index - 10
+      ),
       index
     );
+
 
   const averageRange =
     recent.length
       ? recent.reduce(
-          (sum,c)=>
-            sum+
+          (
+            sum,
+            c
+          ) =>
+            sum +
             Math.abs(
-              Number(c.high)-
+              Number(c.high) -
               Number(c.low)
             ),
           0
-        )/recent.length
+        ) /
+        recent.length
+
       : 0;
+
 
   if(
     averageRange > 0 &&
-    gapSize >= averageRange*.15
+    Math.abs(
+      high - low
+    ) >=
+    averageRange * .15
   ){
 
     score++;
-    reasons.push("meaningful imbalance");
+
+    reasons.push(
+      "meaningful imbalance"
+    );
 
   }
+
 
   const displacement =
     structure?.structures?.displacement ||
     structure?.displacement ||
     [];
 
-  const displacementMatch =
-    displacement.some(item=>{
 
-      const i = Number(item.index);
-
-      return i === index ||
-             i === index-1 ||
-             i === index+1;
-
-    });
-
-  if(displacementMatch){
+  if(
+    displacement.some(
+      item =>
+        [
+          index - 1,
+          index,
+          index + 1
+        ].includes(
+          Number(item.index)
+        )
+    )
+  ){
 
     score += 2;
-    reasons.push("displacement confirmation");
+
+    reasons.push(
+      "displacement confirmation"
+    );
 
   }
 
+
   let touched = false;
 
-  for(let i=index+1;i<candles.length;i++){
 
-    const c = candles[i];
+  for(
+    let i = index + 1;
+    i < candles.length;
+    i++
+  ){
 
     if(
-      Number(c.high) >= low &&
-      Number(c.low) <= high
+      Number(
+        candles[i].high
+      ) >= low &&
+
+      Number(
+        candles[i].low
+      ) <= high
     ){
 
       touched = true;
+
       break;
 
     }
 
   }
+
 
   if(!touched){
 
     score++;
-    reasons.push("fresh / unmitigated");
+
+    reasons.push(
+      "fresh / unmitigated"
+    );
 
   }
 
+
   const type =
-    String(gap.type || "").toLowerCase();
+    String(
+      gap.type || ""
+    ).toLowerCase();
 
-  const bullish = type.includes("bull");
-  const bearish = type.includes("bear");
 
-  let followThrough = false;
+  const bullish =
+    type.includes("bull");
+
+  const bearish =
+    type.includes("bear");
+
+
+  let followThrough =
+    false;
+
 
   for(
-    let i=index+1;
-    i<=Math.min(candles.length-1,index+3);
+    let i = index + 1;
+
+    i <=
+      Math.min(
+        candles.length - 1,
+        index + 3
+      );
+
     i++
   ){
 
-    const c = candles[i];
-
     if(
       bullish &&
-      Number(c.close) > high
+      Number(
+        candles[i].close
+      ) > high
     ){
 
       followThrough = true;
+
       break;
 
     }
 
+
     if(
       bearish &&
-      Number(c.close) < low
+      Number(
+        candles[i].close
+      ) < low
     ){
 
       followThrough = true;
+
       break;
 
     }
 
   }
+
 
   if(followThrough){
 
     score++;
-    reasons.push("follow-through");
+
+    reasons.push(
+      "follow-through"
+    );
 
   }
+
 
   return {
     score,
@@ -1187,6 +2133,7 @@ function getFVGQuality(gap){
 
 }
 
+
 function getHighProbabilityFVGs(){
 
   const gaps =
@@ -1194,46 +2141,69 @@ function getHighProbabilityFVGs(){
     structure?.fairValueGaps ||
     [];
 
-  return gaps
-    .map(gap=>{
 
-      const q = getFVGQuality(gap);
+  return gaps
+    .map(gap => {
+
+      const q =
+        getFVGQuality(gap);
+
 
       return {
         ...gap,
-        probabilityScore:q.score,
-        probabilityReasons:q.reasons
+
+        probabilityScore:
+          q.score,
+
+        probabilityReasons:
+          q.reasons
+
       };
 
     })
-    .filter(gap=>gap.probabilityScore >= 3)
+
+    .filter(
+      gap =>
+        gap.probabilityScore >= 3
+    )
+
     .slice(-20);
 
 }
 
 
 /* =========================
-   CHART
+   RENDER CHART
 ========================= */
 
 function renderChart(){
 
   const layer =
-    document.getElementById("chartLayer");
+    $("chartLayer");
+
 
   layer.innerHTML =
-    `<div class="gridlines"></div>`;
+    '<div class="gridlines"></div>';
 
-  if(!candles.length) return;
+
+  if(!candles.length)
+    return;
+
 
   const chart =
-    document.getElementById("chart");
+    $("chart");
+
 
   const width =
-    Math.max(chart.clientWidth,700);
+    Math.max(
+      chart.clientWidth,
+      700
+    );
+
 
   const height =
     chart.clientHeight;
+
 
   const padding = {
     top:40,
@@ -1242,133 +2212,255 @@ function renderChart(){
     left:10
   };
 
+
   const plotWidth =
-    width-padding.left-padding.right;
+    width -
+    padding.left -
+    padding.right;
+
 
   const plotHeight =
-    height-padding.top-padding.bottom;
+    height -
+    padding.top -
+    padding.bottom;
+
 
   const highs =
-    candles.map(c=>Number(c.high));
+    candles.map(
+      c => Number(c.high)
+    );
+
 
   const lows =
-    candles.map(c=>Number(c.low));
+    candles.map(
+      c => Number(c.low)
+    );
 
-  let maxPrice = Math.max(...highs);
-  let minPrice = Math.min(...lows);
+
+  let maxPrice =
+    Math.max(...highs);
+
+
+  let minPrice =
+    Math.min(...lows);
+
 
   const range =
-    maxPrice-minPrice || 1;
+    maxPrice -
+    minPrice ||
+    1;
 
-  maxPrice += range*.08;
-  minPrice -= range*.08;
+
+  maxPrice +=
+    range * .08;
+
+  minPrice -=
+    range * .08;
+
 
   const priceRange =
-    maxPrice-minPrice;
+    maxPrice -
+    minPrice;
+
 
   const spacing =
-    plotWidth/candles.length;
+    plotWidth /
+    candles.length;
+
 
   const candleWidth =
     Math.max(
       4,
-      Math.min(9,spacing*.62)
+      Math.min(
+        9,
+        spacing * .62
+      )
     );
+
 
   function priceY(price){
 
-    return padding.top+
-      ((maxPrice-price)/priceRange)*
+    return padding.top +
+
+      (
+        (maxPrice - price) /
+        priceRange
+      ) *
+
       plotHeight;
 
   }
 
-  candles.forEach((candle,index)=>{
 
-    const x =
-      padding.left+
-      index*spacing+
-      spacing/2;
+  candles.forEach(
+    (candle,index) => {
 
-    const openY = priceY(candle.open);
-    const closeY = priceY(candle.close);
-    const highY = priceY(candle.high);
-    const lowY = priceY(candle.low);
+      const x =
+        padding.left +
+        index * spacing +
+        spacing / 2;
 
-    const top = Math.min(openY,closeY);
 
-    const bodyHeight =
-      Math.max(2,Math.abs(closeY-openY));
+      const openY =
+        priceY(candle.open);
 
-    const el =
-      document.createElement("div");
 
-    el.className =
-      "candle "+
-      (candle.close>=candle.open?"up":"down");
+      const closeY =
+        priceY(candle.close);
 
-    if(selectedCandle===index)
-      el.classList.add("selected");
 
-    el.style.left =
-      `${x-candleWidth/2}px`;
+      const highY =
+        priceY(candle.high);
 
-    el.style.top =
-      `${highY}px`;
 
-    el.style.width =
-      `${candleWidth}px`;
+      const lowY =
+        priceY(candle.low);
 
-    el.style.height =
-      `${lowY-highY}px`;
 
-    const wick =
-      document.createElement("div");
+      const top =
+        Math.min(
+          openY,
+          closeY
+        );
 
-    wick.className = "wick";
 
-    wick.style.left =
-      `${candleWidth/2}px`;
+      const bodyHeight =
+        Math.max(
+          2,
+          Math.abs(
+            closeY - openY
+          )
+        );
 
-    wick.style.top = "0";
 
-    wick.style.height =
-      `${lowY-highY}px`;
+      const el =
+        document.createElement(
+          "div"
+        );
 
-    const body =
-      document.createElement("div");
 
-    body.className = "body";
+      el.className =
+        "candle " +
 
-    body.style.top =
-      `${top-highY}px`;
+        (
+          candle.close >=
+          candle.open
 
-    body.style.width =
-      `${candleWidth}px`;
+            ? "up"
 
-    body.style.height =
-      `${bodyHeight}px`;
+            : "down"
+        );
 
-    el.appendChild(wick);
-    el.appendChild(body);
 
-    el.addEventListener("pointerup",e=>{
+      if(
+        selectedCandle === index
+      ){
 
-      if(movedDuringDrag) return;
+        el.classList.add(
+          "selected"
+        );
 
-      e.stopPropagation();
+      }
 
-      selectedCandle = index;
 
-      showCandleInfo(index);
+      el.style.left =
+        `${x - candleWidth / 2}px`;
 
-      renderChart();
+      el.style.top =
+        `${highY}px`;
 
-    });
+      el.style.width =
+        `${candleWidth}px`;
 
-    layer.appendChild(el);
+      el.style.height =
+        `${lowY - highY}px`;
 
-  });
+
+      const wick =
+        document.createElement(
+          "div"
+        );
+
+
+      wick.className =
+        "wick";
+
+
+      wick.style.left =
+        `${candleWidth / 2}px`;
+
+
+      wick.style.top =
+        "0";
+
+
+      wick.style.height =
+        `${lowY - highY}px`;
+
+
+      const body =
+        document.createElement(
+          "div"
+        );
+
+
+      body.className =
+        "body";
+
+
+      body.style.top =
+        `${top - highY}px`;
+
+
+      body.style.width =
+        `${candleWidth}px`;
+
+
+      body.style.height =
+        `${bodyHeight}px`;
+
+
+      el.append(
+        wick,
+        body
+      );
+
+
+      el.addEventListener(
+        "pointerup",
+        e => {
+
+          if(
+            movedDuringDrag
+          )
+            return;
+
+
+          e.stopPropagation();
+
+
+          selectedCandle =
+            index;
+
+
+          showCandleInfo(
+            index
+          );
+
+
+          renderChart();
+
+        }
+      );
+
+
+      layer.appendChild(
+        el
+      );
+
+    }
+  );
+
 
   renderFVGs(
     layer,
@@ -1377,11 +2469,13 @@ function renderChart(){
     spacing
   );
 
+
   renderLiquidity(
     layer,
     priceY,
     padding
   );
+
 
   renderDisplacement(
     layer,
@@ -1390,13 +2484,16 @@ function renderChart(){
     spacing
   );
 
+
   renderChartUI(
     priceY,
     maxPrice,
     minPrice
   );
 
+
   updateMetrics();
+
   updateSignalBox();
 
   applyChartTransform();
@@ -1405,7 +2502,7 @@ function renderChart(){
 
 
 /* =========================
-   HIGH PROBABILITY FVG
+   FVG OVERLAY
 ========================= */
 
 function renderFVGs(
@@ -1416,50 +2513,89 @@ function renderFVGs(
 ){
 
   getHighProbabilityFVGs()
-    .forEach(gap=>{
+    .forEach(gap => {
 
-      const index = Number(gap.index);
+      const index =
+        Number(
+          gap.index
+        );
 
-      const high = Number(gap.high);
-      const low = Number(gap.low);
+
+      const high =
+        Number(
+          gap.high
+        );
+
+
+      const low =
+        Number(
+          gap.low
+        );
+
 
       if(
         !Number.isFinite(index) ||
         !Number.isFinite(high) ||
         !Number.isFinite(low)
-      ) return;
+      )
+        return;
+
 
       const bearish =
-        String(gap.type || "")
-          .toLowerCase()
-          .includes("bear");
+        String(
+          gap.type || ""
+        )
+        .toLowerCase()
+        .includes("bear");
+
 
       const box =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
+
 
       box.className =
-        "overlay fvg high-probability "+
-        (bearish?"bearish":"bullish");
+        "overlay fvg high-probability " +
+
+        (
+          bearish
+            ? "bearish"
+            : "bullish"
+        );
+
 
       box.style.left =
-        `${padding.left+index*spacing}px`;
+        `${padding.left +
+          index * spacing}px`;
+
 
       box.style.top =
         `${priceY(high)}px`;
 
+
       box.style.width =
-        `${Math.max(30,spacing*3)}px`;
+        `${Math.max(
+          30,
+          spacing * 3
+        )}px`;
+
 
       box.style.height =
         `${Math.max(
           4,
-          priceY(low)-priceY(high)
+          priceY(low) -
+          priceY(high)
         )}px`;
+
 
       box.title =
         `High Probability FVG · Score ${gap.probabilityScore}/5 · ${gap.probabilityReasons.join(", ")}`;
 
-      layer.appendChild(box);
+
+      layer.appendChild(
+        box
+      );
 
     });
 
@@ -1481,35 +2617,52 @@ function renderLiquidity(
     structure?.liquidityPools ||
     [];
 
-  pools.forEach(pool=>{
 
-    const price =
-      Number(
-        pool.price ??
-        pool.level ??
-        pool.value
+  pools.forEach(
+    pool => {
+
+      const price =
+        Number(
+          pool.price ??
+          pool.level ??
+          pool.value
+        );
+
+
+      if(
+        !Number.isFinite(price)
+      )
+        return;
+
+
+      const line =
+        document.createElement(
+          "div"
+        );
+
+
+      line.className =
+        "overlay liquidity";
+
+
+      line.style.left =
+        `${padding.left}px`;
+
+
+      line.style.right =
+        `${padding.right}px`;
+
+
+      line.style.top =
+        `${priceY(price)}px`;
+
+
+      layer.appendChild(
+        line
       );
 
-    if(!Number.isFinite(price)) return;
-
-    const line =
-      document.createElement("div");
-
-    line.className =
-      "overlay liquidity";
-
-    line.style.left =
-      `${padding.left}px`;
-
-    line.style.right =
-      `${padding.right}px`;
-
-    line.style.top =
-      `${priceY(price)}px`;
-
-    layer.appendChild(line);
-
-  });
+    }
+  );
 
 }
 
@@ -1530,50 +2683,80 @@ function renderDisplacement(
     structure?.displacement ||
     [];
 
-  list.forEach(item=>{
 
-    const index = Number(item.index);
+  list.forEach(
+    item => {
 
-    if(
-      !Number.isFinite(index) ||
-      index<0 ||
-      index>=candles.length
-    ) return;
+      const index =
+        Number(
+          item.index
+        );
 
-    const candle = candles[index];
 
-    const top = priceY(candle.high);
-    const bottom = priceY(candle.low);
+      if(
+        !Number.isFinite(index) ||
+        index < 0 ||
+        index >= candles.length
+      )
+        return;
 
-    const box =
-      document.createElement("div");
 
-    box.className =
-      "overlay displacement";
+      const candle =
+        candles[index];
 
-    box.style.left =
-      `${padding.left+
-        index*spacing+
-        spacing*.15}px`;
 
-    box.style.top =
-      `${top-3}px`;
+      const top =
+        priceY(
+          candle.high
+        );
 
-    box.style.width =
-      `${spacing*.7}px`;
 
-    box.style.height =
-      `${bottom-top+6}px`;
+      const bottom =
+        priceY(
+          candle.low
+        );
 
-    layer.appendChild(box);
 
-  });
+      const box =
+        document.createElement(
+          "div"
+        );
+
+
+      box.className =
+        "overlay displacement";
+
+
+      box.style.left =
+        `${padding.left +
+          index * spacing +
+          spacing * .15}px`;
+
+
+      box.style.top =
+        `${top - 3}px`;
+
+
+      box.style.width =
+        `${spacing * .7}px`;
+
+
+      box.style.height =
+        `${bottom - top + 6}px`;
+
+
+      layer.appendChild(
+        box
+      );
+
+    }
+  );
 
 }
 
 
 /* =========================
-   PRICE / TIME AXIS
+   CHART UI
 ========================= */
 
 function renderChartUI(
@@ -1583,101 +2766,167 @@ function renderChartUI(
 ){
 
   const latest =
-    candles[candles.length-1];
+    candles.at(-1);
 
-  if(!latest) return;
+
+  if(!latest)
+    return;
+
 
   const current =
-    Number(latest.close);
+    Number(
+      latest.close
+    );
+
 
   const line =
-    document.getElementById(
-      "currentPriceLine"
-    );
+    $("currentPriceLine");
+
 
   const label =
-    document.getElementById(
-      "currentPriceLabel"
+    $("currentPriceLabel");
+
+
+  const y =
+    priceY(
+      current
     );
 
+
   line.style.top =
-    `${priceY(current)}px`;
+    `${y}px`;
+
 
   label.style.top =
-    `${priceY(current)}px`;
+    `${y}px`;
+
 
   label.textContent =
-    formatPrice(current);
+    formatPrice(
+      current
+    );
+
 
   const axis =
-    document.getElementById("priceAxis");
+    $("priceAxis");
+
 
   axis.innerHTML = "";
 
-  for(let i=0;i<5;i++){
+
+  for(
+    let i = 0;
+    i < 5;
+    i++
+  ){
 
     const value =
-      maxPrice-
+      maxPrice -
+
       (
-        (maxPrice-minPrice)*
-        i/4
+        (maxPrice -
+        minPrice) *
+        i / 4
       );
 
+
     const tick =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
+
 
     tick.className =
       "price-tick";
 
+
     tick.style.top =
-      `${i*25}%`;
+      `${i * 25}%`;
+
 
     tick.textContent =
-      formatPrice(value);
+      formatPrice(
+        value
+      );
 
-    axis.appendChild(tick);
+
+    axis.appendChild(
+      tick
+    );
 
   }
+
 
   renderTimeAxis();
 
 }
 
+
 function renderTimeAxis(){
 
   const axis =
-    document.getElementById("timeAxis");
+    $("timeAxis");
+
 
   axis.innerHTML = "";
 
-  const count =
-    Math.min(6,candles.length);
 
-  for(let i=0;i<count;i++){
+  const count =
+    Math.min(
+      6,
+      candles.length
+    );
+
+
+  for(
+    let i = 0;
+    i < count;
+    i++
+  ){
 
     const index =
       Math.round(
-        i*(candles.length-1)/
-        Math.max(1,count-1)
+        i *
+        (
+          candles.length - 1
+        ) /
+        Math.max(
+          1,
+          count - 1
+        )
       );
 
+
     const label =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
+
 
     label.className =
       "time-label";
 
+
     label.style.left =
-      `${index/
-        Math.max(1,candles.length-1)*
-        100}%`;
+      `${
+        index /
+        Math.max(
+          1,
+          candles.length - 1
+        ) *
+        100
+      }%`;
+
 
     label.textContent =
       formatAxisDate(
         candles[index].datetime
       );
 
-    axis.appendChild(label);
+
+    axis.appendChild(
+      label
+    );
 
   }
 
@@ -1692,93 +2941,154 @@ function showCrosshair(event){
 
   if(
     !candles.length ||
-    activePointers.size>1
-  ) return;
+    activePointers.size > 1
+  )
+    return;
 
-  const chart =
-    document.getElementById("chart");
 
   const rect =
-    chart.getBoundingClientRect();
+    chartElement.getBoundingClientRect();
+
 
   const x =
-    event.clientX-rect.left;
+    event.clientX -
+    rect.left;
+
 
   const y =
-    event.clientY-rect.top;
+    event.clientY -
+    rect.top;
+
 
   if(
-    x<0 ||
-    x>rect.width ||
-    y<0 ||
-    y>rect.height-30
+    x < 0 ||
+    x > rect.width ||
+    y < 0 ||
+    y > rect.height - 30
   ){
 
     hideCrosshair();
+
     return;
 
   }
 
+
   const left = 10;
+
   const right = 65;
+
 
   const plotWidth =
     Math.max(
       1,
-      rect.width-left-right
+      rect.width -
+      left -
+      right
     );
 
+
   let ratio =
-    (x-left)/plotWidth;
+    (x - left) /
+    plotWidth;
+
 
   ratio =
-    Math.max(0,Math.min(1,ratio));
+    Math.max(
+      0,
+      Math.min(
+        1,
+        ratio
+      )
+    );
+
 
   const index =
     Math.round(
-      ratio*(candles.length-1)
+      ratio *
+      (
+        candles.length - 1
+      )
     );
+
 
   const candle =
     candles[index];
 
-  if(!candle) return;
+
+  if(!candle)
+    return;
+
 
   const px =
-    left+
-    index/
-    Math.max(1,candles.length-1)*
+    left +
+
+    index /
+    Math.max(
+      1,
+      candles.length - 1
+    ) *
+
     plotWidth;
 
+
   const v =
-    document.getElementById("crosshairV");
+    $("crosshairV");
+
 
   const h =
-    document.getElementById("crosshairH");
+    $("crosshairH");
+
 
   const time =
-    document.getElementById("crosshairTime");
+    $("crosshairTime");
+
 
   const price =
-    document.getElementById("crosshairPrice");
+    $("crosshairPrice");
 
-  v.style.left = `${px}px`;
-  h.style.top = `${y}px`;
 
-  time.style.left = `${px}px`;
+  v.style.left =
+    `${px}px`;
+
+  h.style.top =
+    `${y}px`;
+
+
+  time.style.left =
+    `${px}px`;
+
+
   time.textContent =
-    formatDate(candle.datetime);
+    formatDate(
+      candle.datetime
+    );
 
-  price.style.top = `${y}px`;
+
+  price.style.top =
+    `${y}px`;
+
+
   price.textContent =
-    formatPrice(candle.close);
+    formatPrice(
+      candle.close
+    );
 
-  v.style.display = "block";
-  h.style.display = "block";
-  time.style.display = "block";
-  price.style.display = "block";
+
+  v.style.display =
+    "block";
+
+  h.style.display =
+    "block";
+
+  time.style.display =
+    "block";
+
+  price.style.display =
+    "block";
 
 }
+
 
 function hideCrosshair(){
 
@@ -1787,15 +3097,14 @@ function hideCrosshair(){
     "crosshairH",
     "crosshairTime",
     "crosshairPrice"
-  ].forEach(id=>{
+  ].forEach(
+    id => {
 
-    const el =
-      document.getElementById(id);
+      $(id).style.display =
+        "none";
 
-    if(el)
-      el.style.display = "none";
-
-  });
+    }
+  );
 
 }
 
@@ -1807,13 +3116,16 @@ function hideCrosshair(){
 function updateSignalBox(){
 
   const badge =
-    document.getElementById("signalBadge");
+    $("signalBadge");
+
 
   const reason =
-    document.getElementById("signalReason");
+    $("signalReason");
+
 
   const gaps =
     getHighProbabilityFVGs();
+
 
   if(!gaps.length){
 
@@ -1823,52 +3135,75 @@ function updateSignalBox(){
     badge.textContent =
       "WAIT";
 
+
     reason.textContent =
-      "No high-probability FVG is currently detected. Waiting for stronger imbalance and confirmation.";
+      "No high-probability FVG is currently detected.";
 
     return;
 
   }
 
+
   const latest =
-    gaps[gaps.length-1];
+    gaps.at(-1);
+
 
   const current =
     Number(
-      candles[candles.length-1].close
+      candles.at(-1).close
     );
 
-  const high = Number(latest.high);
-  const low = Number(latest.low);
 
-  const midpoint =
-    (high+low)/2;
+  const high =
+    Number(
+      latest.high
+    );
 
-  const distance =
-    Math.abs(current-midpoint);
+
+  const low =
+    Number(
+      latest.low
+    );
+
 
   const proximity =
     Math.max(
       Math.abs(high),
       Math.abs(low),
       1
-    )*.001;
+    ) * .001;
+
 
   const near =
-    current>=low-proximity &&
-    current<=high+proximity;
+    current >=
+      low - proximity &&
+
+    current <=
+      high + proximity;
+
 
   const type =
-    String(latest.type || "")
-      .toLowerCase();
+    String(
+      latest.type || ""
+    ).toLowerCase();
+
 
   const bullish =
-    type.includes("bull");
+    type.includes(
+      "bull"
+    );
+
 
   const bearish =
-    type.includes("bear");
+    type.includes(
+      "bear"
+    );
 
-  if(near && bullish){
+
+  if(
+    near &&
+    bullish
+  ){
 
     badge.className =
       "signal-badge buy";
@@ -1876,10 +3211,16 @@ function updateSignalBox(){
     badge.textContent =
       "BUY SETUP";
 
-    reason.textContent =
-      `Bullish high-probability FVG is near current price. Score ${latest.probabilityScore}/5. ${latest.probabilityReasons.join(", ")}.`;
 
-  }else if(near && bearish){
+    reason.textContent =
+      `Bullish high-probability FVG near current price. Score ${latest.probabilityScore}/5. ${latest.probabilityReasons.join(", ")}.`;
+
+  }
+
+  else if(
+    near &&
+    bearish
+  ){
 
     badge.className =
       "signal-badge sell";
@@ -1887,10 +3228,13 @@ function updateSignalBox(){
     badge.textContent =
       "SELL SETUP";
 
-    reason.textContent =
-      `Bearish high-probability FVG is near current price. Score ${latest.probabilityScore}/5. ${latest.probabilityReasons.join(", ")}.`;
 
-  }else{
+    reason.textContent =
+      `Bearish high-probability FVG near current price. Score ${latest.probabilityScore}/5. ${latest.probabilityReasons.join(", ")}.`;
+
+  }
+
+  else{
 
     badge.className =
       "signal-badge wait";
@@ -1898,8 +3242,9 @@ function updateSignalBox(){
     badge.textContent =
       "WAIT";
 
+
     reason.textContent =
-      `A high-probability ${bullish?"bullish":bearish?"bearish":"FVG"} has been detected, but price is not currently interacting with the zone. Score ${latest.probabilityScore}/5.`;
+      `High-probability ${bullish ? "bullish" : bearish ? "bearish" : "FVG"} detected, but price is not currently interacting with the zone. Score ${latest.probabilityScore}/5.`;
 
   }
 
@@ -1915,42 +3260,48 @@ function updateMetrics(){
   const fvg =
     getHighProbabilityFVGs();
 
+
   const displacement =
     structure?.structures?.displacement ||
     structure?.displacement ||
     [];
+
 
   const liquidity =
     structure?.structures?.liquidityPools ||
     structure?.liquidityPools ||
     [];
 
-  document.getElementById(
-    "structureValue"
-  ).textContent =
+
+  $("structureValue").textContent =
     fvg.length
-      ? `HP FVG ${fvg[fvg.length-1].probabilityScore}/5`
+
+      ? `HP FVG ${fvg.at(-1).probabilityScore}/5`
+
       : "NONE";
 
-  document.getElementById(
-    "displacementValue"
-  ).textContent =
+
+  $("displacementValue").textContent =
     displacement.length
+
       ? String(
-          displacement[
-            displacement.length-1
-          ].type ||
+          displacement.at(-1).type ||
           "Detected"
         )
-        .replaceAll("_"," ")
+        .replaceAll(
+          "_",
+          " "
+        )
         .toUpperCase()
+
       : "NONE";
 
-  document.getElementById(
-    "liquidityValue"
-  ).textContent =
+
+  $("liquidityValue").textContent =
     liquidity.length
+
       ? `${liquidity.length} POOLS`
+
       : "NONE";
 
 }
@@ -1965,107 +3316,135 @@ function showCandleInfo(index){
   const candle =
     candles[index];
 
-  if(!candle) return;
+
+  if(!candle)
+    return;
+
 
   const body =
     Math.abs(
-      candle.close-candle.open
+      candle.close -
+      candle.open
     );
 
+
   const range =
-    candle.high-candle.low;
+    candle.high -
+    candle.low;
+
 
   const ratio =
-    range ? body/range : 0;
+    range
+      ? body / range
+      : 0;
+
 
   const direction =
-    candle.close>=candle.open
+    candle.close >=
+    candle.open
+
       ? "Bullish"
+
       : "Bearish";
 
-  document.getElementById(
-    "candleInfo"
-  ).innerHTML =
 
-    `<strong>Candle ${index+1}</strong><br>
+  $("candleInfo").innerHTML =
+
+    `<strong>Candle ${index + 1}</strong><br>
     Time: ${formatDate(candle.datetime)}<br>
     Open: ${formatPrice(candle.open)}<br>
     High: ${formatPrice(candle.high)}<br>
     Low: ${formatPrice(candle.low)}<br>
     Close: ${formatPrice(candle.close)}<br>
     Direction: ${direction}<br>
-    Body / Range: ${(ratio*100).toFixed(1)}%`;
+    Body / Range: ${(ratio * 100).toFixed(1)}%`;
 
 }
 
 
 /* =========================
-   ANALYSIS
+   MARKET ANALYSIS
 ========================= */
 
 function generateAnalysis(){
 
-  if(candles.length<2) return;
+  if(
+    candles.length < 2
+  )
+    return;
+
 
   const latest =
-    candles[candles.length-1];
+    candles.at(-1);
+
 
   const previous =
-    candles[candles.length-2];
+    candles.at(-2);
 
-  let text = "";
-
-  text +=
-    latest.close>previous.close
-      ? "The latest candle is trading above the previous close, showing short-term upward pressure. "
-      : "The latest candle is trading below the previous close, showing short-term downward pressure. ";
 
   const gaps =
     getHighProbabilityFVGs();
+
 
   const displacement =
     structure?.structures?.displacement ||
     structure?.displacement ||
     [];
 
+
   const liquidity =
     structure?.structures?.liquidityPools ||
     structure?.liquidityPools ||
     [];
 
-  if(gaps.length){
 
-    const latestFVG =
-      gaps[gaps.length-1];
+  let text = "";
+
+
+  text +=
+
+    latest.close >
+    previous.close
+
+      ? "Latest candle is above the previous close, showing short-term upward pressure. "
+
+      : "Latest candle is below the previous close, showing short-term downward pressure. ";
+
+
+  text +=
+
+    gaps.length
+
+      ? `${gaps.length} high-probability FVG area${gaps.length === 1 ? "" : "s"} detected; latest quality score ${gaps.at(-1).probabilityScore}/5. `
+
+      : "No high-probability FVG is currently detected. ";
+
+
+  if(
+    displacement.length
+  ){
 
     text +=
-      `${gaps.length} high-probability FVG area${gaps.length===1?"":"s"} detected. The latest has a quality score of ${latestFVG.probabilityScore}/5. `;
-
-  }else{
-
-    text +=
-      "No high-probability FVG is currently detected. ";
+      "Displacement has been detected. ";
 
   }
 
-  if(displacement.length){
+
+  if(
+    liquidity.length
+  ){
 
     text +=
-      "Displacement has been detected, indicating a relatively strong directional candle compared with surrounding candles. ";
+      `${liquidity.length} liquidity pool${liquidity.length === 1 ? "" : "s"} detected. `;
 
   }
 
-  if(liquidity.length){
-
-    text +=
-      `${liquidity.length} liquidity pool${liquidity.length===1?"":"s"} detected. `;
-
-  }
 
   text +=
     "Use higher-timeframe context, liquidity location and session conditions before interpreting the setup.";
 
-  document.getElementById("analysis").textContent =
+
+  $("analysis").textContent =
     text;
 
 }
@@ -2077,10 +3456,15 @@ function generateAnalysis(){
 
 function formatPrice(value){
 
-  const n = Number(value);
+  const n =
+    Number(value);
 
-  if(!Number.isFinite(n))
+
+  if(
+    !Number.isFinite(n)
+  )
     return "—";
+
 
   return n.toLocaleString(
     "en-US",
@@ -2092,20 +3476,22 @@ function formatPrice(value){
 
 }
 
+
 function formatDate(value){
 
   try{
 
-    return new Date(value)
-      .toLocaleString(
-        "en-ZA",
-        {
-          day:"2-digit",
-          month:"short",
-          hour:"2-digit",
-          minute:"2-digit"
-        }
-      );
+    return new Date(
+      value
+    ).toLocaleString(
+      "en-ZA",
+      {
+        day:"2-digit",
+        month:"short",
+        hour:"2-digit",
+        minute:"2-digit"
+      }
+    );
 
   }catch{
 
@@ -2114,23 +3500,28 @@ function formatDate(value){
   }
 
 }
+
 
 function formatAxisDate(value){
 
   try{
 
-    return new Date(value)
-      .toLocaleString(
-        "en-ZA",
-        {
-          day:"2-digit",
-          month:"short",
-          hour:"2-digit",
-          minute:"2-digit",
-          hour12:false
-        }
-      )
-      .replace(",","");
+    return new Date(
+      value
+    ).toLocaleString(
+      "en-ZA",
+      {
+        day:"2-digit",
+        month:"short",
+        hour:"2-digit",
+        minute:"2-digit",
+        hour12:false
+      }
+    )
+    .replace(
+      ",",
+      ""
+    );
 
   }catch{
 
@@ -2140,14 +3531,1331 @@ function formatAxisDate(value){
 
 }
 
+
 function escapeHtml(value){
 
   return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+/* =========================
+   AI CHART UPLOAD
+========================= */
+
+$("chartUpload")
+.addEventListener(
+  "change",
+  async e => {
+
+    const file =
+      e.target.files?.[0];
+
+
+    if(!file)
+      return;
+
+
+    try{
+
+      $("aiStatus").className =
+        "ai-status loading";
+
+
+      $("aiStatus").textContent =
+        "Preparing chart image...";
+
+
+      uploadedImageData =
+        await compressImage(
+          file
+        );
+
+
+      $("chartPreview").src =
+        uploadedImageData;
+
+
+      $("previewWrap").hidden =
+        false;
+
+
+      $("analyzeChartBtn").disabled =
+        false;
+
+
+      $("aiResults").hidden =
+        true;
+
+
+      $("aiOverlay").innerHTML =
+        "";
+
+
+      $("aiStatus").className =
+        "ai-status success";
+
+
+      $("aiStatus").textContent =
+        "Chart ready. Tap Analyze Chart with AI.";
+
+    }
+
+    catch(error){
+
+      uploadedImageData =
+        null;
+
+
+      $("analyzeChartBtn").disabled =
+        true;
+
+
+      $("aiStatus").className =
+        "ai-status error";
+
+
+      $("aiStatus").textContent =
+        error.message ||
+        "Could not read image.";
+
+    }
+
+  }
+);
+
+
+/* CLEAR */
+
+$("clearChartBtn")
+.addEventListener(
+  "click",
+  () => {
+
+    $("chartUpload").value =
+      "";
+
+
+    uploadedImageData =
+      null;
+
+
+    $("previewWrap").hidden =
+      true;
+
+
+    $("aiResults").hidden =
+      true;
+
+
+    $("aiOverlay").innerHTML =
+      "";
+
+
+    $("analyzeChartBtn").disabled =
+      true;
+
+
+    $("aiStatus").textContent =
+      "";
+
+  }
+);
+
+
+/* ANALYZE */
+
+$("analyzeChartBtn")
+.addEventListener(
+  "click",
+  analyzeUploadedChart
+);
+
+
+/* =========================
+   COMPRESS IMAGE
+========================= */
+
+async function compressImage(file){
+
+  return new Promise(
+    (
+      resolve,
+      reject
+    ) => {
+
+      if(
+        !file.type.startsWith(
+          "image/"
+        )
+      ){
+
+        reject(
+          new Error(
+            "Please select an image file."
+          )
+        );
+
+        return;
+
+      }
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        () => {
+
+          const img =
+            new Image();
+
+
+          img.onload =
+            () => {
+
+              const max =
+                1800;
+
+
+              const scale =
+                Math.min(
+                  1,
+                  max /
+                  Math.max(
+                    img.width,
+                    img.height
+                  )
+                );
+
+
+              const width =
+                Math.max(
+                  1,
+                  Math.round(
+                    img.width *
+                    scale
+                  )
+                );
+
+
+              const height =
+                Math.max(
+                  1,
+                  Math.round(
+                    img.height *
+                    scale
+                  )
+                );
+
+
+              const canvas =
+                document.createElement(
+                  "canvas"
+                );
+
+
+              canvas.width =
+                width;
+
+
+              canvas.height =
+                height;
+
+
+              const ctx =
+                canvas.getContext(
+                  "2d"
+                );
+
+
+              ctx.drawImage(
+                img,
+                0,
+                0,
+                width,
+                height
+              );
+
+
+              resolve(
+                canvas.toDataURL(
+                  "image/jpeg",
+                  .88
+                )
+              );
+
+            };
+
+
+          img.onerror =
+            () =>
+              reject(
+                new Error(
+                  "Could not decode the image."
+                )
+              );
+
+
+          img.src =
+            reader.result;
+
+        };
+
+
+      reader.onerror =
+        () =>
+          reject(
+            new Error(
+              "Could not read the image."
+            )
+          );
+
+
+      reader.readAsDataURL(
+        file
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   AI ANALYSIS REQUEST
+========================= */
+
+async function analyzeUploadedChart(){
+
+  if(
+    !uploadedImageData
+  )
+    return;
+
+
+  const button =
+    $("analyzeChartBtn");
+
+
+  button.disabled =
+    true;
+
+
+  $("aiStatus").className =
+    "ai-status loading";
+
+
+  $("aiStatus").textContent =
+    "AI is analyzing the visible chart structure...";
+
+
+  $("aiResults").hidden =
+    true;
+
+
+  $("aiOverlay").innerHTML =
+    "";
+
+
+  try{
+
+    const response =
+      await fetch(
+        CHART_ANALYSIS_API,
+        {
+
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              image:
+                uploadedImageData,
+
+              instrument:
+                null,
+
+              timeframe:
+                null,
+
+              timezone:
+                Intl
+                  .DateTimeFormat()
+                  .resolvedOptions()
+                  .timeZone ||
+                "Africa/Johannesburg"
+
+            })
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(
+      !response.ok ||
+      !data.ok
+    ){
+
+      throw new Error(
+        data.error ||
+        "AI chart analysis failed."
+      );
+
+    }
+
+
+    renderAIResults(
+      data.analysis ||
+      {}
+    );
+
+
+    $("aiStatus").className =
+      "ai-status success";
+
+
+    $("aiStatus").textContent =
+      "Analysis complete.";
+
+  }
+
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    $("aiStatus").className =
+      "ai-status error";
+
+
+    $("aiStatus").textContent =
+      error.message ||
+      "AI analysis failed.";
+
+  }
+
+  finally{
+
+    button.disabled =
+      false;
+
+  }
+
+}
+
+
+/* =========================
+   RENDER AI RESULTS
+========================= */
+
+function renderAIResults(
+  analysis
+){
+
+  const a =
+    analysis || {};
+
+
+  const bias =
+    a.bias || {};
+
+
+  const chart =
+    a.chart || {};
+
+
+  const sessions =
+    a.sessions || {};
+
+
+  const scenarios =
+    Array.isArray(
+      a.scenarios
+    )
+      ? a.scenarios
+      : [];
+
+
+  const annotations =
+    Array.isArray(
+      a.annotations
+    )
+      ? a.annotations
+      : [];
+
+
+  $("aiResults").innerHTML =
+    "";
+
+
+  const wrap =
+    document.createElement(
+      "div"
+    );
+
+
+  /* SUMMARY */
+
+  const summary =
+    document.createElement(
+      "div"
+    );
+
+
+  summary.className =
+    "ai-summary";
+
+
+  summary.innerHTML =
+
+    `<strong>Chart:</strong>
+    ${escapeHtml(
+      chart.instrument ||
+      "Not identified"
+    )}
+
+    ·
+
+    <strong>Timeframe:</strong>
+    ${escapeHtml(
+      chart.timeframe ||
+      "Not identified"
+    )}
+
+    <br><br>
+
+    ${escapeHtml(
+      a.summary ||
+      "No summary returned."
+    )}`;
+
+
+  wrap.appendChild(
+    summary
+  );
+
+
+  /* TOP */
+
+  const top =
+    document.createElement(
+      "div"
+    );
+
+
+  top.className =
+    "ai-top";
+
+
+  /* BIAS */
+
+  const biasBox =
+    document.createElement(
+      "div"
+    );
+
+
+  biasBox.className =
+    "ai-bias";
+
+
+  const biasDirection =
+    String(
+      bias.label ||
+      "Neutral"
+    );
+
+
+  biasBox.innerHTML =
+
+    `<div class="ai-bias-label">
+      ${escapeHtml(
+        biasDirection
+      )}
+    </div>
+
+    <div class="ai-confidence">
+      AI confidence:
+      ${escapeHtml(
+        String(
+          chart.confidence ??
+          "—"
+        )
+      )}
+    </div>
+
+    <div class="scenario-body">
+      ${escapeHtml(
+        bias.reason ||
+        "No bias reason returned."
+      )}
+    </div>`;
+
+
+  top.appendChild(
+    biasBox
+  );
+
+
+  /* AMD */
+
+  const amd =
+    a.amd || {};
+
+
+  const amdBox =
+    document.createElement(
+      "div"
+    );
+
+
+  amdBox.className =
+    "ai-bias";
+
+
+  amdBox.innerHTML =
+
+    `<div class="ai-bias-label">
+      AMD
+    </div>
+
+    <div class="scenario-body">
+
+      <strong>
+        Accumulation:
+      </strong>
+
+      ${escapeHtml(
+        amd.accumulation ||
+        "—"
+      )}
+
+      <br>
+
+      <strong>
+        Manipulation:
+      </strong>
+
+      ${escapeHtml(
+        amd.manipulation ||
+        "—"
+      )}
+
+      <br>
+
+      <strong>
+        Distribution:
+      </strong>
+
+      ${escapeHtml(
+        amd.distribution ||
+        "—"
+      )}
+
+    </div>`;
+
+
+  top.appendChild(
+    amdBox
+  );
+
+
+  wrap.appendChild(
+    top
+  );
+
+
+  /* ICT */
+
+  addAISection(
+    wrap,
+    "Key ICT / SMC Observations",
+
+    annotations.map(
+      item => ({
+
+        title:
+          item.type ||
+          "Observation",
+
+        body:
+          `${item.direction || "neutral"} · ` +
+
+          `${item.label || ""}` +
+
+          (
+            item.reason
+              ? ` — ${item.reason}`
+              : ""
+          )
+
+      })
+    )
+  );
+
+
+  /* SCENARIOS */
+
+  addAISection(
+    wrap,
+    "Scenarios",
+
+    scenarios.map(
+      (
+        scenario,
+        index
+      ) => ({
+
+        scenario,
+        index
+
+      })
+    )
+  );
+
+
+  /* SESSIONS */
+
+  const sessionItems =
+    [];
+
+
+  if(
+    sessions.londonKillZone
+  ){
+
+    sessionItems.push({
+
+      title:
+        "London Kill Zone",
+
+      body:
+        typeof sessions.londonKillZone ===
+        "string"
+
+          ? sessions.londonKillZone
+
+          : JSON.stringify(
+              sessions.londonKillZone
+            )
+
+    });
+
+  }
+
+
+  if(
+    sessions.newYorkKillZone
+  ){
+
+    sessionItems.push({
+
+      title:
+        "New York Kill Zone",
+
+      body:
+        typeof sessions.newYorkKillZone ===
+        "string"
+
+          ? sessions.newYorkKillZone
+
+          : JSON.stringify(
+              sessions.newYorkKillZone
+            )
+
+    });
+
+  }
+
+
+  addAISection(
+    wrap,
+    "Session Context",
+    sessionItems
+  );
+
+
+  /* WARNINGS */
+
+  if(
+    Array.isArray(
+      a.warnings
+    ) &&
+    a.warnings.length
+  ){
+
+    const warnings =
+      document.createElement(
+        "div"
+      );
+
+
+    warnings.className =
+      "ai-warnings";
+
+
+    warnings.innerHTML =
+
+      "<strong>Warnings:</strong><br>" +
+
+      a.warnings
+        .map(
+          item =>
+            `• ${escapeHtml(
+              item
+            )}`
+        )
+        .join(
+          "<br>"
+        );
+
+
+    wrap.appendChild(
+      warnings
+    );
+
+  }
+
+
+  $("aiResults")
+    .appendChild(
+      wrap
+    );
+
+
+  $("aiResults").hidden =
+    false;
+
+
+  renderAIOverlay(
+    annotations
+  );
+
+}
+
+
+/* =========================
+   AI SECTION
+========================= */
+
+function addAISection(
+  parent,
+  title,
+  items
+){
+
+  const titleElement =
+    document.createElement(
+      "div"
+    );
+
+
+  titleElement.className =
+    "ai-section-title";
+
+
+  titleElement.textContent =
+    title;
+
+
+  parent.appendChild(
+    titleElement
+  );
+
+
+  if(
+    !items.length
+  ){
+
+    const empty =
+      document.createElement(
+        "div"
+      );
+
+
+    empty.className =
+      "ai-empty";
+
+
+    empty.textContent =
+      "No clear observations returned.";
+
+
+    parent.appendChild(
+      empty
+    );
+
+
+    return;
+
+  }
+
+
+  /* SCENARIOS */
+
+  if(
+    items[0]?.scenario !==
+    undefined
+  ){
+
+    items.forEach(
+      item => {
+
+        parent.appendChild(
+          renderScenario(
+            item.scenario,
+            item.index
+          )
+        );
+
+      }
+    );
+
+
+    return;
+
+  }
+
+
+  /* NORMAL ITEMS */
+
+  const grid =
+    document.createElement(
+      "div"
+    );
+
+
+  grid.className =
+    "ai-grid";
+
+
+  items
+    .slice(
+      0,
+      16
+    )
+    .forEach(
+      item => {
+
+        const element =
+          document.createElement(
+            "div"
+          );
+
+
+        element.className =
+          "ai-item";
+
+
+        element.innerHTML =
+
+          `<strong>
+            ${escapeHtml(
+              item.title
+            )}
+          </strong>
+
+          <br>
+
+          ${escapeHtml(
+            item.body
+          )}`;
+
+
+        grid.appendChild(
+          element
+        );
+
+      }
+    );
+
+
+  parent.appendChild(
+    grid
+  );
+
+}
+
+
+/* =========================
+   SCENARIO
+========================= */
+
+function renderScenario(
+  scenario,
+  index
+){
+
+  const element =
+    document.createElement(
+      "div"
+    );
+
+
+  element.className =
+    "ai-scenario";
+
+
+  const direction =
+    String(
+      scenario.direction ||
+      "neutral"
+    );
+
+
+  const status =
+    String(
+      scenario.status ||
+      "wait"
+    );
+
+
+  const targets =
+    Array.isArray(
+      scenario.targets
+    )
+
+      ? scenario.targets
+          .map(
+            item =>
+              escapeHtml(
+                typeof item ===
+                "string"
+
+                  ? item
+
+                  : JSON.stringify(
+                      item
+                    )
+              )
+          )
+          .join(
+            ", "
+          )
+
+      : "—";
+
+
+  element.innerHTML =
+
+    `<div class="scenario-head">
+
+      <div class="scenario-title">
+
+        Scenario ${index + 1}
+
+        ·
+
+        ${escapeHtml(
+          direction
+        )}
+
+      </div>
+
+      <div class="scenario-meta">
+
+        ${escapeHtml(
+          status
+        )}
+
+      </div>
+
+    </div>
+
+    <div class="scenario-body">
+
+      <strong>
+        Setup:
+      </strong>
+
+      ${escapeHtml(
+        scenario.setup ||
+        scenario.reason ||
+        "—"
+      )}
+
+      <br>
+
+      <strong>
+        Entry:
+      </strong>
+
+      ${escapeHtml(
+        scenario.entry ||
+        "—"
+      )}
+
+      <br>
+
+      <strong>
+        Invalidation:
+      </strong>
+
+      ${escapeHtml(
+        scenario.invalidation ||
+        scenario.stop ||
+        "—"
+      )}
+
+      <br>
+
+      <strong>
+        Targets:
+      </strong>
+
+      ${targets}
+
+      <br>
+
+      <strong>
+        Confirmation:
+      </strong>
+
+      ${escapeHtml(
+        scenario.confirmation ||
+        "—"
+      )}
+
+    </div>`;
+
+
+  return element;
+
+}
+
+
+/* =========================
+   AI CHART ANNOTATIONS
+========================= */
+
+function renderAIOverlay(
+  annotations
+){
+
+  const overlay =
+    $("aiOverlay");
+
+
+  overlay.innerHTML =
+    "";
+
+
+  annotations
+    .slice(
+      0,
+      30
+    )
+    .forEach(
+      annotation => {
+
+        const x =
+          Number(
+            annotation.x
+          );
+
+
+        const y =
+          Number(
+            annotation.y
+          );
+
+
+        if(
+          !Number.isFinite(x) ||
+          !Number.isFinite(y)
+        )
+          return;
+
+
+        const direction =
+          String(
+            annotation.direction ||
+            "neutral"
+          ).toLowerCase();
+
+
+        const className =
+          direction.includes(
+            "bull"
+          )
+
+            ? "bullish"
+
+            : direction.includes(
+                "bear"
+              )
+
+              ? "bearish"
+
+              : "neutral";
+
+
+        /* BOX */
+
+        if(
+          Number.isFinite(
+            Number(
+              annotation.x2
+            )
+          ) &&
+
+          Number.isFinite(
+            Number(
+              annotation.y2
+            )
+          )
+        ){
+
+          const x2 =
+            Number(
+              annotation.x2
+            );
+
+
+          const y2 =
+            Number(
+              annotation.y2
+            );
+
+
+          const box =
+            document.createElement(
+              "div"
+            );
+
+
+          box.className =
+            `ai-box ${className}`;
+
+
+          box.style.left =
+            `${Math.min(
+              x,
+              x2
+            ) * 100}%`;
+
+
+          box.style.top =
+            `${Math.min(
+              y,
+              y2
+            ) * 100}%`;
+
+
+          box.style.width =
+            `${Math.abs(
+              x2 - x
+            ) * 100}%`;
+
+
+          box.style.height =
+            `${Math.abs(
+              y2 - y
+            ) * 100}%`;
+
+
+          overlay.appendChild(
+            box
+          );
+
+        }
+
+
+        /* MARKER */
+
+        const marker =
+          document.createElement(
+            "div"
+          );
+
+
+        marker.className =
+          `ai-mark ${className}`;
+
+
+        marker.style.left =
+          `${x * 100}%`;
+
+
+        marker.style.top =
+          `${y * 100}%`;
+
+
+        overlay.appendChild(
+          marker
+        );
+
+
+        /* LABEL */
+
+        const tag =
+          document.createElement(
+            "div"
+          );
+
+
+        tag.className =
+          "ai-tag";
+
+
+        tag.style.left =
+          `${x * 100}%`;
+
+
+        tag.style.top =
+          `${y * 100}%`;
+
+
+        tag.textContent =
+          annotation.label ||
+          annotation.type ||
+          "AI";
+
+
+        overlay.appendChild(
+          tag
+        );
+
+      }
+    );
 
 }
 
@@ -2156,25 +4864,48 @@ function escapeHtml(value){
    KEYBOARD
 ========================= */
 
-document.addEventListener("keydown",e=>{
+document.addEventListener(
+  "keydown",
+  e => {
 
-  if(e.key==="+" || e.key==="=")
-    zoomChart(.15);
+    if(
+      e.key === "+" ||
+      e.key === "="
+    ){
 
-  if(e.key==="-")
-    zoomChart(-.15);
+      zoomChart(
+        .15
+      );
 
-  if(e.key==="Escape"){
+    }
 
-    const chart =
-      document.getElementById("chart");
 
-    if(chart.classList.contains("fullscreen"))
+    if(
+      e.key === "-"
+    ){
+
+      zoomChart(
+        -.15
+      );
+
+    }
+
+
+    if(
+      e.key === "Escape" &&
+      $("chart")
+        .classList
+        .contains(
+          "fullscreen"
+        )
+    ){
+
       toggleFullscreen();
 
-  }
+    }
 
-});
+  }
+);
 
 
 /* =========================
@@ -2185,19 +4916,33 @@ loadMarket();
 
 </script>
 
+
 <script>
 
-if("serviceWorker" in navigator){
+if(
+  "serviceWorker" in
+  navigator
+){
 
-  window.addEventListener("load",()=>{
+  window.addEventListener(
+    "load",
+    () => {
 
-    navigator.serviceWorker
-      .register("./sw.js")
-      .catch(err=>
-        console.log("SW error",err)
-      );
+      navigator
+        .serviceWorker
+        .register(
+          "./sw.js"
+        )
+        .catch(
+          err =>
+            console.log(
+              "SW error",
+              err
+            )
+        );
 
-  });
+    }
+  );
 
 }
 
